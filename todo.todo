@@ -1,0 +1,942 @@
+{
+  "todotree": {
+    "tree": [
+      {
+        "key": 1677602518205,
+        "children": [
+          {
+            "key": 1677602525569,
+            "children": [],
+            "todo": {
+              "content": "table",
+              "id": 1677602525569,
+              "level": "default",
+              "done": true,
+              "start": 1677602525569,
+              "focus": false,
+              "end": 1677606708768
+            }
+          },
+          {
+            "key": 1677606620011,
+            "children": [
+              {
+                "key": 1677606629336,
+                "children": [],
+                "todo": {
+                  "content": "5 acteurs",
+                  "id": 1677606629336,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606629336
+                }
+              },
+              {
+                "key": 1677606649297,
+                "children": [],
+                "todo": {
+                  "content": "1 film",
+                  "id": 1677606649297,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606649297
+                }
+              },
+              {
+                "key": 1677606653776,
+                "children": [],
+                "todo": {
+                  "content": "6 character",
+                  "id": 1677606653776,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606653776
+                }
+              },
+              {
+                "key": 1677606664317,
+                "children": [],
+                "todo": {
+                  "content": "10 scenes",
+                  "id": 1677606664317,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606664317
+                }
+              },
+              {
+                "key": 1677606689043,
+                "children": [],
+                "todo": {
+                  "content": "5 plateau",
+                  "id": 1677606689043,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606689043
+                }
+              }
+            ],
+            "todo": {
+              "content": "donnee de test: Liantsoa",
+              "id": 1677606620011,
+              "level": "default",
+              "done": false,
+              "start": 1677606620011
+            }
+          }
+        ],
+        "todo": {
+          "content": "base",
+          "id": 1677602518205,
+          "level": "default",
+          "done": false,
+          "start": 1677602518205
+        }
+      },
+      {
+        "key": 1677602530442,
+        "children": [
+          {
+            "key": 1677602539097,
+            "children": [
+              {
+                "key": 1677602561106,
+                "children": [],
+                "todo": {
+                  "content": "actor",
+                  "id": 1677602561106,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602561106
+                }
+              },
+              {
+                "key": 1677602568419,
+                "children": [],
+                "todo": {
+                  "content": "gender",
+                  "id": 1677602568419,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602568419
+                }
+              },
+              {
+                "key": 1677602572468,
+                "children": [],
+                "todo": {
+                  "content": "filmset",
+                  "id": 1677602572468,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602572468
+                }
+              },
+              {
+                "key": 1677602576688,
+                "children": [],
+                "todo": {
+                  "content": "typeFilmset",
+                  "id": 1677602576688,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602576688
+                }
+              },
+              {
+                "key": 1677602582971,
+                "children": [],
+                "todo": {
+                  "content": "character",
+                  "id": 1677602582971,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602582971
+                }
+              },
+              {
+                "key": 1677602588133,
+                "children": [],
+                "todo": {
+                  "content": "scene",
+                  "id": 1677602588133,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602588133
+                }
+              },
+              {
+                "key": 1677602595105,
+                "children": [],
+                "todo": {
+                  "content": "dialogue",
+                  "id": 1677602595105,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602595105
+                }
+              },
+              {
+                "key": 1677602601185,
+                "children": [],
+                "todo": {
+                  "content": "settings",
+                  "id": 1677602601185,
+                  "level": "default",
+                  "done": true,
+                  "start": 1677602601186,
+                  "focus": false,
+                  "end": 1677602634401
+                }
+              },
+              {
+                "key": 1677602606578,
+                "children": [],
+                "todo": {
+                  "content": "planning",
+                  "id": 1677602606578,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602606578
+                }
+              },
+              {
+                "key": 1677602611183,
+                "children": [],
+                "todo": {
+                  "content": "statusPlanning",
+                  "id": 1677602611183,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677602611183
+                }
+              }
+            ],
+            "todo": {
+              "content": "classe model: Asandratra",
+              "id": 1677602539097,
+              "level": "default",
+              "done": false,
+              "start": 1677602539097
+            }
+          },
+          {
+            "key": 1677602637154,
+            "children": [
+              {
+                "key": 1677603344110,
+                "children": [
+                  {
+                    "key": 1677606346561,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des acteurs",
+                      "id": 1677606346561,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606346561
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "ActorService: Liantsoa",
+                  "id": 1677603344110,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603344110
+                }
+              },
+              {
+                "key": 1677606204932,
+                "children": [
+                  {
+                    "key": 1677606362105,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des plateaux",
+                      "id": 1677606362105,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606362105
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "FilmSetService: Liantsoa",
+                  "id": 1677606204932,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606204932
+                }
+              },
+              {
+                "key": 1677606960424,
+                "children": [
+                  {
+                    "key": 1677606972914,
+                    "children": [],
+                    "todo": {
+                      "content": "Liste des film avec recherche selon un mot cle",
+                      "id": 1677606972914,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606972914
+                    }
+                  },
+                  {
+                    "key": 1677607269353,
+                    "children": [],
+                    "todo": {
+                      "content": "Create",
+                      "id": 1677607269353,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677607269353
+                    }
+                  },
+                  {
+                    "key": 1677607392008,
+                    "children": [],
+                    "todo": {
+                      "content": "nbr d'element total avec la requete de la liste des films avec recherche",
+                      "id": 1677607392008,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677607392008
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "FilmService: Liantsoa",
+                  "id": 1677606960424,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606960424
+                }
+              },
+              {
+                "key": 1677606233189,
+                "children": [
+                  {
+                    "key": 1677606403957,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des personnages selon un idfilm",
+                      "id": 1677606403957,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606403957
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "CharacterService: Liantsoa",
+                  "id": 1677606233189,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606233189
+                }
+              },
+              {
+                "key": 1677606256865,
+                "children": [
+                  {
+                    "key": 1677606415501,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des scenes avec recherches avancés",
+                      "id": 1677606415501,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606415501
+                    }
+                  },
+                  {
+                    "key": 1677606431022,
+                    "children": [],
+                    "todo": {
+                      "content": "getById",
+                      "id": 1677606431022,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606431022
+                    }
+                  },
+                  {
+                    "key": 1677606441243,
+                    "children": [],
+                    "todo": {
+                      "content": "planifier: automatiquement ou selon une date",
+                      "id": 1677606441243,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606441243
+                    }
+                  },
+                  {
+                    "key": 1677606486495,
+                    "children": [],
+                    "todo": {
+                      "content": "create(ajouter la scene et dialogue)",
+                      "id": 1677606486495,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606486495
+                    }
+                  },
+                  {
+                    "key": 1677607349864,
+                    "children": [],
+                    "todo": {
+                      "content": "nbr d'element total avec la requete des listes des scenes avec recherchers avances",
+                      "id": 1677607349864,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677607349864
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "SceneService: Asandratra",
+                  "id": 1677606256865,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606256865
+                }
+              },
+              {
+                "key": 1677606266193,
+                "children": [
+                  {
+                    "key": 1677606506325,
+                    "children": [],
+                    "todo": {
+                      "content": "create",
+                      "id": 1677606506325,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606506325
+                    }
+                  },
+                  {
+                    "key": 1677606522729,
+                    "children": [],
+                    "todo": {
+                      "content": "liste getBySceneId",
+                      "id": 1677606522729,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606522729
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "DialogueService: Liantsoa",
+                  "id": 1677606266193,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606266193
+                }
+              },
+              {
+                "key": 1677606289762,
+                "children": [
+                  {
+                    "key": 1677606477503,
+                    "children": [],
+                    "todo": {
+                      "content": "create",
+                      "id": 1677606477503,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606477503
+                    }
+                  },
+                  {
+                    "key": 1677606539059,
+                    "children": [],
+                    "todo": {
+                      "content": "planifier globalement",
+                      "id": 1677606539059,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606539059
+                    }
+                  },
+                  {
+                    "key": 1677606555114,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des plannings selon un idfilm et un mois donnee",
+                      "id": 1677606555114,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606555114
+                    }
+                  },
+                  {
+                    "key": 1677607210752,
+                    "children": [],
+                    "todo": {
+                      "content": "changer le status planning",
+                      "id": 1677607210752,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677607210752
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "PlanningService: Asandratra",
+                  "id": 1677606289762,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606289762
+                }
+              },
+              {
+                "key": 1677606306261,
+                "children": [
+                  {
+                    "key": 1677606547587,
+                    "children": [],
+                    "todo": {
+                      "content": "liste des status planning",
+                      "id": 1677606547587,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677606547587
+                    }
+                  }
+                ],
+                "todo": {
+                  "content": "StatusPlanningService: Liantsoa",
+                  "id": 1677606306261,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606306261
+                }
+              }
+            ],
+            "todo": {
+              "content": "service",
+              "id": 1677602637154,
+              "level": "default",
+              "done": false,
+              "start": 1677602637154
+            }
+          },
+          {
+            "key": 1677602665320,
+            "children": [
+              {
+                "key": 1677605148511,
+                "children": [],
+                "todo": {
+                  "content": "get, liste des film: 'films/{page}': Liantsoa",
+                  "id": 1677605148511,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605148511
+                }
+              },
+              {
+                "key": 1677605769325,
+                "children": [],
+                "todo": {
+                  "content": "get, liste des scenes: 'film/[id}/scenes/{page}': Liantsoa",
+                  "id": 1677605769325,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605769325
+                }
+              },
+              {
+                "key": 1677605855124,
+                "children": [],
+                "todo": {
+                  "content": "get, planning: 'film/{id}/planning': Liantsoa",
+                  "id": 1677605855124,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605855124
+                }
+              },
+              {
+                "key": 1677605887973,
+                "children": [],
+                "todo": {
+                  "content": "get, details d'une scene: 'film/{id}/scene/{id}': Asandratra",
+                  "id": 1677605887973,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605887973
+                }
+              },
+              {
+                "key": 1677605963878,
+                "children": [],
+                "todo": {
+                  "content": "post, planifier(avec une date ou non): 'film/{id}/scene/{id}/planifier: Asandratra",
+                  "id": 1677605963878,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605963878
+                }
+              },
+              {
+                "key": 1677606002499,
+                "children": [],
+                "todo": {
+                  "content": "post, changer status d'une scene: 'film/{id}/scene/{id}/status: Asandratra",
+                  "id": 1677606002499,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606002499
+                }
+              },
+              {
+                "key": 1677606063267,
+                "children": [],
+                "todo": {
+                  "content": "get, post, liste planning et planifier globalement: 'film/{id}/planifier: Asandratra",
+                  "id": 1677606063267,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606063267
+                }
+              },
+              {
+                "key": 1677606101978,
+                "children": [],
+                "todo": {
+                  "content": "get, post, formulaire film: 'film/create': Liantsoa",
+                  "id": 1677606101978,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606101978
+                }
+              },
+              {
+                "key": 1677606147332,
+                "children": [],
+                "todo": {
+                  "content": "get, post, formulaire scene: 'film/{id}/scene/create': Asandratra",
+                  "id": 1677606147332,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677606147332
+                }
+              }
+            ],
+            "todo": {
+              "content": "controller",
+              "id": 1677602665320,
+              "level": "default",
+              "done": false,
+              "start": 1677602665320
+            }
+          }
+        ],
+        "todo": {
+          "content": "metier",
+          "id": 1677602530442,
+          "level": "default",
+          "done": false,
+          "start": 1677602530442
+        }
+      },
+      {
+        "key": 1677602532969,
+        "children": [
+          {
+            "key": 1677602672057,
+            "children": [
+              {
+                "key": 1677602675711,
+                "children": [],
+                "todo": {
+                  "content": "header",
+                  "id": 1677602675711,
+                  "level": "default",
+                  "done": true,
+                  "start": 1677602675711,
+                  "focus": false,
+                  "end": 1677602682745
+                }
+              },
+              {
+                "key": 1677602678355,
+                "children": [],
+                "todo": {
+                  "content": "footer",
+                  "id": 1677602678355,
+                  "level": "default",
+                  "done": true,
+                  "start": 1677602678355,
+                  "focus": false,
+                  "end": 1677602683689
+                }
+              }
+            ],
+            "todo": {
+              "content": "common",
+              "id": 1677602672057,
+              "level": "default",
+              "done": true,
+              "start": 1677602672057,
+              "focus": false,
+              "end": 1677603356573
+            }
+          },
+          {
+            "key": 1677603357594,
+            "children": [
+              {
+                "key": 1677603417412,
+                "children": [],
+                "todo": {
+                  "content": "static: liste, pagination, recherche filtre par mot cle",
+                  "id": 1677603417412,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603417412
+                }
+              },
+              {
+                "key": 1677603445129,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: liste des films",
+                  "id": 1677603445129,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603445129
+                }
+              }
+            ],
+            "todo": {
+              "content": "page liste film: Mendrika",
+              "id": 1677603357594,
+              "level": "default",
+              "done": false,
+              "start": 1677603357594
+            }
+          },
+          {
+            "key": 1677603367739,
+            "children": [
+              {
+                "key": 1677603453897,
+                "children": [],
+                "todo": {
+                  "content": "static: liste, pagination, recherche filtre par mot cle, personnage, status",
+                  "id": 1677603453897,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603453897
+                }
+              },
+              {
+                "key": 1677603491800,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: liste des scenes, liste des status de planning, liste des personnages",
+                  "id": 1677603491800,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603491800
+                }
+              }
+            ],
+            "todo": {
+              "content": "page liste des scenes: Mendrika",
+              "id": 1677603367739,
+              "level": "default",
+              "done": false,
+              "start": 1677603367739
+            }
+          },
+          {
+            "key": 1677603378303,
+            "children": [
+              {
+                "key": 1677603568009,
+                "children": [],
+                "todo": {
+                  "content": "static: calendrier, bouton planifier",
+                  "id": 1677603568009,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603568009
+                }
+              },
+              {
+                "key": 1677603594423,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: liste des planning dans un mois",
+                  "id": 1677603594423,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603594423
+                }
+              }
+            ],
+            "todo": {
+              "content": "page planning: Mendrika",
+              "id": 1677603378303,
+              "level": "default",
+              "done": false,
+              "start": 1677603378303
+            }
+          },
+          {
+            "key": 1677603391801,
+            "children": [
+              {
+                "key": 1677603612161,
+                "children": [],
+                "todo": {
+                  "content": "static: info de la scene, bouton planifier automatique, formulaire pour planifier avec une date, formulaire pour changer le status en fini ou cancelled",
+                  "id": 1677603612161,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603612161
+                }
+              },
+              {
+                "key": 1677603694178,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: scene selon un id, liste des status planning",
+                  "id": 1677603694178,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603694178
+                }
+              }
+            ],
+            "todo": {
+              "content": "page details d'une scene: Mendrika",
+              "id": 1677603391801,
+              "level": "default",
+              "done": false,
+              "start": 1677603391801
+            }
+          },
+          {
+            "key": 1677603399468,
+            "children": [
+              {
+                "key": 1677603719190,
+                "children": [],
+                "todo": {
+                  "content": "static: formulaire",
+                  "id": 1677603719190,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603719190
+                }
+              },
+              {
+                "key": 1677603767919,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: liste des acteurs",
+                  "id": 1677603767919,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677603767919
+                }
+              }
+            ],
+            "todo": {
+              "content": "page formulaire film: Mendrika",
+              "id": 1677603399468,
+              "level": "default",
+              "done": false,
+              "start": 1677603399468
+            }
+          },
+          {
+            "key": 1677603405624,
+            "children": [
+              {
+                "key": 1677605048698,
+                "children": [],
+                "todo": {
+                  "content": "static: formulaire",
+                  "id": 1677605048698,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605048698
+                }
+              },
+              {
+                "key": 1677605063894,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: liste des personnages selon un film, liste des plateau",
+                  "id": 1677605063894,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677605063894
+                }
+              }
+            ],
+            "todo": {
+              "content": "page fomulaire scene: Mendrika",
+              "id": 1677603405624,
+              "level": "default",
+              "done": false,
+              "start": 1677603405624
+            }
+          }
+        ],
+        "todo": {
+          "content": "affichage",
+          "id": 1677602532969,
+          "level": "default",
+          "done": false,
+          "start": 1677602532969
+        }
+      }
+    ],
+    "expandKeys": [
+      1677602518205,
+      1677602530442,
+      1677602637154,
+      1677602611183,
+      1677602532969,
+      1677602665320,
+      1677606620011,
+      1677602539097,
+      1677603344110,
+      1677606204932,
+      1677606960424,
+      1677606233189,
+      1677606256865,
+      1677606266193,
+      1677606289762,
+      1677606306261,
+      1677602672057,
+      1677603357594,
+      1677603367739,
+      1677603378303,
+      1677603391801,
+      1677603399468,
+      1677603405624
+    ],
+    "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
+    "add_mode": "bottom",
+    "virtual": false,
+    "showLine": false,
+    "playFontSize": 24,
+    "title": "todo",
+    "autoSort": false,
+    "showEndTime": false,
+    "lang": "fr",
+    "version": "1677607690690"
+  }
+}
