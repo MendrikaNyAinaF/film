@@ -27,8 +27,10 @@
                   "content": "5 acteurs",
                   "id": 1677606629336,
                   "level": "default",
-                  "done": false,
-                  "start": 1677606629336
+                  "done": true,
+                  "start": 1677606629336,
+                  "focus": false,
+                  "end": 1677688554722
                 }
               },
               {
@@ -38,8 +40,10 @@
                   "content": "1 film",
                   "id": 1677606649297,
                   "level": "default",
-                  "done": false,
-                  "start": 1677606649297
+                  "done": true,
+                  "start": 1677606649297,
+                  "focus": false,
+                  "end": 1677688555759
                 }
               },
               {
@@ -49,8 +53,10 @@
                   "content": "6 character",
                   "id": 1677606653776,
                   "level": "default",
-                  "done": false,
-                  "start": 1677606653776
+                  "done": true,
+                  "start": 1677606653776,
+                  "focus": false,
+                  "end": 1677688556630
                 }
               },
               {
@@ -60,8 +66,10 @@
                   "content": "10 scenes",
                   "id": 1677606664317,
                   "level": "default",
-                  "done": false,
-                  "start": 1677606664317
+                  "done": true,
+                  "start": 1677606664317,
+                  "focus": false,
+                  "end": 1677688559707
                 }
               },
               {
@@ -71,8 +79,10 @@
                   "content": "5 plateau",
                   "id": 1677606689043,
                   "level": "default",
-                  "done": false,
-                  "start": 1677606689043
+                  "done": true,
+                  "start": 1677606689043,
+                  "focus": false,
+                  "end": 1677688558469
                 }
               }
             ],
@@ -80,8 +90,10 @@
               "content": "donnee de test: Liantsoa",
               "id": 1677606620011,
               "level": "default",
-              "done": false,
-              "start": 1677606620011
+              "done": true,
+              "start": 1677606620011,
+              "focus": false,
+              "end": 1677688553772
             }
           }
         ],
@@ -89,8 +101,10 @@
           "content": "base",
           "id": 1677602518205,
           "level": "default",
-          "done": false,
-          "start": 1677602518205
+          "done": true,
+          "start": 1677602518205,
+          "focus": false,
+          "end": 1677688606774
         }
       },
       {
@@ -106,8 +120,10 @@
                   "content": "actor",
                   "id": 1677602561106,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602561106
+                  "done": true,
+                  "start": 1677602561106,
+                  "focus": false,
+                  "end": 1677688564520
                 }
               },
               {
@@ -117,8 +133,10 @@
                   "content": "gender",
                   "id": 1677602568419,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602568419
+                  "done": true,
+                  "start": 1677602568419,
+                  "focus": false,
+                  "end": 1677688567430
                 }
               },
               {
@@ -128,8 +146,10 @@
                   "content": "filmset",
                   "id": 1677602572468,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602572468
+                  "done": true,
+                  "start": 1677602572468,
+                  "focus": false,
+                  "end": 1677688568378
                 }
               },
               {
@@ -139,8 +159,10 @@
                   "content": "typeFilmset",
                   "id": 1677602576688,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602576688
+                  "done": true,
+                  "start": 1677602576688,
+                  "focus": false,
+                  "end": 1677688569086
                 }
               },
               {
@@ -150,8 +172,10 @@
                   "content": "character",
                   "id": 1677602582971,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602582971
+                  "done": true,
+                  "start": 1677602582971,
+                  "focus": false,
+                  "end": 1677688569834
                 }
               },
               {
@@ -161,8 +185,10 @@
                   "content": "scene",
                   "id": 1677602588133,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602588133
+                  "done": true,
+                  "start": 1677602588133,
+                  "focus": false,
+                  "end": 1677688570686
                 }
               },
               {
@@ -172,8 +198,10 @@
                   "content": "dialogue",
                   "id": 1677602595105,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602595105
+                  "done": true,
+                  "start": 1677602595105,
+                  "focus": false,
+                  "end": 1677688571456
                 }
               },
               {
@@ -196,8 +224,10 @@
                   "content": "planning",
                   "id": 1677602606578,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602606578
+                  "done": true,
+                  "start": 1677602606578,
+                  "focus": false,
+                  "end": 1677688573424
                 }
               },
               {
@@ -207,8 +237,10 @@
                   "content": "statusPlanning",
                   "id": 1677602611183,
                   "level": "default",
-                  "done": false,
-                  "start": 1677602611183
+                  "done": true,
+                  "start": 1677602611183,
+                  "focus": false,
+                  "end": 1677688574266
                 }
               }
             ],
@@ -216,8 +248,10 @@
               "content": "classe model: Asandratra",
               "id": 1677602539097,
               "level": "default",
-              "done": false,
-              "start": 1677602539097
+              "done": true,
+              "start": 1677602539097,
+              "focus": false,
+              "end": 1677688566058
             }
           },
           {
@@ -778,10 +812,10 @@
               "content": "page liste film: Mendrika",
               "id": 1677603357594,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1677603357594,
               "focus": false,
-              "end": 1677668705169
+              "end": 1677688599835
             }
           },
           {
@@ -818,10 +852,10 @@
               "content": "page liste des scenes: Mendrika",
               "id": 1677603367739,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1677603367739,
               "focus": false,
-              "end": 1677668707871
+              "end": 1677688600895
             }
           },
           {
@@ -847,8 +881,10 @@
                   "content": "dynamisation: liste des planning",
                   "id": 1677603594423,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603594423
+                  "done": true,
+                  "start": 1677603594423,
+                  "focus": false,
+                  "end": 1677688595895
                 }
               }
             ],
@@ -856,8 +892,10 @@
               "content": "page planning: Mendrika",
               "id": 1677603378303,
               "level": "default",
-              "done": false,
-              "start": 1677603378303
+              "done": true,
+              "start": 1677603378303,
+              "focus": false,
+              "end": 1677688597039
             }
           },
           {
@@ -894,8 +932,10 @@
               "content": "page details d'une scene: Mendrika",
               "id": 1677603391801,
               "level": "default",
-              "done": false,
-              "start": 1677603391801
+              "done": true,
+              "start": 1677603391801,
+              "focus": false,
+              "end": 1677688594240
             }
           },
           {
@@ -932,10 +972,10 @@
               "content": "page formulaire film: Mendrika",
               "id": 1677603399468,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1677603399468,
               "focus": false,
-              "end": 1677668717754
+              "end": 1677688592332
             }
           },
           {
@@ -972,10 +1012,10 @@
               "content": "page fomulaire scene: Mendrika",
               "id": 1677603405624,
               "level": "default",
-              "done": false,
+              "done": true,
               "start": 1677603405624,
               "focus": false,
-              "end": 1677668722153
+              "end": 1677688591464
             }
           },
           {
@@ -1012,8 +1052,10 @@
               "content": "page detail d'un film: Mendrika",
               "id": 1677659889423,
               "level": "default",
-              "done": false,
-              "start": 1677659889423
+              "done": true,
+              "start": 1677659889423,
+              "focus": false,
+              "end": 1677688590292
             }
           }
         ],
@@ -1021,13 +1063,14 @@
           "content": "affichage",
           "id": 1677602532969,
           "level": "default",
-          "done": false,
-          "start": 1677602532969
+          "done": true,
+          "start": 1677602532969,
+          "focus": false,
+          "end": 1677688603009
         }
       }
     ],
     "expandKeys": [
-      1677602518205,
       1677602530442,
       1677602637154,
       1677602611183,
@@ -1061,6 +1104,6 @@
     "autoSort": false,
     "showEndTime": false,
     "lang": "fr",
-    "version": "1677676714176"
+    "version": "1677688608900"
   }
 }
