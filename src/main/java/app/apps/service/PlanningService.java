@@ -3,10 +3,10 @@ package app.apps.service;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Date;
 import java.util.HashMap;
 
 import java.io.Serializable;
@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -33,6 +34,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Example;
 import org.hibernate.query.Query;
 
+import app.apps.model.Film;
 import app.apps.model.Scene;
 import app.apps.model.Planning;
 import app.apps.model.Settings;
@@ -55,16 +57,16 @@ public class PlanningService {
     public void create(Planning p)throws Exception{
         this.hibernate.add(p);
     }
-    public Settings getWorkHour(){
+    public Settings getWorkHour()throws Exception{
         Settings s = new Settings();
         s.setName("work hour");
         return (Settings) hibernate.findOneWhere(s,false,false);
     }
-    public void globalPlan(Film f){
+    public void globalPlan(Film f)throws Exception{
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
-        int team = f.getTeam();
-        Timestamp begin = f.getStart_shooting();
+        int team = f.getNbr_team();
+        Date begin = f.getStart_shooting();
     }
     public List listPlanning(Integer filmid){
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
@@ -84,14 +86,13 @@ public class PlanningService {
         session.close();
         return rep;
     }
-    public void changeStatus(Integer idscene,Integer status){
-        SceneService ss = new SceneService();
-        Scene s = ss.getById(idscene);
-        s.setStatus(status);
-        hibernate.update(s);
+    public void changeStatus(Integer idPlanning,Integer status)throws Exception{
+        Planning p = (Planning) this.hibernate.findById(Planning.class,idPlanning);
+        p.setStatus(status);
+        hibernate.update(p);
     }
-    public void changeStatus(Scene s,Integer status){
-        s.setStatus(status);
-        hibernate.update(s);
+    public void changeStatus(Planning p,Integer status){
+        p.setStatus(status);
+        hibernate.update(p);
     }
 }
