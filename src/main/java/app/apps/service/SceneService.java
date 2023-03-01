@@ -74,6 +74,15 @@ public class SceneService {
     public void create(Scene s)throws Exception{
         this.hibernate.add(s);
     }
+    public List<Scene> findByFilm(Integer idfilm){
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Scene> ls = session.createCriteria(Scene.class)
+            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)))
+            .list();
+        session.close();
+        return ls;
+    }
     public int countElements(Integer idfilm,String recherche){
         if(recherche==null) recherche="";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
@@ -83,6 +92,7 @@ public class SceneService {
             .add(Restrictions.like("global_action","%"+recherche+"%"))
             .add(Restrictions.and(Restrictions.eq("film_id",idfilm)))
             .list();
+        session.close();
         return ls.size();
     }
     public int countElements(List<Scene> ls){
