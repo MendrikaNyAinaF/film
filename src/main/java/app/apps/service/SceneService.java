@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Calendar;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -77,17 +78,28 @@ public class SceneService {
     }
     public void plannifier(Scene s, Timestamp date)throws Exception{
         PlanningService ps = new PlanningService();
+        Film f = hibernate.findById(Film.class,s.getFilm_id());
+        Planning p = new Planning();
         if(date==null){
-            Film f = hibernate.findById(Film.class,s.getFilm_id());
-            ps.globalPlan(f);
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(System.currentTimeMillis());
+            cal.set(Calendar.HOUR_OF_DAY,8);
+            Timestamp t = new Timestamp(cal.getTimeInMillis());
+            while(!(ps.checkIfPlanFree(f,s,t))){
+                cal.add(Calendar.DAY_OF_YEAR,1);
+                t = new Timestamp(cal.getTimeInMillis());
+            }
+            p.setScene(s);
+            p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
+            p.setDate(t);
         }
         else{
-            Planning p = new Planning();
+            if(!(ps.checkIfPlanFree(f,s,date))) throw new Exception("Planning decoseillé, date deja chargée, acteur deja sollicité, ou changement de plateau necessaire");
             p.setScene(s);
             p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
             p.setDate(date);
-            ps.create(p);
         }
+        ps.create(p);
     }
     public void create(Scene s)throws Exception{
         this.hibernate.add(s);
