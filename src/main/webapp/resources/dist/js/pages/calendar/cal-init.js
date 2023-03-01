@@ -52,7 +52,7 @@
             });
         }
     /* Initializing */
-    CalendarApp.prototype.init = function (idfilm) {
+    CalendarApp.prototype.init = function (idfilm, data) {
         this.enableDrag();
         /*  Initialize the calendar  */
         var date = new Date();
@@ -63,8 +63,13 @@
         var today = new Date($.now());
 
         //prendre les events;
-        $.get('/film/' + idfilm + '/planning', function (data) {
-            var datas = data;
+       /* $.get('/film/' + idfilm + '/planning', function (data) {
+            
+        });*/
+        var datas =[];
+        if(data!=null){
+             datas=JSON.stringify(data);
+        }     
             var event = [];
             for (let i = 0; i < datas.length; i++) {
                 event.append(
@@ -102,7 +107,6 @@
                 eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
 
             });
-        });
     },
         //init CalendarApp
         $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
