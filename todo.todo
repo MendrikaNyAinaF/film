@@ -304,6 +304,17 @@
                       "done": false,
                       "start": 1677607392008
                     }
+                  },
+                  {
+                    "key": 1677659956342,
+                    "children": [],
+                    "todo": {
+                      "content": "getById",
+                      "id": 1677659956342,
+                      "level": "default",
+                      "done": false,
+                      "start": 1677659956342
+                    }
                   }
                 ],
                 "todo": {
@@ -627,6 +638,17 @@
                   "done": false,
                   "start": 1677606147332
                 }
+              },
+              {
+                "key": 1677659869004,
+                "children": [],
+                "todo": {
+                  "content": "get, detail d'un film: 'film/{id}': Liantsoa",
+                  "id": 1677659869004,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677659869004
+                }
               }
             ],
             "todo": {
@@ -807,8 +829,10 @@
                   "content": "static: info de la scene, bouton planifier automatique, formulaire pour planifier avec une date, formulaire pour changer le status en fini ou cancelled",
                   "id": 1677603612161,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603612161
+                  "done": true,
+                  "start": 1677603612161,
+                  "focus": false,
+                  "end": 1677656847863
                 }
               },
               {
@@ -904,6 +928,40 @@
               "done": false,
               "start": 1677603405624
             }
+          },
+          {
+            "key": 1677659889423,
+            "children": [
+              {
+                "key": 1677659897607,
+                "children": [],
+                "todo": {
+                  "content": "static: detail du film et liste des personnages",
+                  "id": 1677659897607,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677659897607
+                }
+              },
+              {
+                "key": 1677659913017,
+                "children": [],
+                "todo": {
+                  "content": "dynamisation: detail film, et liste des personnages",
+                  "id": 1677659913017,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677659913017
+                }
+              }
+            ],
+            "todo": {
+              "content": "page detail d'un film: Mendrika",
+              "id": 1677659889423,
+              "level": "default",
+              "done": false,
+              "start": 1677659889423
+            }
           }
         ],
         "todo": {
@@ -938,7 +996,8 @@
       1677603378303,
       1677603391801,
       1677603399468,
-      1677603405624
+      1677603405624,
+      1677659889423
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -949,6 +1008,6 @@
     "autoSort": false,
     "showEndTime": false,
     "lang": "fr",
-    "version": "1677653854542"
+    "version": "1677659961413"
   }
 }

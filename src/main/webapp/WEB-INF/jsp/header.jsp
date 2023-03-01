@@ -19,7 +19,11 @@
     <link href="${pageContext.request.contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="${pageContext.request.contextPath}/resources/dist/css/style.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/assets/extra-libs/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/extra-libs/prism/prism.css">
+    
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/extra-libs/select2/select2.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/extra-libs/select2-bootstrap-theme/select2-bootstrap.min.css">
+    <link href="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,7 +31,12 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-
+<%
+    Film film=null;
+    if(request.getSession().getAttribute("current_film")!=null){
+        film=(Film)request.getSession().getAttribute("current_film");
+    }
+%>
 <body>
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
@@ -84,7 +93,12 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <!--navigation-->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1"></ul>
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Bonjour</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Film, <% if(film!=null){
+                        out.print(film.getTitle());
+                    }else{
+                        out.print("pas encore choisi");
+                    }
+                        %></h3>
 
                 </div>
             </nav>
@@ -101,24 +115,39 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/admin/recherche/0"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/0"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/admin/recherche/0"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/0"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Liste</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/admin/settings/nbrelement"
+                                    class="hide-menu">Mes films</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/create"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Configure Nbr Elt</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/admin/logout"
+                                    class="hide-menu">Ajouter film</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
+                            out.print("film/"+film.getId()+"/scenes/0");
+                        }else{
+                            out.print("films/0");
+                        }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Log out</span></a></li>
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/author/logout"
+                                    class="hide-menu">Liste des scènes</span></a></li>
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
+                            out.print("film/"+film.getId()+"/scene/create");
+                        }else{
+                            out.print("films/0");
+                        }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Log author</span></a></li>
+                                    class="hide-menu">Ajouter une scene</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/<% if (film!=null){
+                            out.print("film/"+film.getId()+"/planning");
+                        }else{
+                            out.print("films/0");
+                        }%>"
+                                aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
+                                    class="hide-menu">Planning</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

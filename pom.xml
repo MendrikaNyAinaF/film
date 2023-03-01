@@ -158,7 +158,27 @@
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>          
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.31.v20200723</version>
+                <configuration>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>
+                                org.eclipse.jetty.webapp.FragmentConfiguration
+                            </name>
+                            <value>org.eclipse.jetty.webapp.StandardFragmentConfiguration
+                            </value>
+                        </systemProperty>
+                    </systemProperties>
+                    <webAppSourceDirectory>${project.directory}/${project.build.finalName}</webAppSourceDirectory>
+                    <httpConnector>
+                        <port>8086</port>
+                    </httpConnector>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
