@@ -38,32 +38,34 @@ public class FilmController {
 
     @GetMapping(value = "/films/{page}")
     public String getAllFilm(@PathVariable("page") Integer page, HttpServletRequest request) throws Exception {
-        Integer limit = 3;
+        Integer limit=3;
 
-        Integer offset = page * limit;
-        List<Film> filmList = new ArrayList<>();
-        if (request.getSession().getAttribute("search_film") != null) {
-            filmList = filmService.search((String) request.getSession().getAttribute("search_film"), offset, limit);
-        } else {
-            filmList = filmService.getFilm(offset, limit);
+        Integer offset=page*limit;
+        List<Film> filmList=new ArrayList<>();
+        if(request.getSession().getAttribute("film_motcle")!=null){
+            System.out.println("heyheyhey");
+            filmList=filmService.search((String)request.getSession().getAttribute("search_film"),offset,limit);
+        }
+        else{
+            filmList=filmService.getFilm(offset,limit);
         }
 
-        int nbPage = filmList.size();
-        // nbPage= (int) Math.ceil((double)nbPage/limit);
-        Boolean endpage = false;
-        if (nbPage == page) {
-            endpage = true;
+        int nbPage= filmList.size();
+       //nbPage= (int) Math.ceil((double)nbPage/limit);
+        Boolean endpage=false;
+        if(nbPage==page){
+            endpage=true;
         }
-        request.setAttribute("liste_film", filmList);
-        request.setAttribute("endPage", endpage);
-        request.setAttribute("page", page);
+        request.setAttribute("liste_film",filmList);
+        request.setAttribute("endPage",endpage);
+        request.setAttribute("page",page);
         return "liste_film";
     }
 
     @PostMapping(value = "/search_film")
     public String searchFilm(HttpServletRequest request, Model m) throws Exception {
-        request.getSession().setAttribute("search_film", request.getParameter(""));
-        return getAllFilm(0, request);
+        request.getSession().setAttribute("film_motcle",request.getParameter("motcle"));
+        return  getAllFilm(0,request);
     }
 
     @GetMapping(value = "/film/{id}/scenes/{page}")
