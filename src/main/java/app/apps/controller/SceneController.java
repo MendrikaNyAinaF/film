@@ -81,7 +81,7 @@ public class SceneController {
         return detailsScene(idscene,model);
     }
 
-    @PostMapping(value = "/film/{idf}/scene/{ids}/planifier")
+    @PostMapping(value = "/film/{idf}/scene/{ids}/status")
     public String changeStatus(@PathVariable(name = "ids") Integer idscene,@RequestParam(name = "status") Integer status,Model model)throws Exception {
         HttpSession session = null;
         Film current = null;
@@ -109,6 +109,7 @@ public class SceneController {
         try{
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
+            ps = new PlanningService();
             model.addAttribute("liste_planning",ps.listToJson(ps.listPlanning(current.getId())));
         }
         catch(Exception ex){
@@ -117,6 +118,24 @@ public class SceneController {
         }
         return "planning";
     }
+
+    @PostMapping(value = "/film/{id}/planifier")
+    public String planning(Model model)throws Exception{
+        HttpSession session = null;
+        Film current = null;
+        PlanningService ps = null;
+        try{
+            session = SceneController.session();
+            current = (Film) session.getAttribute("current_film");
+            ps = new PlanningService();
+            ps.globalPlan(current);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            throw ex;
+        }
+        return to_planning(model);
+    }    
 
     @GetMapping(value = "/film/{id}/scene/create")
     public String to_create(Model model){
