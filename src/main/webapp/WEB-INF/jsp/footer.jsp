@@ -36,8 +36,5 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/select2.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/resources/assets/libs/moment/min/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-init.js"></script>
 </body>
 </html>

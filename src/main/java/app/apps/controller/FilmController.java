@@ -36,6 +36,9 @@ public class FilmController {
     @Autowired
     GenderService genderService;
 
+    @Autowired
+    PlanningService planningService;
+
     @GetMapping(value = "/films/{page}")
     public String getAllFilm(@PathVariable("page") Integer page, HttpServletRequest request) throws Exception {
         Integer limit = 3;
@@ -85,9 +88,11 @@ public class FilmController {
     }
 
     @GetMapping(value = "film/{id}/planning")
-    public String getPlanningByIdFilm(@PathVariable("id") Integer filmId, Model m) {
-
-        return "";
+    public String getPlanningByIdFilm(@PathVariable("id") Integer filmId, Model m, HttpServletRequest request)
+            throws Exception {
+        Gson gson = new Gson();
+        request.setAttribute("liste_planning", gson.toJson(planningService.listPlanning(filmId)));
+        return "planning";
     }
 
     @GetMapping(value = "/film/create")
@@ -153,11 +158,11 @@ public class FilmController {
     }
 
     @GetMapping(value = "/film/{id}")
-    public String getFilmDetails(@PathVariable("id") Integer filmId,HttpServletRequest request) throws Exception {
-        Film film=filmService.getFilmById(filmId);
-        List<Character> characterList=charaterService.getCharacterByFilm(filmId);
-        request.setAttribute("film",film);
-        request.setAttribute("film_personnage",characterList);
+    public String getFilmDetails(@PathVariable("id") Integer filmId, HttpServletRequest request) throws Exception {
+        Film film = filmService.getFilmById(filmId);
+        List<Character> characterList = charaterService.getCharacterByFilm(filmId);
+        request.setAttribute("film", film);
+        request.setAttribute("film_personnage", characterList);
 
         return "detail_film";
     }
@@ -166,6 +171,8 @@ public class FilmController {
     public String setFilmSession(@PathVariable("id") Integer filmId, HttpServletRequest request, Model m)
             throws Exception {
         request.getSession().setAttribute("current_film", filmService.getFilmById(filmId));
+        System.out.println(request.getSession().getAttribute("current_film"));
+        System.out.println("ici");
         return getAllFilm(0, request);
     }
 

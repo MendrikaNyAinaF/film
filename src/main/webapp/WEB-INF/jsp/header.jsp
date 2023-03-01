@@ -32,9 +32,9 @@
 <![endif]-->
 </head>
 <%
-    Film film=null;
-    if(request.getSession().getAttribute("film_id")!=null){
-        film=(Film)request.getSession().getAttribute("film_id");
+    Film fil=null;
+    if(request.getSession().getAttribute("current_film")!=null){
+        fil=(Film)request.getSession().getAttribute("current_film");
     }
 %>
 <body>
@@ -93,8 +93,8 @@
                 <div class="navbar-collapse collapse" id="navbarSupportedContent">
                     <!--navigation-->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1"></ul>
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Film, <% if(film!=null){
-                        out.print(film.getTitle());
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Film, <% if(fil!=null){
+                        out.print(fil.getTitle());
                     }else{
                         out.print("pas encore choisi");
                     }
@@ -127,22 +127,22 @@
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/create"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Ajouter film</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
-                            out.print("film/"+film.getId()+"/scenes/0");
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
+                            out.print("film/"+fil.getId()+"/scenes/0");
                         }else{
                             out.print("films/0");
                         }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Liste des scènes</span></a></li>
-                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
-                            out.print("film/"+film.getId()+"/scene/create");
+                       <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
+                            out.print("film/"+fil.getId()+"/scene/create");
                         }else{
                             out.print("films/0");
                         }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Ajouter une scene</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
-                            out.print("film/"+film.getId()+"/planning");
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
+                            out.print("film/"+fil.getId()+"/planning");
                         }else{
                             out.print("films/0");
                         }%>"

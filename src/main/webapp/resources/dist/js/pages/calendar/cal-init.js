@@ -68,19 +68,26 @@
         });*/
         var datas =[];
         if(data!=null){
-             datas=JSON.stringify(data);
-        }     
+             datas=JSON.parse(JSON.stringify(data));
+        }   
+        console.log('data'+JSON.stringify(data));  
+        console.log(datas.length);
+        console.log("chaud");  
             var event = [];
+            
             for (let i = 0; i < datas.length; i++) {
-                event.append(
-                    {
-                        title: datas[i].scene.title,
-                        start: new Date(datas[i].date),
-                        //end: new Date(data[i].end_date),
-                        className: 'bg-info',
-                        url: '/film/' + idfilm + '/scene/' + datas[i].scene.id
-                    }
-                );
+                if(datas[i].scene!=null && datas[i].scene!=undefined){
+                    event.push(
+                        {
+                            title: datas[i].scene.title,
+                            start: new Date(datas[i].date),
+                            //end: new Date(data[i].end_date),
+                            className: 'bg-info',
+                            url: '/film/' + idfilm + '/scene/' + datas[i].scene.id
+                        }
+                    );
+                }
+                
 
             }
             var $this = this;
