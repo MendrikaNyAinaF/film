@@ -76,7 +76,7 @@
                                                   <div class="form-group">
                                                        <select name="status" class="form-control">
                                                             <% if(request.getAttribute("status_planning")!=null){  %>
-                                                                 ArrayList<StatusPlanning> status=( ArrayList<StatusPlanning>)request.getAttribute("status_planning");
+                                                                 List<StatusPlanning> status=(List<StatusPlanning>)request.getAttribute("status_planning");
                                                                  for(StatusPlanning st:status){  %>
                                                                       <option value="<%= st.getId() %>"><%= st.getName() %></option>
                                                             <%    }
