@@ -29,7 +29,43 @@ INSERT INTO filmset(name,type_id) values
 ('lieu travail',2);
 
 
---Scene avec dialogue
+--Scene1 avec dialogue
+insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
+('seul dans le parc','Sungjae assis sur un banc repensant a son ex, et ensuite discute avec une inconnue','10:00','10:05','2:00',1,1);
+
+insert into dialogue(scene_id,character_id,texte,action) values
+(1,1,'Les papillons sont vraiment magnifiques aujourd''hui. Regardez-les virevolter autour de moi','soupirant'),
+(1,6,'Oui, ils sont vraiment jolis. Vous avez l''air d''etre dans vos pensees','s''approchant'),
+(1,1,'Oui, je me souviens d''une relation qui etait aussi belle et fragile que ces papillons. Mais maintenant, elle est terminee.','en souriant tristement'),
+(1,6,'Je suis desole d''entendre ça. Comment allez-vous maintenant ?',''),
+(1,1,'Je suis determine retrouver l''amour, quoi qu''il en coute. Je sais que cela ne sera pas facile, mais je suis prêt à faire tout ce qui est en mon pouvoir pour trouver la bonne personne.','determine'),
+(1,6,'C''est une belle attitude. Je suis sur que vous trouverez quelqu''un qui vous convient parfaitement. Parfois, il faut juste etre patient et continuer a chercher.','en souriant'),
+(1,1,'Merci pour vos mots encourageants','en souriant'),
+(1,6,'Bonne chance dans votre recherche, et n''oubliez pas de profiter de la beaute qui vous entoure, meme lorsque les choses sont difficiles','en souriant'),
+(1,1,'Merci. Je vais essayer de garder cela a l''esprit. Bonne journee a vous','en se levant'),
+(1,6,'Bonne journee a vous aussi','en souriant');
+
+
+--Scene2 avec dialogue
+insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
+('appel du frere','Son frere appelle Sungjae pour sortir','10:07','10:11','1:30',2,1);
+
+insert into dialogue(scene_id,character_id,texte,action) values
+(2,1,'Ces photos me rappellent tellement de souvenirs avec elle','soupirant'),
+(2,1,'C''est mon ami qui m''appelle.','regardant son telephone'),
+(2,5,'Viens on sors ce soir,cela te fera du bien de sortir un peu','en voix off'),
+(2,1,'Je ne sais pas si je devrais y aller. Je ne suis pas sur d''etre pret a voir d''autres couples heureux ensemble','hesitant'),
+(2,5,'Tu ne pas rester enferme chez toi eternellement, Sungjae. Il est temps de te changer les idees et de voir de nouveaux visages.','en voix off'),
+(2,1,'D''accord, j''accepte l''invitation. Mais je ne promets rien','en soupirant');
+
+
+--Scene 3 avec Dialogue
+insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
+('durant la soiree','Enviant le bohneur des autres','10:12','10:13','3:00',2,1);
+
+insert into dialogue(scene_id,character_id,texte,action) values
+(3,1,'Regardez-les tous, s''amuser, rire, danser ensemble. Ça me rappelle tellement de souvenirs, des moments ou j''etais moi aussi heureux comme eux, en train de danser avec elle.','regardant la foule avec tristesse'),
+(3,1,'Regardez-les tous, s''amuser, rire, danser ensemble. Ça me rappelle tellement de souvenirs, des moments ou j''etais moi aussi heureux comme eux, en train de danser avec elle','soupirant');
 
 
 
