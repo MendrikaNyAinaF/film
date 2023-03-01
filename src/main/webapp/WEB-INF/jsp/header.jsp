@@ -33,8 +33,8 @@
 </head>
 <%
     Film film=null;
-    if(request.getSession().getAttribute("current_film")!=null){
-        film=(Film)request.getSession().getAttribute("current_film");
+    if(request.getSession().getAttribute("film_id")!=null){
+        film=(Film)request.getSession().getAttribute("film_id");
     }
 %>
 <body>
