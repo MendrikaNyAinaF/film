@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.Calendar;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -63,10 +64,19 @@ public class PlanningService {
         return (Settings) hibernate.findOneWhere(s,false,false);
     }
     public void globalPlan(Film f)throws Exception{
+        SceneService ss = new SceneService();
+        Calendar calendar = Calendar.getInstance();
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
         int team = f.getNbr_team();
-        Date begin = f.getStart_shooting();
+        calendar.setTimeMillis(f.getStart_shooting().getTime());
+        calendar.add(Calendar.HOUR_OF_DAY,8);
+        Timestamp plan = new TimeStamp(calendar.getTimeMillis());
+        List<Scene> ls = ss.findByFilm(f.getId());
+        Planning p = null;
+        for(Scene s:ls){
+            
+        }
     }
     public List listPlanning(Integer filmid){
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
