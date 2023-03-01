@@ -44,7 +44,7 @@ public class FilmController {
         List<Film> filmList = new ArrayList<>();
         if (request.getSession().getAttribute("film_motcle") != null) {
             System.out.println("heyheyhey");
-            filmList = filmService.search((String) request.getSession().getAttribute("search_film"), offset, limit);
+            filmList = filmService.search((String) request.getSession().getAttribute("film_motcle"), offset, limit);
         } else {
             filmList = filmService.getFilm(offset, limit);
         }
