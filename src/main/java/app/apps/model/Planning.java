@@ -2,6 +2,11 @@ package app.apps.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.OneTomany;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +17,13 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class Planning extends HasId {
-    private Integer scene_id;
+
+    @ManyToOne
+    @JoinColumn(name="scene_id")
+    private Scene scene;
+    
+    @OneToOne
+    @JoinColumn(name="status_id")
     private StatusPlanning status;
     private Timestamp date;
 
