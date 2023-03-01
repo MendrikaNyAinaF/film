@@ -552,6 +552,17 @@
                 }
               },
               {
+                "key": 1677663163635,
+                "children": [],
+                "todo": {
+                  "content": "post, liste des films(manao traitement an'ilay recherche): 'films': liantsoa",
+                  "id": 1677663163635,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677663163635
+                }
+              },
+              {
                 "key": 1677605769325,
                 "children": [],
                 "todo": {
@@ -560,6 +571,17 @@
                   "level": "default",
                   "done": false,
                   "start": 1677605769325
+                }
+              },
+              {
+                "key": 1677663199916,
+                "children": [],
+                "todo": {
+                  "content": "post, liste des scenes(manao traitement an'ilay recherche): 'film/{id}/scenes', Liantsoa",
+                  "id": 1677663199916,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677663199916
                 }
               },
               {
@@ -649,6 +671,17 @@
                   "done": false,
                   "start": 1677659869004
                 }
+              },
+              {
+                "key": 1677663367080,
+                "children": [],
+                "todo": {
+                  "content": "get, choisir film: 'film/{id}/current': Liantsoa",
+                  "id": 1677663367080,
+                  "level": "default",
+                  "done": false,
+                  "start": 1677663367080
+                }
               }
             ],
             "todo": {
@@ -734,8 +767,10 @@
                   "content": "dynamisation: liste des films",
                   "id": 1677603445129,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603445129
+                  "done": true,
+                  "start": 1677603445129,
+                  "focus": false,
+                  "end": 1677664431621
                 }
               }
             ],
@@ -1008,6 +1043,6 @@
     "autoSort": false,
     "showEndTime": false,
     "lang": "fr",
-    "version": "1677659961413"
+    "version": "1677664432092"
   }
 }
