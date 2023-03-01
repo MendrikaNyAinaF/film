@@ -115,13 +115,13 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/0"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/films/0"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/0"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/films/0"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Mes films</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/create"
@@ -141,7 +141,7 @@
                         }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Ajouter une scene</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/film/<% if (film!=null){
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (film!=null){
                             out.print("film/"+film.getId()+"/planning");
                         }else{
                             out.print("films/0");
