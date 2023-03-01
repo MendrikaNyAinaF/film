@@ -10,6 +10,9 @@ INSERT INTO actor(name,birthdate,contact,gender) values ('Park min young','1980-
 INSERT INTO film(title,description,duration,start_shooting,nbr_team,visuel) values 
 ('Butterfly graves','Comme de la tombe de papillon la relation de sungjae qui était beaux et fragile a pris fin.Mais il est determiner a retrouver l''amour','01:30','2023-03-01',2,'');
 
+INSERT INTO film(title,description,duration,start_shooting,nbr_team,visuel) values 
+('Etudiant de ITU','La vie quotidien des etudiant de ITU','02:00','2023-03-02',2,'');
+
 --Caractere
 INSERT INTO character(name,description,gender,film_id,actor_id) values
 ('Sunjae','Role principal masculin,celui qui a perdu l''amour',1,1,1),
