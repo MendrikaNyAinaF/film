@@ -1,11 +1,6 @@
 package app.apps.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +19,8 @@ public class Planning extends HasId {
     @ManyToOne
     @JoinColumn(name = "status_id")
     private StatusPlanning status;
+
+    @Column
     private Timestamp date;
 
     public Planning() {

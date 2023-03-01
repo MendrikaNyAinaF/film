@@ -1,11 +1,6 @@
 package app.apps.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Character extends HasName {
+
+    @Column
     private String description;
 
     @ManyToOne

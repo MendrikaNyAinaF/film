@@ -5,6 +5,17 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.apps.model.*;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -21,6 +32,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
+import org.hibernate.query.Query;
+
+import java.lang.reflect.Field;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.query.Query;
 
 //@Component("hibernateImp")
@@ -236,6 +254,83 @@ public class HibernateDAO implements InterfaceDAO {
         query.setFirstResult(offset);
         query.setMaxResults(size);
         return query;
+    }
+    public void save1(Object o) {
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.persist(o);
+        tx.commit();
+        System.out.println("saved");
+        session.close();
+    }
+    public <T> List<T> getAll1(Object o) {
+        Session session = this.sessionFactory.openSession();
+        List<T> list=session.createQuery("from "+o.getClass().getName()).list();
+        session.close();
+        return list;
+    }
+    public <T> List<T> getByIdFilm(Object o, Integer idFilm){
+        Session session = this.sessionFactory.openSession();
+        List<T> result = null;
+        try {
+            Criteria criteria = session.createCriteria(o.getClass());
+            criteria.add(Restrictions.eq("film_id", idFilm));
+            result = criteria
+                    .list();
+
+        } catch (Exception e) {
+
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public <T> List<T> getByIdScene(Object o, Integer idScene){
+        Session session = this.sessionFactory.openSession();
+        List<T> result = null;
+        try {
+            Criteria criteria = session.createCriteria(o.getClass());
+            criteria.add(Restrictions.eq("scene_id", idScene));
+            result = criteria
+                    .list();
+
+        } catch (Exception e) {
+
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+    public <T> List<T> getByPagination1(Object o, Integer offset, Integer limit) {
+        Session session = this.sessionFactory.openSession();
+        List<T> result = null;
+        try {
+            result = session.createCriteria(o.getClass())
+                    .setFirstResult(offset) // offset
+                    .setMaxResults(limit) // limit
+                    .list();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public <T> T getById(Object o, Integer id) throws Exception {
+        Session session = null;
+        Object p = null;
+        try {
+            session = this.sessionFactory.openSession();
+            p = session.load(o.getClass(), id);
+            System.out.println("Loaded successfully, details="+p);
+        } catch (Exception e) {
+
+        }  finally {
+            session.close();
+        }
+        return (T)p;
     }
 
     
