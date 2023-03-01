@@ -2,7 +2,7 @@
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire" %>
 <jsp:include page="jsp/header.jsp" />
 
-                    <a class="nav-link col-4" href="javascript:void(0)">
+                                        <a class="nav-link col-4" href="javascript:void(0)">
                          <form method="POST" action="${pageContext.request.contextPath}/search_film">
                               <div class="customize-input row">
                                    <input class="form-control custom-shadow border-0 bg-white col-9" type="search"
@@ -79,5 +79,4 @@
                               </li>
                          </ul>
                     </div>
-              
 <jsp:include page="jsp/footer.jsp" />
