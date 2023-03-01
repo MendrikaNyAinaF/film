@@ -35,6 +35,10 @@ public class HibernateDAO implements InterfaceDAO {
         this.sessionFactory = se;
     }
 
+    public SessionFactory getSessionFactory(){
+        return this.sessionFactory;
+    }
+
     @Override
     public void add(Object o) throws Exception {
         Transaction trans = null;
