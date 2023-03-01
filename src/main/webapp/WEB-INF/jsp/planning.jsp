@@ -22,7 +22,7 @@
                     </div>
                 </div>
     <script type="text/javascript">
-        $.CalendarApp.init(<%= request.getAttribute("liste_planning") %>);
+        $.CalendarApp.init(<%= film.getId() %>,<%= request.getAttribute("liste_planning") %>);
     </script>
 <%   }
 %>
