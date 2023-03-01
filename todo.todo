@@ -467,7 +467,7 @@
                     "key": 1677606555114,
                     "children": [],
                     "todo": {
-                      "content": "liste des plannings selon un idfilm et un mois donnee",
+                      "content": "liste des plannings selon un idfilm",
                       "id": 1677606555114,
                       "level": "default",
                       "done": false,
@@ -699,8 +699,10 @@
                   "content": "static: liste, pagination, recherche filtre par mot cle",
                   "id": 1677603417412,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603417412
+                  "done": true,
+                  "start": 1677603417412,
+                  "focus": false,
+                  "end": 1677652619512
                 }
               },
               {
@@ -733,8 +735,10 @@
                   "content": "static: liste, pagination, recherche filtre par mot cle, personnage, status",
                   "id": 1677603453897,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603453897
+                  "done": true,
+                  "start": 1677603453897,
+                  "focus": false,
+                  "end": 1677652621795
                 }
               },
               {
@@ -764,11 +768,13 @@
                 "key": 1677603568009,
                 "children": [],
                 "todo": {
-                  "content": "static: calendrier, bouton planifier",
+                  "content": "static: calendrier, bouton planifier, formulaire pour le choix d'un mois",
                   "id": 1677603568009,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603568009
+                  "done": true,
+                  "start": 1677603568009,
+                  "focus": false,
+                  "end": 1677653854059
                 }
               },
               {
@@ -835,8 +841,10 @@
                   "content": "static: formulaire",
                   "id": 1677603719190,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603719190
+                  "done": true,
+                  "start": 1677603719190,
+                  "focus": false,
+                  "end": 1677652629753
                 }
               },
               {
@@ -856,7 +864,9 @@
               "id": 1677603399468,
               "level": "default",
               "done": false,
-              "start": 1677603399468
+              "start": 1677603399468,
+              "focus": false,
+              "end": 1677652626390
             }
           },
           {
@@ -869,8 +879,10 @@
                   "content": "static: formulaire",
                   "id": 1677605048698,
                   "level": "default",
-                  "done": false,
-                  "start": 1677605048698
+                  "done": true,
+                  "start": 1677605048698,
+                  "focus": false,
+                  "end": 1677652631911
                 }
               },
               {
@@ -937,6 +949,6 @@
     "autoSort": false,
     "showEndTime": false,
     "lang": "fr",
-    "version": "1677607690690"
+    "version": "1677653854542"
   }
 }
