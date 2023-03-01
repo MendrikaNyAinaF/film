@@ -74,11 +74,11 @@
             for (let i = 0; i < datas.length; i++) {
                 event.append(
                     {
-                        title: datas[i].title,
+                        title: datas[i].scene.title,
                         start: new Date(datas[i].date),
-                        end: new Date(data[i].end_date),
+                        //end: new Date(data[i].end_date),
                         className: 'bg-info',
-                        url: '/film/' + idfilm + '/scene/' + datas[i].id
+                        url: '/film/' + idfilm + '/scene/' + datas[i].scene.id
                     }
                 );
 

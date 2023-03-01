@@ -26,7 +26,7 @@
                                         if(request.getAttribute("liste_film")!=null){
                                              List<Film> liste=(List<Film>)request.getAttribute("liste_film");
                                              for(Film f:liste){  %>
-                                        <div class="card">
+                                        <div class="card col-4" >
                                              <img class="card-img-top img-fluid" src="data:image/jpeg;base64,<%= f.getVisuel() %>"
                                                   alt="Card image cap">
                                              <div class="card-body">
