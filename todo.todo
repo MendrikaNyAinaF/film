@@ -779,7 +779,9 @@
               "id": 1677603357594,
               "level": "default",
               "done": false,
-              "start": 1677603357594
+              "start": 1677603357594,
+              "focus": false,
+              "end": 1677668705169
             }
           },
           {
@@ -805,8 +807,10 @@
                   "content": "dynamisation: liste des scenes, liste des status de planning, liste des personnages",
                   "id": 1677603491800,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603491800
+                  "done": true,
+                  "start": 1677603491800,
+                  "focus": false,
+                  "end": 1677668784420
                 }
               }
             ],
@@ -815,7 +819,9 @@
               "id": 1677603367739,
               "level": "default",
               "done": false,
-              "start": 1677603367739
+              "start": 1677603367739,
+              "focus": false,
+              "end": 1677668707871
             }
           },
           {
@@ -838,7 +844,7 @@
                 "key": 1677603594423,
                 "children": [],
                 "todo": {
-                  "content": "dynamisation: liste des planning dans un mois",
+                  "content": "dynamisation: liste des planning",
                   "id": 1677603594423,
                   "level": "default",
                   "done": false,
@@ -877,8 +883,10 @@
                   "content": "dynamisation: scene selon un id, liste des status planning",
                   "id": 1677603694178,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603694178
+                  "done": true,
+                  "start": 1677603694178,
+                  "focus": false,
+                  "end": 1677676623729
                 }
               }
             ],
@@ -913,8 +921,10 @@
                   "content": "dynamisation: liste des acteurs",
                   "id": 1677603767919,
                   "level": "default",
-                  "done": false,
-                  "start": 1677603767919
+                  "done": true,
+                  "start": 1677603767919,
+                  "focus": false,
+                  "end": 1677668777885
                 }
               }
             ],
@@ -925,7 +935,7 @@
               "done": false,
               "start": 1677603399468,
               "focus": false,
-              "end": 1677652626390
+              "end": 1677668717754
             }
           },
           {
@@ -951,8 +961,10 @@
                   "content": "dynamisation: liste des personnages selon un film, liste des plateau",
                   "id": 1677605063894,
                   "level": "default",
-                  "done": false,
-                  "start": 1677605063894
+                  "done": true,
+                  "start": 1677605063894,
+                  "focus": false,
+                  "end": 1677668774683
                 }
               }
             ],
@@ -961,7 +973,9 @@
               "id": 1677603405624,
               "level": "default",
               "done": false,
-              "start": 1677603405624
+              "start": 1677603405624,
+              "focus": false,
+              "end": 1677668722153
             }
           },
           {
@@ -974,8 +988,10 @@
                   "content": "static: detail du film et liste des personnages",
                   "id": 1677659897607,
                   "level": "default",
-                  "done": false,
-                  "start": 1677659897607
+                  "done": true,
+                  "start": 1677659897607,
+                  "focus": false,
+                  "end": 1677668978387
                 }
               },
               {
@@ -985,8 +1001,10 @@
                   "content": "dynamisation: detail film, et liste des personnages",
                   "id": 1677659913017,
                   "level": "default",
-                  "done": false,
-                  "start": 1677659913017
+                  "done": true,
+                  "start": 1677659913017,
+                  "focus": false,
+                  "end": 1677668984387
                 }
               }
             ],
@@ -1043,6 +1061,6 @@
     "autoSort": false,
     "showEndTime": false,
     "lang": "fr",
-    "version": "1677664432092"
+    "version": "1677676714176"
   }
 }

@@ -1,7 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire" %>
 <jsp:include page="jsp/header.jsp" />
-     <div class="row">
+<%
+    if(film!=null){ %>
+    <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                          
@@ -19,5 +21,11 @@
                         </div>
                     </div>
                 </div>
+    <script type="text/javascript">
+        $.CalendarApp.init(<%= film.getId() %>);
+    </script>
+<%   }
+%>
+     
 
 <jsp:include page="jsp/footer.jsp" />
