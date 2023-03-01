@@ -16,7 +16,7 @@
                                    <select class="form-control custom-shadow border-0 bg-white col-3" name="status">
                                         <option value="">Tout</option>
                                         <% if(request.getAttribute("status")!=null){
-                                             ArrayList<StatusPlanning>liste_status=(ArrayList<StatusPlanning>)request.getAttribute("status");
+                                             List<StatusPlanning>liste_status=(List<StatusPlanning>)request.getAttribute("status");
                                              for(StatusPlanning s: liste_status){ %>
                                                   <option value="<%= s.getId() %>">s.getName()</option>
                                         <%     }
@@ -26,7 +26,7 @@
                                         <select class="js-example-basic-multiple form-control custom-shadow border-0 bg-white" multiple="multiple" style="width:100%"
                                              placeholder="acteur">
                                              <% if(request.getAttribute("character")!=null){
-                                                  ArrayList<Character> liste_chara=(ArrayList<Character>)request.getAttribute("liste_chara");
+                                                  List<Character> liste_chara=(List<Character>)request.getAttribute("liste_chara");
                                                   for(Character c: liste_chara){ %>
                                                        <option value="<%= c.getId() %>"><%= c.getName() %></option>
                                              <%     }
@@ -45,7 +45,7 @@
                     <div class="row">
                          <h2 class="mb-0">Scenes du film, '<%= film.getTitle() %>'</h2>
                          <% if(request.getAttribute("liste_scene")!=null){
-                              ArrayList<Scene>liste=(ArrayList<Scene>)request.getAttribute("liste_scene");
+                              List<Scene>liste=(List<Scene>)request.getAttribute("liste_scene");
                               for(Scene s: liste){ %>
                          <div class="col-md-4">
                               <div class="card text-white bg-info">

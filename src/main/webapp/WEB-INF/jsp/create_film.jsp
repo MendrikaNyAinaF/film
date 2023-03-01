@@ -63,7 +63,7 @@
                                                                  <label for="">Genre</label>
                                                                  <select name="type" class="form-control" name="personnage_genre">
                                                                       <% if(request.getAttribute("gender")!=null){
-                                                                           ArrayList<Gender>gender=(ArrayList<Genre>)request.getAttribute("gender");
+                                                                           List<Gender>gender=(List<Gender>)request.getAttribute("gender");
                                                                            for(Gender g:gender){ %>
                                                                                 <option value="<%= g.getId() %>"><%= g.getName() %></option>
                                                                       <%     }
@@ -84,7 +84,7 @@
                                                                  <label for="">Acteur</label>
                                                                  <select name="type" class="form-control" name="personnage_acteur">
                                                                       <% if(request.getAttribute("actor")!=null){
-                                                                           ArrayList<Actor>actor=(ArrayList<Actor>)request.getAttribute("actor");
+                                                                           List<Actor>actor=(List<Actor>)request.getAttribute("actor");
                                                                            for(Actor a:actor){ %>
                                                                                 <option value="<%= a.getId() %>"><%= a.getName() %></option>
                                                                       <%     }
