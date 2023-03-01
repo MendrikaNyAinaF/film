@@ -34,7 +34,7 @@ INSERT INTO filmset(name,type_id) values
 
 --Scene1 avec dialogue
 insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
-('seul dans le parc','Sungjae assis sur un banc repensant a son ex, et ensuite discute avec une inconnue','10:00','10:05','2:00',1,1);
+('seul dans le parc','Sungjae assis sur un banc repensant a son ex, et ensuite discute avec une inconnue','00:10:00','00:10:05','02:00:00',1,1);
 
 insert into dialogue(scene_id,character_id,texte,action) values
 (1,1,'Les papillons sont vraiment magnifiques aujourd''hui. Regardez-les virevolter autour de moi','soupirant'),
@@ -51,7 +51,7 @@ insert into dialogue(scene_id,character_id,texte,action) values
 
 --Scene2 avec dialogue
 insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
-('appel du frere','Son frere appelle Sungjae pour sortir','10:07','10:11','1:30',2,1);
+('appel du frere','Son frere appelle Sungjae pour sortir','00:10:07','00:10:11','01:30:00',2,1);
 
 insert into dialogue(scene_id,character_id,texte,action) values
 (2,1,'Ces photos me rappellent tellement de souvenirs avec elle','soupirant'),
@@ -64,11 +64,35 @@ insert into dialogue(scene_id,character_id,texte,action) values
 
 --Scene 3 avec Dialogue
 insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
-('durant la soiree','Enviant le bohneur des autres','10:12','10:13','3:00',2,1);
+('durant la soiree','Enviant le bohneur des autres','00:10:12','00:10:13','03:00:00',2,1);
 
 insert into dialogue(scene_id,character_id,texte,action) values
 (3,1,'Regardez-les tous, s''amuser, rire, danser ensemble. Ça me rappelle tellement de souvenirs, des moments ou j''etais moi aussi heureux comme eux, en train de danser avec elle.','regardant la foule avec tristesse'),
 (3,1,'Regardez-les tous, s''amuser, rire, danser ensemble. Ça me rappelle tellement de souvenirs, des moments ou j''etais moi aussi heureux comme eux, en train de danser avec elle','soupirant');
 
+--scene 4 avec Dialogue
+insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
+('Moment coince en classe','Ils sont coincés dans une salle de classe et ils discutent','00:45:00','00:52:00','02:00:00',6,1);
+insert into dialogue(scene_id,character_id,texte,action) values
+(4,1,'','Sunjae essaie d''ouvrir la porte'),
+(4,2,'Tu vois bien que c''est inutile, nous sommes coincés','soupirant, avec un air blase'),
+(4,1, 'c''est toujours mieux que de ne rien faire', 'continue de donner des coups à la porte'),
+(4,2,'Laisse moi faire alors','se deplace viens Sunjae et essaie d''ouvrir la porte grace a sa broche, puis la porte fini par s''ouvrir  '),
+(4,1,'impressionnant!, je te laisse, je suis un peu presse','Sunjae sort avec elle et il lui fait un signe de tête');
+
+--scene 5 avec Dialogue
+insert into scene(title,global_action,time_start,time_end,estimated_time,filmset_id,film_id) values
+('Rendez-surprise','Sunjae a ete par son frere de bien s''habille et son frere le traine en ville, son frere a organise un rendez vous avec Joy et ca devient genant',
+'01:05:00','01:12:00','01:00:00',1,1);
+insert into dialogue(scene_id,character_id,texte,action) values
+(5,1,'Poruquoi tu m''as force a sortir et a m''habiller comme ca','se fait trainer par son frere, avec un air ennuye'),
+(5,5,'Parce que j''ai une surprise pour toi je t''ai dit','tire Sunjae'),
+(5,1, 'Ca fait des heures qu''on marche', 'rale de plus en plus'),
+(5,5,'Arrete de raler, tu vas adorer ma surprise','Continue de tirer Sunjae'),
+(5,1,'euh, Joy!','Sunjae est etonne'),
+(5,2,'Bonsoir Sunjae','Elle est joliment habille et le sourit'),
+(5,5,'Alors je vous laisse', 'Peniel s''en va et Sunjae rougit')
+;
 
 
+--scene 6 avec Dialogue
