@@ -14,7 +14,7 @@
                                    </p>
                               </div>
                               <h4 class="card-title">Action globale</h4>
-                              <p><%= s.getGloabl_action() %></p>
+                              <p><%= s.getGlobal_action() %></p>
 
                               <h4 class="card-title">Time line</h4>
                               <p><%= s.getTime_start() %>-<%= s.getTime_end() %></p>
@@ -54,7 +54,7 @@
                                              <div class="col-md-4">
                                                   <div class="form-group">
                                                        <input type="datetime-local" class="form-control" placeholder="titre"
-                                                            name="">
+                                                            name="plan">
                                                   </div>
                                              </div>
                                              <div class="col-md-4"> 
