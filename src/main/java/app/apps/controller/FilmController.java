@@ -153,11 +153,11 @@ public class FilmController {
     }
 
     @GetMapping(value = "/film/{id}")
-    public String getFilmDetails(@PathVariable("id") Integer filmId, HttpServletRequest request) throws Exception {
-        Film film = filmService.getFilmById(filmId);
-        List<Character> characterList = charaterService.getCharacterByFilm(filmId);
-        request.setAttribute("film_detail", film);
-        request.setAttribute("character_list", characterList);
+    public String getFilmDetails(@PathVariable("id") Integer filmId,HttpServletRequest request) throws Exception {
+        Film film=filmService.getFilmById(filmId);
+        List<Character> characterList=charaterService.getCharacterByFilm(filmId);
+        request.setAttribute("film",film);
+        request.setAttribute("film_personnage",characterList);
 
         return "detail_film";
     }
