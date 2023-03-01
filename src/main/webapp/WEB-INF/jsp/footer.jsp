@@ -31,5 +31,13 @@
 <script src="${pageContext.request.contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/dashboards/dashboard1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/extra-libs/prism/prism.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/assets/extra-libs/select2/select2.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dist/js/select2.js"></script>
+
+
+<script src="${pageContext.request.contextPath}/resources/assets/libs/moment/min/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-init.js"></script>
 </body>
 </html>

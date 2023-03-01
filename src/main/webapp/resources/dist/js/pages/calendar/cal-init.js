@@ -62,9 +62,13 @@
             var form = '';
             var today = new Date($.now());
 
+            //prendre les events;
+            $.get('url', function(data){
+                var datas=data;
+            });
             var defaultEvents = [{
                     title: 'Meeting #3',
-                    start: new Date($.now() + 506800000),
+                    start: new Date('2023-03-01 20:00:00'),
                     className: 'bg-info'
                 }, {
                     title: 'Submission #1',
@@ -73,7 +77,7 @@
                     className: 'bg-danger'
                 }, {
                     title: 'Meetup #6',
-                    start: new Date($.now() + 848000000),
+                    start: new Date('2023-03-01 15:00:00'),
                     className: 'bg-info'
                 }, {
                     title: 'Seminar #4',
