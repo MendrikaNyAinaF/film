@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Filmset extends HasName {
-    private Integer type_id;
+    private TypeFilmset type;
 
      public Filmset() {
 

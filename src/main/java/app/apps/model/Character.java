@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class Character extends HasName {
     private String description;
-    private Integer gender;
+    private Gender gender;
     private Integer film_id;
     private Integer actor_id;
 

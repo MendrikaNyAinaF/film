@@ -14,7 +14,7 @@ import java.sql.Date;
 public class Actor extends HasName {
     private Date birthdate;
     private String contact;
-    private Integer gender;
+    private Gender gender;
 
     public Actor() {}
 

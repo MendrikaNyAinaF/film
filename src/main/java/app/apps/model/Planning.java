@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 public class Planning extends HasId {
     private Integer scene_id;
-    private Integer status;
+    private StatusPlanning status;
     private Timestamp date;
 
     public Planning() {}

@@ -17,7 +17,7 @@ public class Scene extends HasId {
     private Time time_start;
     private Time time_end;
     private Time estimated_time;
-    private Integer filmset_id;
+    private Filmset filmset;
     private Integer film_id;
 
     public Scene() {}
