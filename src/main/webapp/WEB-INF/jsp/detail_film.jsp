@@ -24,9 +24,9 @@
                               <p><span class="card-title text-primary">Personnage :</span></p>
                               <ul>
                                    <% if( request.getAttribute("film_personnage")!=null){
-                                        ArrayList<Character>liste=(ArrayList<Character>)request.getAttribute("film_personnage");
+                                        List<Character>liste=(List<Character>)request.getAttribute("film_personnage");
                                         for(Character c: liste){  %>
-                                             <li><%= c;getName()+": "+c.getActor().getName() %></li>
+                                             <li><%= c.getName()+": "+c.getActor().getName() %></li>
                                    <%    }
                                    } %>
                               </ul>
