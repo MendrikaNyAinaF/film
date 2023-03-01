@@ -24,7 +24,7 @@
                               <div class="card-deck">
                                    <% 
                                         if(request.getAttribute("liste_film")!=null){
-                                             ArrayList<Film> liste=(ArrayList<Film>)request.getAttribute("liste_film");
+                                             List<Film> liste=(List<Film>)request.getAttribute("liste_film");
                                              for(Film f:liste){  %>
                                         <div class="card">
                                              <img class="card-img-top img-fluid" src="data:image/jpeg;base64,<%= f.getVisuel() %>"
