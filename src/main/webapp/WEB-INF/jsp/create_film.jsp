@@ -4,7 +4,7 @@
      <div class="card">
                     <div class="card-body">
                          <h4 class="card-title">Ajouter un film</h4>
-                         <form action="${pageContext.request.contextPath}/author/formulaire" method="POST"
+                         <form action="${pageContext.request.contextPath}/film/create" method="POST"
                               enctype="multipart/form-data">
                               <div class="form-body">
                                    <div class="row">
@@ -18,7 +18,7 @@
                                         <div class="col-md-4">
                                              <div class="form-group">
                                                   <label for="">Equipe</label>
-                                                  <input type="number" class="form-control" placeholder="titre"
+                                                  <input type="number" class="form-control" placeholder="0"
                                                        name="team">
                                              </div>
                                         </div>
@@ -34,33 +34,16 @@
                                              <div class="form-group">
                                                   <label for="">Durée</label>
                                                   <div class="form-group">
-                                                       <input type="date" class="form-control" name="start_date">
+                                                       <input type="time" class="form-control" name="duree">
                                                   </div>
                                              </div>
                                         </div>
                                         <div class="col-md-4">
                                              <div class="form-group">
-                                                  <label for="">Début tournage</label>
+                                                  <label for="time">Début tournage</label>
                                                   <div class="form-group">
-                                                       <input type="date" class="form-control" name="start_date">
+                                                       <input type="date" class="form-control" name="tournage_debut">
                                                   </div>
-                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                             <div class="form-group">
-                                                  <label for=""></label>
-                                                  <select name="type" class="form-control" id="idOption">
-                                                       <option value="plateau1">plateau1</option>
-                                                       <option value="plateau1">plateau2</option>
-
-                                                  </select>
-                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                             <div class="form-group">
-                                                  <label for="">Temps de tournage estime</label>
-                                                  <input type="text" class="form-control" placeholder="place"
-                                                       name="place">
                                              </div>
                                         </div>
                                         <div class="col-md-12">
@@ -72,16 +55,19 @@
                                                             <div class="form-group">
                                                                  <label for="">Nom</label>
                                                                  <input type="text" class="form-control"
-                                                                      placeholder="place" name="place">
+                                                                      placeholder="place" name="personnage_nom">
                                                             </div>
                                                        </div>
                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                  <label for="">Genre</label>
-                                                                 <select name="type" class="form-control" id="idOption">
-                                                                      <option value="plateau1">male</option>
-                                                                      <option value="plateau1">female</option>
-
+                                                                 <select name="type" class="form-control" name="personnage_genre">
+                                                                      <% if(request.getAttribute("gender")!=null){
+                                                                           ArrayList<Gender>gender=(ArrayList<Genre>)request.getAttribute("gender");
+                                                                           for(Gender g:gender){ %>
+                                                                                <option value="<%= g.getId() %>"><%= g.getName() %></option>
+                                                                      <%     }
+                                                                       } %>
                                                                  </select>
                                                             </div>
                                                        </div>
@@ -96,10 +82,13 @@
                                                        <div class="col-md-6" id="dialogue_action">
                                                             <div class="form-group">
                                                                  <label for="">Acteur</label>
-                                                                 <select name="type" class="form-control" id="idOption">
-                                                                      <option value="plateau1">male</option>
-                                                                      <option value="plateau1">female</option>
-
+                                                                 <select name="type" class="form-control" name="personnage_acteur">
+                                                                      <% if(request.getAttribute("actor")!=null){
+                                                                           ArrayList<Actor>actor=(ArrayList<Actor>)request.getAttribute("actor");
+                                                                           for(Actor a:actor){ %>
+                                                                                <option value="<%= a.getId() %>"><%= a.getName() %></option>
+                                                                      <%     }
+                                                                       } %>
                                                                  </select>
                                                             </div>
                                                        </div>
@@ -107,7 +96,7 @@
                                                             <div class="form-group">
                                                                  <label for="">description</label>
                                                                  <textarea class="form-control" placeholder="..."
-                                                                      rows="3" name="description"></textarea>
+                                                                      rows="3" name="personnage_description"></textarea>
                                                             </div>
                                                        </div>
                                                        <br/>
@@ -129,9 +118,18 @@
                </div>
 <script src="${pageContext.request.contextPath}/resources/js/film_form.js"></script>
 <script type="text/javascript">
+     var tempactor=<%= request.getAttribute("liste_actor_json") %>;
+     var tempgender=<%= request.getAttribute("liste_gender_json") %>
      var liste_actor=[];
+     var liste_gender=[];
+     if(tempactor!=null){
+          liste_actor=JSON.stringify(tempactor);
+     }
+     if(tempgender!=null){
+          liste_gender=JSON.stringify(tempgender);
+     }
      function appender(){
-          ajouter(liste_actor);
+          ajouter(liste_actor, liste_gender);
      }
 </script>
 <jsp:include page="jsp/footer.jsp" />

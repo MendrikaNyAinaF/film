@@ -27,7 +27,7 @@
                                              ArrayList<Film> liste=(ArrayList<Film>)request.getAttribute("liste_film");
                                              for(Film f:liste){  %>
                                         <div class="card">
-                                             <img class="card-img-top img-fluid" src="data:image/jpeg;base64,<%= f.getVisuel() %>""
+                                             <img class="card-img-top img-fluid" src="data:image/jpeg;base64,<%= f.getVisuel() %>"
                                                   alt="Card image cap">
                                              <div class="card-body">
                                                   <h4 class="card-title"><%= f.getTitle() %></h4>
