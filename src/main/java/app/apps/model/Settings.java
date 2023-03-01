@@ -1,5 +1,6 @@
 package app.apps.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,6 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Settings extends HasName {
+
+     @Column
      private Double value;
 
      public Settings() {
@@ -20,3 +23,4 @@ public class Settings extends HasName {
           setId(id);
      }
 }
+

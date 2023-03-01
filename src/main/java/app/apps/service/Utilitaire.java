@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,10 +16,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
+
+import app.apps.model.HasId;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import app.apps.model.Actor;
+import app.apps.model.Character;
+import app.apps.model.Gender;
 
 public class Utilitaire {
      private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -97,4 +105,8 @@ public class Utilitaire {
           }
      }
 
+
+     /*     
+     */ 
+     
 }

@@ -3,7 +3,7 @@
 <jsp:include page="jsp/header.jsp" />
 
                     <a class="nav-link col-4" href="javascript:void(0)">
-                         <form method="POST" action="${pageContext.request.contextPath}/films">
+                         <form method="POST" action="${pageContext.request.contextPath}/search_film">
                               <div class="customize-input row">
                                    <input class="form-control custom-shadow border-0 bg-white col-9" type="search"
                                         placeholder="Search" aria-label="Search" style="display:flex" name="motcle" value="<%
