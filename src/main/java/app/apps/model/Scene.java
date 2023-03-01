@@ -3,7 +3,7 @@ package app.apps.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.OneTomany;
+import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
@@ -23,11 +23,12 @@ public class Scene extends HasId {
     private Time estimated_time;
 
     @ManyToOne
-    JoinColumn(name="filmset_id")
+    @JoinColumn(name = "filmset_id")
     private Filmset filmset;
     private Integer film_id;
 
-    public Scene() {}
+    public Scene() {
+    }
 
     public Scene(Integer id) {
         setId(id);
