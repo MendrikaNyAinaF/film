@@ -3,7 +3,7 @@ package app.apps.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.OneTomany;
+import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
