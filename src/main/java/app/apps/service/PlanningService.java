@@ -44,31 +44,36 @@ import app.apps.model.Settings;
 import app.apps.dao.HibernateDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+@Service
 public class PlanningService {
 
     @Autowired
     HibernateDAO hibernate;
 
-    public HibernateDAO getHibernate(){
+    public HibernateDAO getHibernate() {
         return this.hibernate;
     }
-    public void setHibernate(HibernateDAO a){
-        this.hibernate=a;
+
+    public void setHibernate(HibernateDAO a) {
+        this.hibernate = a;
     }
 
-    public void create(Planning p)throws Exception{
+    public void create(Planning p) throws Exception {
         this.hibernate.add(p);
     }
-    public Settings getWorkHour()throws Exception{
+
+    public Settings getWorkHour() throws Exception {
         Settings s = new Settings();
         s.setName("work hour");
-        return (Settings) hibernate.findOneWhere(s,false,false);
+        return (Settings) hibernate.findOneWhere(s, false, false);
     }
-    public void globalPlan(Film f)throws Exception{
+
+    public void globalPlan(Film f) throws Exception {
         SceneService ss = new SceneService();
         Calendar calendar = Calendar.getInstance();
         Settings workhour = getWorkHour();
@@ -76,30 +81,30 @@ public class PlanningService {
         int team = f.getNbr_team();
         int simult = 0;
         calendar.setTimeInMillis(f.getStart_shooting().getTime());
-        calendar.set(Calendar.HOUR_OF_DAY,8);
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
         Timestamp plan = new Timestamp(calendar.getTimeInMillis());
         List<Scene> ls = ss.findByFilm(f.getId());
         Planning p = null;
         int planned = 0;
-        while(planned!=ls.size()){
-            for(Scene s:ls){
-                if(checkIfPlanFree(f,s,plan)){
+        while (planned != ls.size()) {
+            for (Scene s : ls) {
+                if (checkIfPlanFree(f, s, plan)) {
                     p = new Planning();
                     p.setScene(s);
-                    p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
+                    p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class, 1));
                     p.setDate(plan);
                     create(p);
                     Time est = s.getEstimated_time();
                     double h = est.toLocalTime().getHour();
-                    double m = est.toLocalTime().getMinute()/60;
-                    double se = est.toLocalTime().getSecond()/3600;
-                    double temps = h+m+se;
-                    if(temps>hour){
+                    double m = est.toLocalTime().getMinute() / 60;
+                    double se = est.toLocalTime().getSecond() / 3600;
+                    double temps = h + m + se;
+                    if (temps > hour) {
                         Calendar cal = Calendar.getInstance();
                         cal.setTimeInMillis(plan.getTime());
-                        cal.add(Calendar.DAY_OF_YEAR,1);
-                        cal.set(Calendar.HOUR_OF_DAY,8);
-                        if(checkIfPlanFree(f,s,new Timestamp(cal.getTimeInMillis()))){
+                        cal.add(Calendar.DAY_OF_YEAR, 1);
+                        cal.set(Calendar.HOUR_OF_DAY, 8);
+                        if (checkIfPlanFree(f, s, new Timestamp(cal.getTimeInMillis()))) {
                             p.setDate(new Timestamp(cal.getTimeInMillis()));
                             create(p);
                         }
@@ -107,54 +112,61 @@ public class PlanningService {
                     planned++;
                 }
             }
-            calendar.add(Calendar.DAY_OF_YEAR,1);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
             plan = new Timestamp(calendar.getTimeInMillis());
         }
     }
-    public List listPlanning(Integer filmid)throws Exception{
+
+    public List listPlanning(Integer filmid) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        SQLQuery query = session.createSQLQuery("SELECT * FROM planning WHERE scene_id IN (SELECT id FROM scene WHERE film_id = "+filmid+")");
-        ArrayList<Planning> rep = new ArrayList(); 
+        SQLQuery query = session.createSQLQuery(
+                "SELECT * FROM planning WHERE scene_id IN (SELECT id FROM scene WHERE film_id = " + filmid + ")");
+        ArrayList<Planning> rep = new ArrayList();
         List<Object[]> lp = query.list();
         Planning p = null;
-        for(Object[] row: lp){
+        for (Object[] row : lp) {
             p = new Planning();
             p.setId(Integer.parseInt(row[0].toString()));
-            p.setScene(hibernate.findById(Scene.class,Integer.parseInt(row[1].toString())));
-            p.setStatus(hibernate.findById(StatusPlanning.class,Integer.parseInt(row[2].toString())));
+            p.setScene(hibernate.findById(Scene.class, Integer.parseInt(row[1].toString())));
+            p.setStatus(hibernate.findById(StatusPlanning.class, Integer.parseInt(row[2].toString())));
             p.setDate((Timestamp) row[3]);
             rep.add(p);
         }
         session.close();
         return rep;
     }
-    public String listToJson(List l){
+
+    public String listToJson(List l) {
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(l);
         return json;
     }
-    public void changeStatus(Integer idPlanning,Integer status)throws Exception{
-        Planning p = (Planning) this.hibernate.findById(Planning.class,idPlanning);
-        p.setStatus(hibernate.findById(StatusPlanning.class,status));
+
+    public void changeStatus(Integer idPlanning, Integer status) throws Exception {
+        Planning p = (Planning) this.hibernate.findById(Planning.class, idPlanning);
+        p.setStatus(hibernate.findById(StatusPlanning.class, status));
         hibernate.update(p);
     }
-    public void changeStatus(Planning p,Integer status)throws Exception{
-        p.setStatus(hibernate.findById(StatusPlanning.class,status));
+
+    public void changeStatus(Planning p, Integer status) throws Exception {
+        p.setStatus(hibernate.findById(StatusPlanning.class, status));
         hibernate.update(p);
     }
-    public void changeStatus(Scene s,Integer status)throws Exception{
+
+    public void changeStatus(Scene s, Integer status) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<Planning> lp = session.createCriteria(Planning.class)
-            .add(Restrictions.and(Restrictions.eq("scene_id",s.getId())))
-            .list();
+                .add(Restrictions.and(Restrictions.eq("scene_id", s.getId())))
+                .list();
         session.close();
-        for(Planning p : lp){
-            changeStatus(p,status);
+        for (Planning p : lp) {
+            changeStatus(p, status);
         }
     }
-    public boolean checkIfPlanFree(Film f,Scene toAdd,Timestamp t)throws Exception{
+
+    public boolean checkIfPlanFree(Film f, Scene toAdd, Timestamp t) throws Exception {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(t.getTime());
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -164,29 +176,30 @@ public class PlanningService {
 
         Timestamp before = new Timestamp(calendar.getTimeInMillis());
 
-        calendar.add(Calendar.DAY_OF_YEAR,1);
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
 
         Timestamp after = new Timestamp(calendar.getTimeInMillis());
 
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<Planning> ls = session.createCriteria(Planning.class)
-            .add(Restrictions.and(
-                Restrictions.ge("date",before),
-                Restrictions.lt("date",after),
-                Restrictions.sqlRestriction("scene_id IN (SELECT id FROM scene WHERE film_id = "+f.getId()+")")
-            ))
-            .list();
+                .add(Restrictions.and(
+                        Restrictions.ge("date", before),
+                        Restrictions.lt("date", after),
+                        Restrictions.sqlRestriction(
+                                "scene_id IN (SELECT id FROM scene WHERE film_id = " + f.getId() + ")")))
+                .list();
         session.close();
-        if(ls.size()<=0){
+        if (ls.size() <= 0) {
             return true;
         }
-        if(ls.size()>=f.getNbr_team()){
+        if (ls.size() >= f.getNbr_team()) {
             return false;
         }
         SceneService ss = new SceneService();
-        for(Planning p: ls){
-            if(!(ss.needSameActor(toAdd,p.getScene())) && toAdd.getFilmset().getId()==p.getScene().getFilmset().getId()){
+        for (Planning p : ls) {
+            if (!(ss.needSameActor(toAdd, p.getScene()))
+                    && toAdd.getFilmset().getId() == p.getScene().getFilmset().getId()) {
                 return true;
             }
         }

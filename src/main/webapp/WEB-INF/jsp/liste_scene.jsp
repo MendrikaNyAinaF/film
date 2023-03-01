@@ -2,7 +2,8 @@
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
 <jsp:include page="jsp/header.jsp" />
 <%
-     if(film!=null){ %>
+     if(request.getSession().getAttribute("current_film")!=null){
+          Film film=(Film)request.getSession().getAttribute("current_film"); %>
           <a class="nav-link col-12" href="javascript:void(0)">
                          <form action="${pageContext.request.contextPath}/films/<%= film.getId() %>/scenes" method="post">
                               <div class="customize-input row">

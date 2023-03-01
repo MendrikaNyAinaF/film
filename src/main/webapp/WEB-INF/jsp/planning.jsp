@@ -2,7 +2,8 @@
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
 <jsp:include page="jsp/header.jsp" />
 <%
-    if(film!=null){ %>
+    if(request.getSession().getAttribute("current_film")!=null){
+          Film film=(Film)request.getSession().getAttribute("current_film");%>
     <div class="row">
                     <div class="col-md-12">
                         <div class="card">

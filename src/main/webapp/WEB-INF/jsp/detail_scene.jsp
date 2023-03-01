@@ -2,7 +2,8 @@
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
 <jsp:include page="jsp/header.jsp" />
 <% 
-     if(film!=null){ %>
+     if(request.getSession().getAttribute("current_film")!=null){
+          Film film=(Film)request.getSession().getAttribute("current_film");%>
           <h1>Film, <%= film.getTitle() %></h1>
                <div class="row">
                     <% if(request.getAttribute("scene")!=null){
@@ -20,7 +21,7 @@
                               <p><%= s.getTime_start() %>-<%= s.getTime_end() %></p>
 
                               <h4 class="card-title">Temp estime tournage</h4>
-                              <p><%= s.getEstimed_time() %></p>
+                              <p><%= s.getEstimated_time() %></p>
 
                               <h4 class="card-title">Plateau</h4>
                               <p><%= s.getFilmset().getName() %></p>

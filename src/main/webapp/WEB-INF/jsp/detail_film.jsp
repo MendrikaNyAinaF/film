@@ -3,8 +3,8 @@
 <jsp:include page="jsp/header.jsp" />
 <div class="row">
 <% 
-     if(request.getAttribute("film")!=null){
-          Film f=(Film)request.getAttribute("film");%>
+     if(request.getAttribute("film_detail")!=null){
+          Film f=(Film)request.getAttribute("film_detail");%>
 
                     <div class="card col-6">
                          <h1 class="text-primary"><%= f.getTitle() %></h1>
@@ -23,8 +23,8 @@
                               </p>
                               <p><span class="card-title text-primary">Personnage :</span></p>
                               <ul>
-                                   <% if( request.getAttribute("film_personnage")!=null){
-                                        List<Character>liste=(List<Character>)request.getAttribute("film_personnage");
+                                   <% if( request.getAttribute("character_list")!=null){
+                                        List<Character>liste=(List<Character>)request.getAttribute("character_list");
                                         for(Character c: liste){  %>
                                              <li><%= c.getName()+": "+c.getActor().getName() %></li>
                                    <%    }
