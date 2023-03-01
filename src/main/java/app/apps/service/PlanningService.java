@@ -45,6 +45,9 @@ import app.apps.dao.HibernateDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class PlanningService {
 
     @Autowired
@@ -126,6 +129,11 @@ public class PlanningService {
         session.close();
         return rep;
     }
+    public String listToJson(List l){
+        Gson gson = new GsonBuilder().create();
+        String json = gson.toJson(l);
+        return json;
+    }
     public void changeStatus(Integer idPlanning,Integer status)throws Exception{
         Planning p = (Planning) this.hibernate.findById(Planning.class,idPlanning);
         p.setStatus(hibernate.findById(StatusPlanning.class,status));
@@ -134,6 +142,17 @@ public class PlanningService {
     public void changeStatus(Planning p,Integer status)throws Exception{
         p.setStatus(hibernate.findById(StatusPlanning.class,status));
         hibernate.update(p);
+    }
+    public void changeStatus(Scene s,Integer status)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Planning> lp = session.createCriteria(Planning.class)
+            .add(Restrictions.and(Restrictions.eq("scene_id",s.getId())))
+            .list();
+        session.close();
+        for(Planning p : lp){
+            changeStatus(p,status);
+        }
     }
     public boolean checkIfPlanFree(Film f,Scene toAdd,Timestamp t)throws Exception{
         Calendar calendar = Calendar.getInstance();

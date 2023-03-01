@@ -41,6 +41,8 @@ import app.apps.model.StatusPlanning;
 import app.apps.model.Film;
 import app.apps.model.Gender;
 import app.apps.model.Actor;
+import app.apps.model.Dialogue;
+import app.apps.model.StatusPlanning;
 import app.apps.dao.HibernateDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class SceneService {
         this.hibernate=a;
     }
 
-    public List listScenes(Integer idfilm,String recherche, int page){
+    public List<Scene> listScenes(Integer idfilm,String recherche, int page){
         if(recherche==null) recherche="";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -146,6 +148,23 @@ public class SceneService {
         }
         session.close();
         return rep;
+    }
+    public List<Dialogue> getDialogues(Scene s)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<Dialogue> ls = session.createCriteria(Dialogue.class)
+            .add(Restrictions.and(Restrictions.eq("scene_id",s.getId())))
+            .list();
+        session.close();
+        return ls;
+    }
+
+    public List<StatusPlanning> getStatusPlanning()throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        List<StatusPlanning> ls = session.createCriteria(StatusPlanning.class).list();
+        session.close();
+        return ls;
     }
     public boolean needSameActor(Scene a,Scene b)throws Exception{
         List<Actor> la = getActor(a);
