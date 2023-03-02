@@ -42,4 +42,15 @@ public class FilmService {
     public Film getFilmById(Integer idFilm) throws Exception {
         return hibernateDAO.getById(new Film(),idFilm);
     }
+
+    public Integer maxFilm() throws Exception {
+        Integer rep=0;
+        Film f=new Film();
+        List<Film> fi= hibernateDAO.findWhere(f,0,1,"id",false,false,false);
+        rep=fi.get(0).getId();
+        return rep;
+
+    }
+ 
+    
 }
