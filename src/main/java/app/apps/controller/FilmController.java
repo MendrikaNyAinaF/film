@@ -70,20 +70,37 @@ public class FilmController {
         return getAllFilm(0, request);
     }
 
-    @GetMapping(value = "/film/{id}/scenes/{page}")
-    public String getSceneByFilmId(@PathVariable("id") Integer filmId, @PathVariable("page") Integer page, Model m,
-            HttpServletRequest request) {
-        Integer limit = 6;
-        Integer offset = page * limit;
+    @GetMapping(value="/film/{id}/scenes/{page}")
+    public String getSceneByFilmId(@PathVariable("id") Integer filmId,@PathVariable("page") Integer page,HttpServletRequest request){
+        Integer limit=6;
+        Integer offset=page*limit;
+        List<Scene> listScene=new ArrayList<>();
+        if(request.getSession().getAttribute("scene_motcle")!=null){
+            System.out.println("heyheyhey");
+            listScene= sceneService.listScenes(filmId,(String) request.getSession().getAttribute("scene_motcle"),0);
+        }
+        else{
+            listScene=sceneService.listScenes(filmId,"",1);
+        }
 
-        return "";
+        List<Scene> allF=sceneService.getAllScene();
+        int nbPage= allF.size();
+        nbPage= (int) Math.ceil((double)nbPage/limit);
+        Boolean endpage=false;
+        if(nbPage==page){
+            endpage=true;
+        }
+        request.setAttribute("liste_scene",listScene);
+        request.setAttribute("endPage",endpage);
+        request.setAttribute("page",page);
+
+        return "liste_scene";
     }
-
     @PostMapping(value = "/search_scene")
-    public String searchScene(HttpServletRequest request, Model m) throws Exception {
-        request.getSession().setAttribute("search_scene", request.getParameter(""));
-        Film f = (Film) request.getSession().getAttribute("film_id");
-        return getSceneByFilmId(f.getId(), 1, m, request);
+    public String searchScene(HttpServletRequest request) throws Exception {
+        request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
+        Film f=(Film)request.getSession().getAttribute("film_id");
+        return  getSceneByFilmId(f.getId(),0,request);
 
     }
 

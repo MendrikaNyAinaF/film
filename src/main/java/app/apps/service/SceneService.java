@@ -180,4 +180,7 @@ public class SceneService {
         }
         return false;
     }
+    public List<Scene> getAllScene(){
+        return  hibernate.getAll1(new Scene());
+    }
 }
