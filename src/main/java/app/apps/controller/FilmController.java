@@ -108,7 +108,7 @@ public class FilmController {
     @PostMapping(value = "/search_scene")
     public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors") Integer[] actors,HttpServletRequest request) throws Exception {
         request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
-        if(status!=0) request.getSession().setAttribute("scene_status",status);
+        request.getSession().setAttribute("scene_status",status);
         if(actors.length>0) request.getSession().setAttribute("scene_actors",actors);
         Film f=(Film)request.getSession().getAttribute("current_film");
         return  getSceneByFilmId(f.getId(),0,request);

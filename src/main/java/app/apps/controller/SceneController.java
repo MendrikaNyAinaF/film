@@ -60,7 +60,7 @@ public class SceneController {
     }
 
     @GetMapping(value = "/film/{idf}/scene/{ids}")
-    public String detailsScene(@PathVariable(name = "ids") Integer idscene, Model model) throws Exception {
+    public String detailsScene(@PathVariable(name = "ids") Integer idscene,  HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
         Scene s = null;
@@ -68,9 +68,9 @@ public class SceneController {
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
             s = ss.getById(idscene);
-            model.addAttribute("scene", s);
-            model.addAttribute("dialogue", ss.getDialogues(s));
-            model.addAttribute("status_planning", ss.getStatusPlanning());
+            request.setAttribute("scene", s);
+            request.setAttribute("dialogue", ss.getDialogues(s));
+            request.setAttribute("status_planning", ss.getStatusPlanning());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -80,7 +80,7 @@ public class SceneController {
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/planifier")
     public String plannifier(@PathVariable(name = "ids") Integer idscene, @RequestParam(name = "plan") String plan,
-            Model model) throws Exception {
+             HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
         Scene s = null;
@@ -97,12 +97,12 @@ public class SceneController {
             ex.printStackTrace();
             throw ex;
         }
-        return detailsScene(idscene, model);
+        return detailsScene(idscene, request);
     }
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/status")
     public String changeStatus(@PathVariable(name = "ids") Integer idscene,
-            @RequestParam(name = "status") Integer status, Model model) throws Exception {
+            @RequestParam(name = "status") Integer status,  HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
 
@@ -116,17 +116,17 @@ public class SceneController {
             ex.printStackTrace();
             throw ex;
         }
-        return detailsScene(idscene, model);
+        return detailsScene(idscene, request);
     }
 
     @GetMapping(value = "/film/{id}/planifier")
-    public String to_planning(Model model) throws Exception {
+    public String to_planning( HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
         try {
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
-            model.addAttribute("liste_planning", ps.listToJson(ps.listPlanning(current.getId())));
+            request.setAttribute("liste_planning", ps.listToJson(ps.listPlanning(current.getId())));
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -135,7 +135,7 @@ public class SceneController {
     }
 
     @PostMapping(value = "/film/{id}/planifier")
-    public String planning(Model model) throws Exception {
+    public String planning( HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
         try {
@@ -146,26 +146,26 @@ public class SceneController {
             ex.printStackTrace();
             throw ex;
         }
-        return to_planning(model);
+        return to_planning(request);
     }
 
     @GetMapping(value = "/film/{id}/scene/create")
-    public String to_create(Model model) {
+    public String to_create( HttpServletRequest request) {
         HttpSession session = null;
         Film current = null;
         session = SceneController.session();
         current = (Film) session.getAttribute("current_film");
         List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
-        model.addAttribute("plateau", fss.getAllFilmSet());
-        model.addAttribute("liste_chara", lc);
-        model.addAttribute("liste_character_json", ps.listToJson(lc));
+        request.setAttribute("plateau", fss.getAllFilmSet());
+        request.setAttribute("liste_chara", lc);
+        request.setAttribute("liste_character_json", ps.listToJson(lc));
         return "create_scene";
     }
 
     //titre,description,time_start,time_end,filmset,estimed_time
     //dialogue_personnage[],dialogue_texte[],dialogue_action[]
     @PostMapping(value = "/film/{id}/scene/create")
-    public String create(String titre,String description,String time_start,String time_end,Integer filmset,String estimed_time,Integer[] d_perso,String[] d_dialogue,String[] d_action,Model model)throws Exception {
+    public String create(String titre,String description,String time_start,String time_end,Integer filmset,String estimed_time,Integer[] d_perso,String[] d_dialogue,String[] d_action, HttpServletRequest request)throws Exception {
         Scene s = null;
         Dialogue d = null;
         try {
@@ -189,6 +189,6 @@ public class SceneController {
             ex.printStackTrace();
             throw ex;
         }
-        return to_create(model);
+        return to_create(request);
     }
 }

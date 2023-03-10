@@ -68,22 +68,33 @@ public class SceneService {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class)
-            .add(Restrictions.like("title","%"+recherche+"%"))
-            .add(Restrictions.like("global_action","%"+recherche+"%"))
-            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)));
-        if(status!=null){
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id in select scene_id from planning where status="+status.toString())));
+            .add(Restrictions.or(
+                Restrictions.and(
+                    Restrictions.eq("film_id",idfilm),
+                    Restrictions.like("title","%"+recherche+"%")
+                ),
+                Restrictions.like("global_action","%"+recherche+"%")
+            ));
+        if(status!=null && status!=0){
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status="+status.toString()+")")));
         }
         if(idactors.length>0){
             String in="(";
+            boolean all = false;
             for(int i=0;i<idactors.length;i++){
-                in=in+idactors[i].toString();
-                if(i<idactors.length-1){
-                    in=in+",";
+                if(idactors[i]>=0){
+                    in=in+idactors[i].toString();
+                    if(i<idactors.length-1){
+                        in=in+",";
+                    }
+                }
+                else{
+                    all = true;
+                    break;
                 }
             }
             in=in+")";
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
+            if(!all) cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
         }
         cr.setFirstResult((page)*pagination).setMaxResults(pagination);
         List<Scene> ls = cr.list();
