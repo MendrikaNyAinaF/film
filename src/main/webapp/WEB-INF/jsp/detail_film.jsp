@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
-<jsp:include page="jsp/header.jsp" />
+<jsp:include page="header.jsp" />
 <div class="row">
 <% 
      if(request.getAttribute("film_detail")!=null){
@@ -39,4 +39,4 @@
      </div>
 <% }
 %>
-<jsp:include page="jsp/footer.jsp" />
+<jsp:include page="footer.jsp" />

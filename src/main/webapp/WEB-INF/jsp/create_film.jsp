@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire, app.apps.model.Character" %>
-<jsp:include page="jsp/header.jsp" />
+<jsp:include page="header.jsp" />
      <div class="card">
                     <div class="card-body">
                          <h4 class="card-title">Ajouter un film</h4>
@@ -132,4 +132,4 @@
           ajouter(liste_actor, liste_gender);
      }
 </script>
-<jsp:include page="jsp/footer.jsp" />
+<jsp:include page="footer.jsp" />

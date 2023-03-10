@@ -72,7 +72,7 @@ public class SceneService {
             .add(Restrictions.like("global_action","%"+recherche+"%"))
             .add(Restrictions.and(Restrictions.eq("film_id",idfilm)));
         if(status!=null){
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("id in select scene_id from planning where status="+status.toString())));
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id in select scene_id from planning where status="+status.toString())));
         }
         if(idactors.length>0){
             String in="(";
@@ -83,9 +83,9 @@ public class SceneService {
                 }
             }
             in=in+")";
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
         }
-        cr.setFirstResult((page-1)*pagination).setMaxResults(pagination);
+        cr.setFirstResult((page)*pagination).setMaxResults(pagination);
         List<Scene> ls = cr.list();
         session.close();
         return ls;

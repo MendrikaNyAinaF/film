@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character,app.apps.model.StatusPlanning" %>
-<jsp:include page="jsp/header.jsp" />
+<jsp:include page="header.jsp" />
 <% 
      if(request.getSession().getAttribute("current_film")!=null){
           Film film=(Film)request.getSession().getAttribute("current_film");%>
@@ -77,7 +77,7 @@
                                                   <div class="form-group">
                                                        <select name="status" class="form-control">
                                                             <% if(request.getAttribute("status_planning")!=null){  %>
-                                                                 List<StatusPlanning> status=(List<StatusPlanning>)request.getAttribute("status_planning");
+                                                                 List<StatusPlanning> status=(List<StatusPlanning>) request.getAttribute("status_planning");
                                                                  for(StatusPlanning st : status){  %>
                                                                       <option value=<%= st.getId() %>><%= st.getName() %></option>
                                                             <%    }
@@ -105,4 +105,4 @@
 <% }
 %>
      
-<jsp:include page="jsp/footer.jsp" />
+<jsp:include page="footer.jsp" />

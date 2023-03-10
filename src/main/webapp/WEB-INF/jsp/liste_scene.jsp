@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-        <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
-<jsp:include page="jsp/header.jsp" />
+        <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character,app.apps.model.Actor" %>
+<jsp:include page="header.jsp" />
 <%
      if(request.getSession().getAttribute("current_film")!=null){
           Film film=(Film)request.getSession().getAttribute("current_film"); %>
           <a class="nav-link col-12" href="javascript:void(0)">
-                         <form action="${pageContext.request.contextPath}/films/<%= film.getId() %>/scenes" method="post">
+                         <form action="${pageContext.request.contextPath}/search_scene" method="post">
                               <div class="customize-input row">
                                    <input class="form-control custom-shadow border-0 bg-white col-5" type="search"
                                         placeholder="Search" aria-label="Search" style="display:flex" name="motcle"
@@ -15,11 +15,11 @@
                                              }
                                         %>">
                                    <select class="form-control custom-shadow border-0 bg-white col-3" name="status">
-                                        <option value="">Tout</option>
+                                        <option value=0>Tout</option>
                                         <% if(request.getAttribute("status")!=null){
                                              List<StatusPlanning>liste_status=(List<StatusPlanning>)request.getAttribute("status");
                                              for(StatusPlanning s: liste_status){ %>
-                                                  <option value=<%= s.getId() %>>s.getName()</option>
+                                                  <option value=<%= s.getId() %>><%= s.getName() %></option>
                                         <%     }
                                         } %>
                                    </select>
@@ -27,8 +27,8 @@
                                         <select class="js-example-basic-multiple form-control custom-shadow border-0 bg-white" multiple="multiple" style="width:100%"
                                              placeholder="acteur" name="actors">
                                              <% if(request.getAttribute("character")!=null){
-                                                  List<Character> liste_chara=(List<Character>)request.getAttribute("liste_chara");
-                                                  for(Character c: liste_chara){ %>
+                                                  List<Actor> liste_chara=(List<Actor>)request.getAttribute("character");
+                                                  for(Actor c: liste_chara){ %>
                                                        <option value=<%= c.getId() %>><%= c.getName() %></option>
                                              <%     }
                                              } %>
@@ -78,7 +78,7 @@
                                    %>" tabindex="-1">Previous</a>
                               </li>
                               <li class="page-item">
-                                   <a class="page-link" href="${pageContext.request.contextPath}/films/<%
+                                   <a class="page-link" href="${pageContext.request.contextPath}/film/<%
                                         out.print(film.getId());
                                         if( (boolean)request.getAttribute("endPage") ){
                                              out.print("/scenes/"+((Integer)request.getAttribute("page")));
@@ -96,4 +96,4 @@
 <% }
 %>
      
-<jsp:include page="jsp/footer.jsp" />
+<jsp:include page="footer.jsp" />

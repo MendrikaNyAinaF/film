@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
-<jsp:include page="jsp/header.jsp" />
+<jsp:include page="header.jsp" />
 
                                         <a class="nav-link col-4" href="javascript:void(0)">
                          <form method="POST" action="${pageContext.request.contextPath}/search_film">
@@ -79,4 +79,4 @@
                               </li>
                          </ul>
                     </div>
-<jsp:include page="jsp/footer.jsp" />
+<jsp:include page="footer.jsp" />

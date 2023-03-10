@@ -41,6 +41,9 @@ public class FilmController {
     PlanningService planningService;
 
     @Autowired
+    StatusPlanningService statusplanningService;
+
+    @Autowired
     SceneService sceneService;
 
     @GetMapping(value = "/films/{page}")
@@ -81,7 +84,7 @@ public class FilmController {
         List<Scene> listScene=new ArrayList<>();
         String mc = "";
         Integer status = null;
-        Integer[] actors = null;
+        Integer[] actors = new Integer[0];
         if(request.getSession().getAttribute("scene_motcle")!=null) mc =(String) request.getSession().getAttribute("scene_motcle");
         if(request.getSession().getAttribute("scene_status")!=null) status =(Integer) request.getSession().getAttribute("scene_status");
         if(request.getSession().getAttribute("scene_actors")!=null) actors =(Integer[]) request.getSession().getAttribute("scene_actors");
@@ -94,6 +97,8 @@ public class FilmController {
         if(nbPage==page){
             endpage=true;
         }
+        request.setAttribute("status",statusplanningService.getAllStatusPlanning());
+        request.setAttribute("character",actorService.getAllActor());
         request.setAttribute("liste_scene",listScene);
         request.setAttribute("endPage",endpage);
         request.setAttribute("page",page);
@@ -103,9 +108,9 @@ public class FilmController {
     @PostMapping(value = "/search_scene")
     public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors") Integer[] actors,HttpServletRequest request) throws Exception {
         request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
-        if(status!=null) request.getSession().setAttribute("scene_status",status);
+        if(status!=0) request.getSession().setAttribute("scene_status",status);
         if(actors.length>0) request.getSession().setAttribute("scene_actors",actors);
-        Film f=(Film)request.getSession().getAttribute("film_id");
+        Film f=(Film)request.getSession().getAttribute("current_film");
         return  getSceneByFilmId(f.getId(),0,request);
     }
 
