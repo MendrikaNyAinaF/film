@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,6 +39,9 @@ public class FilmController {
 
     @Autowired
     PlanningService planningService;
+
+    @Autowired
+    SceneService sceneService;
 
     @GetMapping(value = "/films/{page}")
     public String getAllFilm(@PathVariable("page") Integer page, HttpServletRequest request) throws Exception {
@@ -75,14 +79,14 @@ public class FilmController {
         Integer limit=6;
         Integer offset=page*limit;
         List<Scene> listScene=new ArrayList<>();
-        if(request.getSession().getAttribute("scene_motcle")!=null){
-            System.out.println("heyheyhey");
-            listScene= sceneService.listScenes(filmId,(String) request.getSession().getAttribute("scene_motcle"),0);
-        }
-        else{
-            listScene=sceneService.listScenes(filmId,"",1);
-        }
-
+        String mc = "";
+        Integer status = null;
+        Integer[] actors = null;
+        if(request.getSession().getAttribute("scene_motcle")!=null) mc =(String) request.getSession().getAttribute("scene_motcle");
+        if(request.getSession().getAttribute("scene_status")!=null) status =(Integer) request.getSession().getAttribute("scene_status");
+        if(request.getSession().getAttribute("scene_actors")!=null) actors =(Integer[]) request.getSession().getAttribute("scene_actors");
+        //System.out.println("heyheyhey");
+        listScene= sceneService.listScenes(filmId,mc,status,actors,0);
         List<Scene> allF=sceneService.getAllScene();
         int nbPage= allF.size();
         nbPage= (int) Math.ceil((double)nbPage/limit);
@@ -97,11 +101,12 @@ public class FilmController {
         return "liste_scene";
     }
     @PostMapping(value = "/search_scene")
-    public String searchScene(HttpServletRequest request) throws Exception {
+    public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors") Integer[] actors,HttpServletRequest request) throws Exception {
         request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
+        if(status!=null) request.getSession().setAttribute("scene_status",status);
+        if(actors.length>0) request.getSession().setAttribute("scene_actors",actors);
         Film f=(Film)request.getSession().getAttribute("film_id");
         return  getSceneByFilmId(f.getId(),0,request);
-
     }
 
     @GetMapping(value = "film/{id}/planning")
