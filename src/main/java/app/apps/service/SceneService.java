@@ -63,17 +63,30 @@ public class SceneService {
         this.hibernate=a;
     }
 
-    public List<Scene> listScenes(Integer idfilm,String recherche, int page){
+    public List<Scene> listScenes(Integer idfilm,String recherche,Integer status,Integer[] idactors, int page){
         if(recherche==null) recherche="";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        List<Scene> ls = session.createCriteria(Scene.class)
+        Criteria cr = session.createCriteria(Scene.class)
             .add(Restrictions.like("title","%"+recherche+"%"))
             .add(Restrictions.like("global_action","%"+recherche+"%"))
-            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)))
-            .setFirstResult((page-1)*pagination)
-            .setMaxResults(pagination)
-            .list();
+            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)));
+        if(status!=null){
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("id in select scene_id from planning where status="+status.toString())));
+        }
+        if(idactors.length>0){
+            String in="(";
+            for(int i=0;i<idactors.length;i++){
+                in=in+idactors[i].toString();
+                if(i<idactors.length-1){
+                    in=in+",";
+                }
+            }
+            in=in+")";
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
+        }
+        cr.setFirstResult((page-1)*pagination).setMaxResults(pagination);
+        List<Scene> ls = cr.list();
         session.close();
         return ls;
     }
@@ -105,8 +118,16 @@ public class SceneService {
         }
         ps.create(p);
     }
-    public void create(Scene s)throws Exception{
+    public Scene create(Scene s)throws Exception{
         this.hibernate.add(s);
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Scene last = (Scene) session.createCriteria(Scene.class)
+            .addOrder(Order.desc("id"))
+            .setMaxResults(1)
+            .uniqueResult();
+        session.close();
+        return last;
     }
     public List<Scene> findByFilm(Integer idfilm){
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();

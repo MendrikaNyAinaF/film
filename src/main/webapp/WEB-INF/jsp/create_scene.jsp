@@ -33,13 +33,13 @@
                                                   <div class="row">
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" class="form-control"
+                                                                 <input type="time" step="1" class="form-control"
                                                                       name="time_start">
                                                             </div>
                                                        </div>
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" class="form-control"
+                                                                 <input type="time" step="1" class="form-control"
                                                                       name="time_end">
                                                             </div>
                                                        </div>
