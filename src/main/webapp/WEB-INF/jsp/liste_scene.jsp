@@ -19,7 +19,7 @@
                                         <% if(request.getAttribute("status")!=null){
                                              List<StatusPlanning>liste_status=(List<StatusPlanning>)request.getAttribute("status");
                                              for(StatusPlanning s: liste_status){ %>
-                                                  <option value="<%= s.getId() %>">s.getName()</option>
+                                                  <option value=<%= s.getId() %>>s.getName()</option>
                                         <%     }
                                         } %>
                                    </select>
@@ -29,7 +29,7 @@
                                              <% if(request.getAttribute("character")!=null){
                                                   List<Character> liste_chara=(List<Character>)request.getAttribute("liste_chara");
                                                   for(Character c: liste_chara){ %>
-                                                       <option value="<%= c.getId() %>"><%= c.getName() %></option>
+                                                       <option value=<%= c.getId() %>><%= c.getName() %></option>
                                              <%     }
                                              } %>
                                         </select>
