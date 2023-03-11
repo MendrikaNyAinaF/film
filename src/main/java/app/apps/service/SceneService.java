@@ -69,10 +69,7 @@ public class SceneService {
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class)
             .add(Restrictions.or(
-                Restrictions.and(
-                    Restrictions.eq("film_id",idfilm),
-                    Restrictions.like("title","%"+recherche+"%")
-                ),
+                Restrictions.like("title","%"+recherche+"%"),
                 Restrictions.like("global_action","%"+recherche+"%")
             ));
         if(status!=null && status!=0){
@@ -96,6 +93,7 @@ public class SceneService {
             in=in+")";
             if(!all) cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
         }
+        cr.add(Restrictions.and(Restrictions.eq("film_id",idfilm)));
         cr.setFirstResult((page)*pagination).setMaxResults(pagination);
         List<Scene> ls = cr.list();
         session.close();
