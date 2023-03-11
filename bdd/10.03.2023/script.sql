@@ -70,7 +70,7 @@ CREATE TABLE "character" (
 	film_id integer NOT NULL,
 	actor_id integer NOT NULL,
 	CONSTRAINT pk_p_id PRIMARY KEY (id),
-	CONSTRAINT idx_p UNIQUE (name ASC),
+	CONSTRAINT idx_p UNIQUE (name),
 	CONSTRAINT fk_character_actor FOREIGN KEY (actor_id) REFERENCES actor(id),
 	CONSTRAINT fk_character_film FOREIGN KEY (film_id) REFERENCES film(id),
 	CONSTRAINT fk_character_gender FOREIGN KEY (gender) REFERENCES gender(id)

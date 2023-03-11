@@ -3,8 +3,8 @@
 <jsp:include page="header.jsp" />
 <% 
      if(request.getSession().getAttribute("current_film")!=null){
-          Film film=(Film)request.getSession().getAttribute("current_film");%>
-   %>
+          Film film=(Film)request.getSession().getAttribute("current_film");
+%>
     <div class="card">
           <div class="card-body">
                          <h4 class="card-title">Ajouter une scène</h4>
@@ -15,15 +15,13 @@
                                         <div class="col-md-12">
                                              <div class="form-group">
                                                   <label for="">Titre</label>
-                                                  <input type="text" class="form-control" placeholder="titre"
-                                                       name="titre">
+                                                  <input type="text" class="form-control" placeholder="titre" name="titre">
                                              </div>
                                         </div>
                                         <div class="col-md-12">
                                              <div class="form-group">
                                                   <label for="">Action et Description</label>
-                                                  <textarea class="form-control" placeholder="..." rows="3"
-                                                       name="description"></textarea>
+                                                  <textarea class="form-control" placeholder="..." rows="3" name="description"></textarea>
                                              </div>
                                         </div>
 
@@ -33,13 +31,13 @@
                                                   <div class="row">
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" step="1" class="form-control"
+                                                                 <input type="time" value="00:00:00" step="1" class="form-control"
                                                                       name="time_start">
                                                             </div>
                                                        </div>
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" step="1" class="form-control"
+                                                                 <input type="time" value="00:00:00" step="1" class="form-control"
                                                                       name="time_end">
                                                             </div>
                                                        </div>
@@ -51,9 +49,9 @@
                                                   <label for="">Plateau</label>
                                                   <select name="type" class="form-control" name="filmset">
                                                        <% if(request.getAttribute("plateau")!=null){
-                                                            ArrayList<Filmset>filmset=(ArrayList<Filmset>)request.getAttribute("plateau");
+                                                            List<Filmset>filmset=(List<Filmset>)request.getAttribute("plateau");
                                                             for(Filmset f: filmset){ %>
-                                                                 <option value="<% f.getId() %>">f.getName()</option>
+                                                                 <option value=<%= f.getId() %>><%= f.getName() %></option>
                                                        <%     }
                                                        } %>
 
@@ -63,7 +61,7 @@
                                         <div class="col-md-6">
                                              <div class="form-group">
                                                   <label for="">Temps de tournage estime</label>
-                                                  <input type="time" class="form-control" 
+                                                  <input type="time" value="00:00:00" step="1" class="form-control" 
                                                        name="estimed_time">
                                              </div>
                                         </div>
@@ -78,7 +76,7 @@
                                                                  <select name="dialogue_personnage" class="form-control col-md-2" >
                                                                       <%
                                                                            if(request.getAttribute("liste_chara")!=null){
-                                                                                ArrayList<Character>liste_chara=(ArrayList<Character>)request.getAttribute("liste_chara");
+                                                                                List<Character>liste_chara=(List<Character>)request.getAttribute("liste_chara");
                                                                                 for(Character c: liste_chara){ %>
                                                                                 <option value="<%= c.getId() %>"><%= c.getName() %></option>
                                                                       <%          }
@@ -127,10 +125,10 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/scene_form.js"></script>
 <script type="text/javascript">
-     var tempchara=<%= request.getAttribute("liste_character_json") %>;
+     var tempchara=<%= request.getAttribute("liste_character_json").toString() %>;
      var liste_chara=[];
      if(tempchara!=null){
-          liste_chara=JSON.stringify(chara);
+          liste_chara=JSON.stringify(tempchara);
      }
      function appender(){
           ajouter(liste_chara);

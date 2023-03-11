@@ -49,7 +49,7 @@
                     <div class="card col-12">
                          <div class="card-body">
                               <h3 class="text-primary">Planifier</h3>
-                              <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>scene/<%= s.getId() %>/planifier" method="POST">
+                              <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/planifier" method="POST">
                                    <div class="form-body">
                                         <div class="row">
                                              <div class="col-md-4">
@@ -70,7 +70,7 @@
                               </form>
                               <br/>
                               <h3 class="text-primary">Changer status</h3>
-                              <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>scene/<%= s.getId() %>/status" method="POST">
+                              <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/status" method="POST">
                                    <div class="form-body">
                                         <div class="row">
                                              <div class="col-md-4">

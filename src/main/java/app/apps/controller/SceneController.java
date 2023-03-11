@@ -165,7 +165,7 @@ public class SceneController {
     //titre,description,time_start,time_end,filmset,estimed_time
     //dialogue_personnage[],dialogue_texte[],dialogue_action[]
     @PostMapping(value = "/film/{id}/scene/create")
-    public String create(String titre,String description,String time_start,String time_end,Integer filmset,String estimed_time,Integer[] d_perso,String[] d_dialogue,String[] d_action, HttpServletRequest request)throws Exception {
+    public String create(@RequestParam(name="titre") String titre, @RequestParam(name="description") String description, @RequestParam(name="time_start") String time_start, @RequestParam(name="time_end") String time_end, @RequestParam(name="filmset") Integer filmset, @RequestParam(name="estimed_time") String estimed_time, @RequestParam(name="dialogue_personnage") Integer[] d_perso, @RequestParam(name="dialogue_texte") String[] d_dialogue, @RequestParam(name="dialogue_action") String[] d_action, HttpServletRequest request)throws Exception {
         Scene s = null;
         Dialogue d = null;
         try {
