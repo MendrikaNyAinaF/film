@@ -26,7 +26,6 @@
                                    <div class="col-3" style="display:flex; padding:0px 3px;" >
                                         <select class="js-example-basic-multiple form-control custom-shadow border-0 bg-white" multiple="multiple" style="width:100%"
                                              placeholder="acteur" name="actors">
-                                             <option selected value=-1>any actor</option>
                                              <% if(request.getAttribute("character")!=null){
                                                   List<Actor> liste_chara=(List<Actor>)request.getAttribute("character");
                                                   for(Actor c: liste_chara){ %>

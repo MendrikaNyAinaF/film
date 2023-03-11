@@ -102,7 +102,7 @@ public class SceneService {
     public Scene getById(Serializable id)throws Exception{
         return (Scene) this.hibernate.findById(Scene.class,id);
     }
-    public void plannifier(Scene s, Timestamp date)throws Exception{
+    /* public void plannifier(Scene s, Timestamp date)throws Exception{
         PlanningService ps = new PlanningService();
         Film f = hibernate.findById(Film.class,s.getFilm_id());
         Planning p = new Planning();
@@ -126,7 +126,7 @@ public class SceneService {
             p.setDate(date);
         }
         ps.create(p);
-    }
+    } */
     public Scene create(Scene s)throws Exception{
         this.hibernate.add(s);
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
@@ -212,5 +212,17 @@ public class SceneService {
     }
     public List<Scene> getAllScene(){
         return  hibernate.getAll1(new Scene());
+    }
+    public List<Scene> getUnplannedScene(){
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Criteria cr = session.createCriteria(Scene.class)
+            .add(Restrictions.or(
+                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
+                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
+            ));
+        List<Scene> ls = cr.list();
+        session.close();
+        return ls;
     }
 }

@@ -21,7 +21,10 @@ public class Planning extends HasId {
     private StatusPlanning status;
 
     @Column
-    private Timestamp date;
+    private Timestamp date_debut;
+
+    @Column
+    private Timestamp date_fin;
 
     public Planning() {
     }

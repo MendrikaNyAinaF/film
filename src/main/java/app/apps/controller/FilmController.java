@@ -106,10 +106,11 @@ public class FilmController {
         return "liste_scene";
     }
     @PostMapping(value = "/search_scene")
-    public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors") Integer[] actors,HttpServletRequest request) throws Exception {
+    public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors",required=false) Integer[] actors,HttpServletRequest request) throws Exception {
         request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
         request.getSession().setAttribute("scene_status",status);
-        if(actors.length>0) request.getSession().setAttribute("scene_actors",actors);
+        if(actors!=null) request.getSession().setAttribute("scene_actors",actors);
+        else{ request.getSession().setAttribute("scene_actors",null); }
         Film f=(Film)request.getSession().getAttribute("current_film");
         return  getSceneByFilmId(f.getId(),0,request);
     }

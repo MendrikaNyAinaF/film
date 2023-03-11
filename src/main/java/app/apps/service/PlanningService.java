@@ -37,6 +37,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.query.Query;
 
 import app.apps.model.Film;
+import app.apps.model.Filmset;
 import app.apps.model.Scene;
 import app.apps.model.Planning;
 import app.apps.model.StatusPlanning;
@@ -73,7 +74,7 @@ public class PlanningService {
         return (Settings) hibernate.findOneWhere(s, false, false);
     }
 
-    public void globalPlan(Film f) throws Exception {
+    /* public void globalPlan(Film f) throws Exception {
         SceneService ss = new SceneService();
         Calendar calendar = Calendar.getInstance();
         Settings workhour = getWorkHour();
@@ -115,7 +116,7 @@ public class PlanningService {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             plan = new Timestamp(calendar.getTimeInMillis());
         }
-    }
+    } */
 
     public List listPlanning(Integer filmid) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
@@ -130,7 +131,8 @@ public class PlanningService {
             p.setId(Integer.parseInt(row[0].toString()));
             p.setScene(hibernate.findById(Scene.class, Integer.parseInt(row[1].toString())));
             p.setStatus(hibernate.findById(StatusPlanning.class, Integer.parseInt(row[2].toString())));
-            p.setDate((Timestamp) row[3]);
+            p.setDate_debut((Timestamp) row[3]);
+            p.setDate_fin((Timestamp) row[4]);
             rep.add(p);
         }
         session.close();
@@ -204,5 +206,60 @@ public class PlanningService {
             }
         }
         return true;
+    }
+
+    public Filmset getPlateauOpen(List<Filmset> done,Timestamp t)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Criteria cr = session.createCriteria(Filmset.class)
+            .setMaxResults(1)
+            .add(Restrictions.or(
+                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
+                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
+            ));
+        Filmset ls = (Filmset) cr.uniqueResult();
+        session.close();
+        return null;
+    }
+    public List<Planning> proposerPlanning(List<Scene> ls, Timestamp debut_tournage)throws Exception{
+        Settings workhour = getWorkHour();
+        double hour = workhour.getValue();
+        Filmset p = null;
+        return null;
+    }
+    public boolean isThereSuperposistion(Timestamp d,Timestamp f)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Criteria cr = session.createCriteria(Planning.class)
+            .add(Restrictions.and(
+                Restrictions.ge("date_fin",d),
+                Restrictions.le("date_debut",f)
+            ));
+        List<Scene> ls = cr.list();
+        session.close();
+        if(ls.size()>0) return true; 
+        return false;
+    }
+    public void insertPlanning(List<Planning> lp)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try{
+            transaction = session.beginTransaction();
+            for(Planning pa : lp){
+                if(isThereSuperposistion(pa.getDate_debut(),pa.getDate_fin())){
+                    throw new Exception("Planning invalid: superposition de jour de tournage");
+                }
+            }
+            transaction.commit();
+        }
+        catch(Exception ex){
+            transaction.rollback();
+            ex.printStackTrace();
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
     }
 }

@@ -37,6 +37,9 @@ public class Scene extends HasId {
     @Column
     private Integer film_id;
 
+    @Column
+    private Time preferred_shooting_time;
+
     public Scene() {
     }
 

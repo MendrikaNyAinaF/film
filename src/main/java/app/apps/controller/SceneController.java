@@ -92,7 +92,7 @@ public class SceneController {
             if (plan != null && !(plan.equals(""))) {
                 ts = Timestamp.valueOf(plan.replace("T", " ") + ":00");
             }
-            ss.plannifier(s, ts);
+            //ss.plannifier(s, ts);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -141,7 +141,7 @@ public class SceneController {
         try {
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
-            ps.globalPlan(current);
+            //ps.globalPlan(current);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
