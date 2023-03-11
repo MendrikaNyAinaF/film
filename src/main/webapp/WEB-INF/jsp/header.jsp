@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/extra-libs/select2/select2.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/extra-libs/select2-bootstrap-theme/select2-bootstrap.min.css">
     <link href="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/libs/morris.js/morris.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -141,13 +142,27 @@
                         }%>"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
                                     class="hide-menu">Ajouter une scene</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
-                            out.print("film/"+fil.getId()+"/planning");
-                        }else{
-                            out.print("films/0");
-                        }%>"
-                                aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Planning</span></a></li>
+
+
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                aria-expanded="false"><i data-feather="crosshair" class="feather-icon"></i><span
+                                    class="hide-menu">Plan</span></a>
+                            <ul aria-expanded="false" class="collapse first-level base-level-line">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
+                                            out.print("film/"+fil.getId()+"/planning");
+                                        }else{
+                                            out.print("films/0");
+                                        }%>"><span class="hide-menu">Planning</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span
+                                            class="hide-menu">Plannifier</span></a>
+                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span
+                                            class="hide-menu"> item 1.2</span></a>
+                                </li>
+                            </ul> 
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

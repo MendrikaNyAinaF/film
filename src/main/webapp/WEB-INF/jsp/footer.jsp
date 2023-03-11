@@ -36,5 +36,10 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/select2.js"></script>
 
 
+<script src="${pageContext.request.contextPath}/resources/assets/libs/raphael/raphael.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/libs/morris.js/morris.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dist/js/pages/morris/morris-data.js"></script>
+
+
 </body>
 </html>
