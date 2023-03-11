@@ -43,9 +43,9 @@
                               </div>
                          </form>
                     </a>
-
+                    <h2 class="mb-0">Scenes du film, '<%= film.getTitle() %>'</h2>
                     <div class="row">
-                         <h2 class="mb-0">Scenes du film, '<%= film.getTitle() %>'</h2>
+                         
                          <% if(request.getAttribute("liste_scene")!=null){
                               List<Scene>liste=(List<Scene>)request.getAttribute("liste_scene");
                               for(Scene s: liste){ %>
