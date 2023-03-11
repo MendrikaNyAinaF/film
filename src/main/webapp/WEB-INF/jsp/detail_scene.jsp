@@ -48,27 +48,7 @@
 
                     <div class="card col-12">
                          <div class="card-body">
-                              <h3 class="text-primary">Planifier</h3>
-                              <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/planifier" method="POST">
-                                   <div class="form-body">
-                                        <div class="row">
-                                             <div class="col-md-4">
-                                                  <div class="form-group">
-                                                       <input type="datetime-local" class="form-control" placeholder="titre"
-                                                            name="plan">
-                                                  </div>
-                                             </div>
-                                             <div class="col-md-4"> 
-                                                  <input type="submit" value="Planifier" class="btn btn-primary">
-                                             </div>
-                                             <div class="col-md-4">
-                                                  <input type="submit" value="Planifier auto" class="btn btn-primary">
-                                             </div>
-                                        </div>
-                                   </div>
-
-                              </form>
-                              <br/>
+                         <% if(1==1){ %>                        
                               <h3 class="text-primary">Changer status</h3>
                               <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/status" method="POST">
                                    <div class="form-body">
@@ -78,9 +58,10 @@
                                                        <select name="status" class="form-control">
                                                             <% if(request.getAttribute("status_planning")!=null){
                                                                  List<StatusPlanning> status=(List<StatusPlanning>) request.getAttribute("status_planning");
-                                                                 for(StatusPlanning st : status){  %>
+                                                                 for(StatusPlanning st : status){ 
+                                                                      if(st.getId()!=1){ %>           
                                                                       <option value=<%= st.getId() %>><%= st.getName() %></option>
-                                                            <%    }
+                                                            <%  }   }
                                                             } %>
                                                        </select>
                                                   </div>
@@ -91,6 +72,8 @@
                                         </div>
                                    </div>
                               </form>
+                         <%   
+                         } %>
                          </div>
                     </div>
                     <%     

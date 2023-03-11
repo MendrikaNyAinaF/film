@@ -162,6 +162,7 @@
                             </includes>
                         </resource>
                     </webResources>
+
                 </configuration>
             </plugin>
             <plugin>
