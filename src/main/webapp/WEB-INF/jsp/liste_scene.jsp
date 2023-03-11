@@ -52,11 +52,11 @@
                          <div class="col-md-4">
                               <div class="card text-white bg-info">
                                    <div class="card-header">
-                                        <h4 class="mb-0 text-white">status: <%= "s" %></h4>
+                                        <h4 class="mb-0 text-white">status: <%= "definir le status la" %></h4>
                                    </div>
                                    <div class="card-body">
                                         <h3 class="card-title text-white"><%= s.getTitle() %></h3>
-                                        <p class="card-text">Timeline: <%= s.getTime_start() %> - <%= s.getTime_start() %> </p>
+                                        <p class="card-text">Timeline: <%= s.getTime_start() %> - <%= s.getTime_end() %> </p>
                                         <a href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>" class="btn btn-dark">Voir</a>
                                    </div>
                               </div>
