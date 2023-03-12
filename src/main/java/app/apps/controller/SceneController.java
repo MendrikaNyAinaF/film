@@ -23,6 +23,7 @@ import app.apps.service.FilmSetService;
 import app.apps.service.CharaterService;
 import app.apps.service.DialogueService;
 import app.apps.model.Scene;
+import app.apps.model.Scene_status;
 import app.apps.model.Planning;
 import app.apps.model.StatusPlanning;
 import app.apps.model.Film;
@@ -65,11 +66,13 @@ public class SceneController {
         HttpSession session = null;
         Film current = null;
         Scene s = null;
+        Scene_status sst = null;
         try {
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
             s = ss.getById(idscene);
-            request.setAttribute("scene", s);
+            sst = ss.getByIdWStatus(idscene);
+            request.setAttribute("scene", sst);
             request.setAttribute("dialogue", ss.getDialogues(s));
             request.setAttribute("status_planning", ss.getStatusPlanning());
         } catch (Exception ex) {

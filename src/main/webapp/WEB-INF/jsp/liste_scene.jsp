@@ -15,7 +15,7 @@
                                              }
                                         %>">
                                    <select class="form-control custom-shadow border-0 bg-white col-3" name="status">
-                                        <option value=0>Tout</option>
+                                        <option value=-1>Tout</option>
                                         <% if(request.getAttribute("status")!=null){
                                              List<StatusPlanning>liste_status=(List<StatusPlanning>)request.getAttribute("status");
                                              for(StatusPlanning s: liste_status){ %>
@@ -46,12 +46,16 @@
                     <div class="row">
                          
                          <% if(request.getAttribute("liste_scene")!=null){
-                              List<Scene>liste=(List<Scene>)request.getAttribute("liste_scene");
-                              for(Scene s: liste){ %>
+                              List<Scene_status>liste=(List<Scene_status>)request.getAttribute("liste_scene");
+                              for(Scene_status s: liste){ %>
                          <div class="col-md-4">
                               <div class="card text-white bg-info">
                                    <div class="card-header">
-                                        <h4 class="mb-0 text-white">status: <%= "definir le status la" %></h4>
+                                        <%
+                                        if(s.getStatus()!=null){
+                                        %><h4 class="mb-0 text-white">status: <%= s.getStatus().getName() %></h4><%
+                                        }
+                                        %>
                                    </div>
                                    <div class="card-body">
                                         <h3 class="card-title text-white"><%= s.getTitle() %></h3>

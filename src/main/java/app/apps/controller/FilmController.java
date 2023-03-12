@@ -81,7 +81,7 @@ public class FilmController {
     public String getSceneByFilmId(@PathVariable("id") Integer filmId,@PathVariable("page") Integer page,HttpServletRequest request){
         Integer limit=6;
         Integer offset=page*limit;
-        List<Scene> listScene=new ArrayList<>();
+        List<Scene_status> listScene=new ArrayList<>();
         String mc = "";
         Integer status = null;
         Integer[] actors = new Integer[0];
