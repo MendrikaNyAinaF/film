@@ -7,7 +7,7 @@
           <h1>Film, <%= film.getTitle() %></h1>
                <div class="row">
                     <% if(request.getAttribute("scene")!=null){
-                         Scene s=(Scene)request.getAttribute("scene"); %>
+                         Scene_status s=(Scene_status)request.getAttribute("scene"); %>
                     <div class="card col-6">
                          <div class="card-body">
                               <div class="card p-3 bg-info text-white">
@@ -27,12 +27,16 @@
                               <p><%= s.getFilmset().getName() %></p>
 
                               <h4 class="card-title">Status</h4>
+<<<<<<< Updated upstream
                               <p><%= "" %></p>
                               <% if(1=1){ //si le status est ok 
                               %>
                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update">modifier</a>
                               <% }
                                    %>
+=======
+                              <p><%= s.getStatus().getName() %></p>
+>>>>>>> Stashed changes
                          </div>
                     </div>
                     <div class="card col-6">
@@ -53,7 +57,7 @@
 
                     <div class="card col-12">
                          <div class="card-body">
-                         <% if(1==1){ %>                        
+                         <% if(s.getStatus().getId()>0){ %>                        
                               <h3 class="text-primary">Changer status</h3>
                               <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/status" method="POST">
                                    <div class="form-body">
