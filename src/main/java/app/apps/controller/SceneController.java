@@ -60,7 +60,8 @@ public class SceneController {
     }
 
     @GetMapping(value = "/film/{idf}/scene/{ids}")
-    public String detailsScene(@PathVariable(name = "ids") Integer idscene,  HttpServletRequest request) throws Exception {
+    public String detailsScene(@PathVariable(name = "ids") Integer idscene, HttpServletRequest request)
+            throws Exception {
         HttpSession session = null;
         Film current = null;
         Scene s = null;
@@ -80,7 +81,7 @@ public class SceneController {
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/planifier")
     public String plannifier(@PathVariable(name = "ids") Integer idscene, @RequestParam(name = "plan") String plan,
-             HttpServletRequest request) throws Exception {
+            HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
         Scene s = null;
@@ -92,7 +93,7 @@ public class SceneController {
             if (plan != null && !(plan.equals(""))) {
                 ts = Timestamp.valueOf(plan.replace("T", " ") + ":00");
             }
-            //ss.plannifier(s, ts);
+            // ss.plannifier(s, ts);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw ex;
@@ -102,7 +103,7 @@ public class SceneController {
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/status")
     public String changeStatus(@PathVariable(name = "ids") Integer idscene,
-            @RequestParam(name = "status") Integer status,  HttpServletRequest request) throws Exception {
+            @RequestParam(name = "status") Integer status, HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
 
@@ -119,38 +120,8 @@ public class SceneController {
         return detailsScene(idscene, request);
     }
 
-    @GetMapping(value = "/film/{id}/planifier")
-    public String to_planning( HttpServletRequest request) throws Exception {
-        HttpSession session = null;
-        Film current = null;
-        try {
-            session = SceneController.session();
-            current = (Film) session.getAttribute("current_film");
-            request.setAttribute("liste_planning", ps.listToJson(ps.listPlanning(current.getId())));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
-        return "planning";
-    }
-
-    @PostMapping(value = "/film/{id}/planifier")
-    public String planning( HttpServletRequest request) throws Exception {
-        HttpSession session = null;
-        Film current = null;
-        try {
-            session = SceneController.session();
-            current = (Film) session.getAttribute("current_film");
-            //ps.globalPlan(current);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            throw ex;
-        }
-        return to_planning(request);
-    }
-
     @GetMapping(value = "/film/{id}/scene/create")
-    public String to_create( HttpServletRequest request) {
+    public String to_create(HttpServletRequest request) {
         HttpSession session = null;
         Film current = null;
         session = SceneController.session();
@@ -162,10 +133,16 @@ public class SceneController {
         return "create_scene";
     }
 
-    //titre,description,time_start,time_end,filmset,estimed_time
-    //dialogue_personnage[],dialogue_texte[],dialogue_action[]
+    // titre,description,time_start,time_end,filmset,estimed_time
+    // dialogue_personnage[],dialogue_texte[],dialogue_action[]
     @PostMapping(value = "/film/{id}/scene/create")
-    public String create(@RequestParam(name="titre") String titre, @RequestParam(name="description") String description, @RequestParam(name="time_start") String time_start, @RequestParam(name="time_end") String time_end, @RequestParam(name="filmset") Integer filmset, @RequestParam(name="estimed_time") String estimed_time, @RequestParam(name="dialogue_personnage") Integer[] d_perso, @RequestParam(name="dialogue_texte") String[] d_dialogue, @RequestParam(name="dialogue_action") String[] d_action, HttpServletRequest request)throws Exception {
+    public String create(@RequestParam(name = "titre") String titre,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
+            @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
+            @RequestParam(name = "dialogue_personnage") Integer[] d_perso,
+            @RequestParam(name = "dialogue_texte") String[] d_dialogue,
+            @RequestParam(name = "dialogue_action") String[] d_action, HttpServletRequest request) throws Exception {
         Scene s = null;
         Dialogue d = null;
         try {
@@ -175,12 +152,13 @@ public class SceneController {
             s.setTime_start(Time.valueOf(time_start));
             s.setTime_end(Time.valueOf(time_end));
             s.setEstimated_time(Time.valueOf(estimed_time));
-            s.setFilmset((Filmset) hibernate.findById(Filmset.class,filmset));
+            s.setFilmset((Filmset) hibernate.findById(Filmset.class, filmset));
             s = ss.create(s);
             d = new Dialogue();
             d.setScene_id(s.getId());
-            for(int i=0;i<d_perso.length;i++){
-                d.setCharacter((app.apps.model.Character) hibernate.findById(app.apps.model.Character.class,d_perso[i]));
+            for (int i = 0; i < d_perso.length; i++) {
+                d.setCharacter(
+                        (app.apps.model.Character) hibernate.findById(app.apps.model.Character.class, d_perso[i]));
                 d.setTexte(d_dialogue[i]);
                 d.setAction(d_action[i]);
                 ds.createDialogue(d);

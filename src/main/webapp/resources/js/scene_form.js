@@ -7,7 +7,6 @@ function ajouter(liste_perso) {
                for(let i=0;i<liste_perso.length;i++){
                     optionactors+='<option value="'+liste_perso[i].id+'">'+liste_perso[i].name+'</option>';
                }
-     console.log('appender')
      var html = '<div class="row custom-shadow" >'+
 '     <div class="col-md-12" id="dialogue_personnage">'+
 '          <label for="">Personnage</label>'+

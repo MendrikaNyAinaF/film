@@ -146,17 +146,21 @@
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
                                 aria-expanded="false"><i data-feather="crosshair" class="feather-icon"></i><span
-                                    class="hide-menu">Plan</span></a>
+                                    class="hide-menu">Planning</span></a>
                             <ul aria-expanded="false" class="collapse first-level base-level-line">
                                 <li class="sidebar-item">
                                     <a class="sidebar-link" href="${pageContext.request.contextPath}/<% if (fil!=null){
                                             out.print("film/"+fil.getId()+"/planning");
                                         }else{
                                             out.print("films/0");
-                                        }%>"><span class="hide-menu">Planning</span>
+                                        }%>"><span class="hide-menu">Planning global</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="${pageContext.request.contextPath}/<% if (fil!=null){
+                                            out.print("film/"+fil.getId()+"/planifier");
+                                        }else{
+                                            out.print("films/0");
+                                        }%>" class="sidebar-link"><span
                                             class="hide-menu">Plannifier</span></a>
                                 <li class="sidebar-item"><a href="javascript:void(0)" class="sidebar-link"><span
                                             class="hide-menu"> item 1.2</span></a>

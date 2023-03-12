@@ -7,8 +7,8 @@
 %>
     <div class="card">
           <div class="card-body">
-                         <h4 class="card-title">Ajouter une scène</h4>
-                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/create" method="POST"
+                         <h4 class="card-title">Modifier la scene de: </h4>
+                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/update" method="POST"
                               enctype="multipart/form-data">
                               <div class="form-body">
                                    <div class="row">
@@ -72,49 +72,6 @@
                                                        name="shooting_prefered">
                                              </div>
                                         </div>
-                                        <div class="col-md-12" >
-                                             <h4>Dialogue</h4>
-
-                                             <div id="dialogue">
-                                                  <div class="row custom-shadow" >
-                                                       <div class="col-md-12" id="dialogue_personnage">
-                                                            <label for="">Personnage</label>
-                                                            <div class="form-group row">
-                                                                 <select name="dialogue_personnage" class="form-control col-md-2" >
-                                                                      <%
-                                                                           if(request.getAttribute("liste_chara")!=null){
-                                                                                List<Character>liste_chara=(List<Character>)request.getAttribute("liste_chara");
-                                                                                for(Character c: liste_chara){ %>
-                                                                                <option value="<%= c.getId() %>"><%= c.getName() %></option>
-                                                                      <%          }
-                                                                           }
-                                                                      %>
-                                                                 </select>
-                                                                 <div class="col-md-7"></div>
-                                                                 <button class="btn btn-danger col-md-3"  type="button" onClick="effacer(this)">- enlever</button>
-                                                            </div>
-                                                       </div>
-                                                       <div class="col-md-6" id="dialogue_dialogue">
-                                                            <div class="form-group">
-                                                                 <label for="">Dialogue</label>
-                                                                 <textarea class="form-control" placeholder="..." rows="3"
-                                                                      name="dialogue_texte"></textarea>
-                                                            </div>
-                                                       </div>
-                                                       <div class="col-md-6" id="dialogue_action">
-                                                            <div class="form-group">
-                                                                 <label for="">Action</label>
-                                                                 <textarea class="form-control" placeholder="..." rows="3"
-                                                                      name="dialogue_action"></textarea>
-                                                            </div>
-                                                       </div>
-                                                  </div>    
-                                             </div>
-                                             
-                                             <button class="btn btn-success" style="margin:20px" type="button" onClick="appender()">+ ajouter
-                                                  dialogue</button>
-
-                                        </div>
 
                                         <button type="submit" class="btn btn-primary" >Enregistrer</button>
                                    </div>
@@ -128,18 +85,5 @@
      </div>
 <% }
 %>
-    
 
-<script src="${pageContext.request.contextPath}/resources/js/scene_form.js"></script>
-<script type="text/javascript">
-     var tempchara=<%= request.getAttribute("liste_character_json").toString() %>;
-     var liste_chara=[];
-     if(tempchara!=null){
-          liste_chara=tempchara;
-     }
-     function appender(){
-          //console.log(tempchara)
-          ajouter(liste_chara);
-     }
-</script>
 <jsp:include page="footer.jsp" />
