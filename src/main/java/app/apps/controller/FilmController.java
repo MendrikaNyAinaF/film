@@ -152,11 +152,18 @@ public class FilmController {
     }
 
     @PostMapping(value = "/film/create")
-    public String createFilm(HttpServletRequest request) throws Exception {
+    public String createFilm(HttpServletRequest request, @RequestParam(name = "titre") String title,
+            @RequestParam(name = "description") String desc, @RequestParam(name = "personnage_nom") String[] perso,
+            @RequestParam(name = "personnage_description") String[] description,
+            @RequestParam(name = "personnage_genre") Integer[] genre,
+            @RequestParam(name = "personnage_acteur") Integer[] acteurs,
+            @RequestParam(name = "image") String image)
+            throws Exception {
+        // System.out.println(image);
         Film f = new Film();
-        f.setTitle(request.getParameter("titre"));
-        f.setNbr_team(Integer.valueOf(request.getParameter("team")));
-        f.setDescription(request.getParameter("description"));
+        f.setTitle(title);
+        f.setNbr_team(1);
+        f.setDescription(desc);
 
         String timeString = request.getParameter("duree"); // String representing the time
         DateFormat format = new SimpleDateFormat("HH:mm"); // Creating a date formatter
@@ -168,26 +175,24 @@ public class FilmController {
             String timeString1 = request.getParameter("tournage_debut"); // String representing the date
             DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"); // Creating a date formatter
             Date date1 = format1.parse(timeString1);
-            f.setStart_shooting(new java.sql.Date(date1.getTime()));
 
             // personnage
-            String[] perso = request.getParameterValues("personnage_nom");
-            String[] description = request.getParameterValues("personnage_description");
-            String[] acteurs = request.getParameterValues("personnage_acteur");
-            String[] genre = request.getParameterValues("personnage_genre");
             ArrayList<Character> characters = new ArrayList<Character>();
             Character character = null;
             for (int i = 0; i < perso.length; i++) {
                 character = new Character();
                 character.setName(perso[i]);
                 character.setDescription(description[i]);
-                character.setActor(new Actor(Integer.valueOf(acteurs[i])));
-                character.setGender(new Gender(Integer.valueOf(genre[i])));
+                character.setActor(new Actor(acteurs[i]));
+                character.setGender(new Gender(genre[i]));
                 characters.add(character);
             }
 
+            // creer le film
+            // filmService.createFilm(f);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            request.setAttribute("erreur", e.getMessage());
         }
 
         filmService.createFilm(f);

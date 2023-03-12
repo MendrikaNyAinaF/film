@@ -5,21 +5,14 @@
                     <div class="card-body">
                          <h4 class="card-title">Ajouter un film</h4>
                          <form action="${pageContext.request.contextPath}/film/create" method="POST"
-                              enctype="multipart/form-data">
+                              >
                               <div class="form-body">
                                    <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-6">
                                              <div class="form-group">
                                                   <label for="">Titre</label>
                                                   <input type="text" class="form-control" placeholder="titre"
                                                        name="titre">
-                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                             <div class="form-group">
-                                                  <label for="">Equipe</label>
-                                                  <input type="number" class="form-control" placeholder="0"
-                                                       name="team">
                                              </div>
                                         </div>
                                         <div class="col-md-12">
@@ -29,20 +22,26 @@
                                                        name="description"></textarea>
                                              </div>
                                         </div>
-
-                                        <div class="col-md-4">
+                                        <div class="col-md-12">
                                              <div class="form-group">
-                                                  <label for="">Durée</label>
-                                                  <div class="form-group">
-                                                       <input type="time" class="form-control" name="duree">
+                                                  <label for="">Image</label>
+                                                  <div class="input-group mb-3">
+                                                       <div class="input-group-prepend">
+                                                            <span class="input-group-text">upload</span>
+                                                       </div>
+                                                       <div class="custom-file">
+                                                            <input type="hidden" class="custom-file-input" id="fileupload_input" name="image">
+                                                            <input type="file" class="custom-file-input" id="fileupload">
+                                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                       </div>
                                                   </div>
                                              </div>
                                         </div>
                                         <div class="col-md-4">
                                              <div class="form-group">
-                                                  <label for="time">Début tournage</label>
+                                                  <label for="">Durée</label>
                                                   <div class="form-group">
-                                                       <input type="date" class="form-control" name="tournage_debut">
+                                                       <input type="time" class="form-control" name="duree">
                                                   </div>
                                              </div>
                                         </div>
@@ -61,7 +60,7 @@
                                                        <div class="col-md-4">
                                                             <div class="form-group">
                                                                  <label for="">Genre</label>
-                                                                 <select name="type" class="form-control" name="personnage_genre">
+                                                                 <select class="form-control" name="personnage_genre">
                                                                       <% if(request.getAttribute("gender")!=null){
                                                                            List<Gender>gender=(List<Gender>)request.getAttribute("gender");
                                                                            for(Gender g:gender){ %>
@@ -82,7 +81,7 @@
                                                        <div class="col-md-6" id="dialogue_action">
                                                             <div class="form-group">
                                                                  <label for="">Acteur</label>
-                                                                 <select name="type" class="form-control" name="personnage_acteur">
+                                                                 <select class="form-control" name="personnage_acteur">
                                                                       <% if(request.getAttribute("actor")!=null){
                                                                            List<Actor>actor=(List<Actor>)request.getAttribute("actor");
                                                                            for(Actor a:actor){ %>
@@ -118,6 +117,26 @@
                </div>
 <script src="${pageContext.request.contextPath}/resources/js/film_form.js"></script>
 <script type="text/javascript">
+     // Récupère les éléments DOM pour le input file et le input text
+     const fileInput = document.getElementById('fileupload');
+     const textInput = document.getElementById('fileupload_input');
+
+     // Ajoute un événement "change" au input file
+     fileInput.addEventListener('change', (event) => {
+          // Récupère la valeur du fichier sélectionné
+          const fileName = event.target.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(fileName)
+
+          reader.onload = () => {
+               const spliter = reader.result.split(',')
+               const f = spliter?.length > 1 ? spliter[1] : ''
+               // Copie la valeur du fichier sélectionné dans la valeur du input text
+               textInput.value = f;
+          }
+          
+     });
+
      var tempactor=<%= request.getAttribute("liste_actor_json") %>;
      var tempgender=<%= request.getAttribute("liste_gender_json") %>
      var liste_actor=[];

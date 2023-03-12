@@ -15,23 +15,20 @@ import java.sql.Date;
 @Setter
 public class Film extends HasId {
 
-    @Column
-    private String title;
+     @Column
+     private String title;
 
-    @Column
-    private String description;
+     @Column
+     private String description;
 
-    @Column
-    private Time duration;
+     @Column
+     private Time duration;
 
-    @Column
-    private Date start_shooting;
+     @Column
+     private Integer nbr_team;
 
-    @Column
-    private Integer nbr_team;
-
-    @Column
-    private String visuel;
+     @Column
+     private String visuel;
 
      public Film() {
 

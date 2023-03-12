@@ -44,6 +44,11 @@ public class Utilitaire {
           return image;
      }
 
+     public static String[] getImageBase64(String multipart) throws Exception {
+          String[] img = multipart.split("/");
+          return img;
+     }
+
      public static Map<String, Object> getRequestMultipart(HttpServletRequest request) throws Exception {
           Map<String, Object> map = new HashMap<String, Object>();
           try {
@@ -105,8 +110,7 @@ public class Utilitaire {
           }
      }
 
-
      /*     
-     */ 
-     
+     */
+
 }
