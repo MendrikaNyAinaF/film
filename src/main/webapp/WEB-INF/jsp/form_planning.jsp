@@ -15,7 +15,7 @@
                          if(liste_scene.size()==0){
                               out.println("Toute les scènes ont été planifiée");
                          }else{ %>
-                              <form class="mt-4" method="post" action="">
+                              <form class="mt-4" method="post" action="${pageContext.request.contextPath}/film/<%= film.getId() %>/planifier">
                                    <div class="form-check col-lg-5 inline form-check-inline">
                                         <label class="form-check-label" for="">Date de commencement</label>
                                         <input type="datetime-local" class="form-check-input form-control"
@@ -44,12 +44,12 @@
                                                                       id="customCheck1" name="idscene" />
                                                                  <label class="mb-0 text-white custom-control-label"
                                                                       for="customCheck1">
-                                                                      Scene
+                                                                      s.getTitle()
                                                                  </label>
                                                             </div>
                                                        </div>
                                                        <div class="card-body">
-                                                            <h3 class="card-title">Plateau: </h3>
+                                                            <h3 class="card-title">Plateau: <%= s.getFilmset().getName() %></h3>
                                                             <p class="card-text">Temps estime de {s.getEstimated_time()}, 
                                                                  <% if(s.getPreferred_shooting_time()!=null){
                                                                       out.println(" avec une preference pour "+s.getPreferred_shooting_time());

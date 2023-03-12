@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class Planning extends HasId {
-
     @ManyToOne
     @JoinColumn(name = "scene_id")
     private Scene scene;

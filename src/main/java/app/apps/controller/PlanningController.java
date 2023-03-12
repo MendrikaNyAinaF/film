@@ -91,12 +91,12 @@ public class PlanningController {
                 commencement = java.sql.Date.valueOf(date);
             }
             // traitement du planning
-            return "";// "redirect:/film/" + current.getId() + "/planning";
+            return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());
             return to_planning(request, session);
         }
-
     }
+
 }
