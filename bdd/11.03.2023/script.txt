@@ -264,3 +264,19 @@ INSERT INTO dialogue( id, scene_id, character_id, texte, action ) VALUES ( 55, 9
 INSERT INTO dialogue( id, scene_id, character_id, texte, action ) VALUES ( 56, 9, 2, 'Tu es folle', 'Joy est surprise' ); 
 INSERT INTO dialogue( id, scene_id, character_id, texte, action ) VALUES ( 57, 9, 4, 'Je l''aime vraiment', 'crush sourit' ); 
 INSERT INTO planning( id, scene_id, status, date_debut, date_fin ) VALUES ( 1, 1, 1, '2023-03-02 08:00:00', '2023-03-10 00:00:00' ); 
+
+INSERT into status_planning VALUES(0,'none');
+CREATE OR REPLACE VIEW scene_status AS (
+    SELECT
+    Scene.*,
+    0 AS status
+    FROM scene
+    WHERE Scene.id not in (select scene_id FROM planning)
+    UNION    
+    SELECT DISTINCT
+    Scene.*,
+    Planning.status AS status
+    FROM Scene
+    join Planning on
+    Scene.id = Planning.scene_id
+);
