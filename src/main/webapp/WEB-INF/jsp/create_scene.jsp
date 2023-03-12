@@ -31,13 +31,13 @@
                                                   <div class="row">
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" value="00:00:00" step="1" class="form-control"
+                                                                 <input type="time" placeholder="00:00:00" step="1" class="form-control"
                                                                       name="time_start">
                                                             </div>
                                                        </div>
                                                        <div class="col-md-4">
                                                             <div class="form-group">
-                                                                 <input type="time" value="00:00:00" step="1" class="form-control"
+                                                                 <input type="time" placeholder="00:00:00" step="1" class="form-control"
                                                                       name="time_end">
                                                             </div>
                                                        </div>
@@ -61,14 +61,14 @@
                                         <div class="col-md-4">
                                              <div class="form-group">
                                                   <label for="">Temps de tournage estime</label>
-                                                  <input type="time" value="00:00:00" step="1" class="form-control" 
+                                                  <input type="time" step="1" class="form-control" 
                                                        name="estimed_time">
                                              </div>
                                         </div>
                                         <div class="col-md-4">
                                              <div class="form-group">
                                                   <label for="">Heure de tournage souhaite</label>
-                                                  <input type="time" placeholder="00:00:00" step="1" class="form-control" 
+                                                  <input type="time" placeholder="00:00" step="1" class="form-control" 
                                                        name="shooting_prefered">
                                              </div>
                                         </div>

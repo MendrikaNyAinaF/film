@@ -68,6 +68,7 @@ public class HibernateDAO implements InterfaceDAO {
             trans.commit();
         } catch (Exception e) {
             trans.rollback();
+            throw e;
         } finally {
             if (session != null) {
                 session.close();

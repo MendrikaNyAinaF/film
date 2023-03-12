@@ -204,7 +204,6 @@ public class SceneController {
             @RequestParam(name = "prefered_shooting_start") String date_start,
             HttpServletRequest req, HttpSession session, @PathVariable Integer idscene) {
         Scene s = null;
-        Dialogue d = null;
         try {
             s = new Scene();
             // modification de la scene
