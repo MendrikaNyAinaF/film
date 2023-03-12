@@ -149,7 +149,8 @@ public class SceneController {
             @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
             @RequestParam(name = "dialogue_personnage") Integer[] d_perso,
             @RequestParam(name = "dialogue_texte") String[] d_dialogue,
-            @RequestParam(name = "dialogue_action") String[] d_action, HttpServletRequest request) throws Exception {
+            @RequestParam(name = "dialogue_action") String[] d_action, HttpServletRequest request,
+            @PathVariable(name = "id") Integer filmid) throws Exception {
         Scene s = null;
         Dialogue d = null;
         try {
@@ -160,9 +161,11 @@ public class SceneController {
             s.setTime_end(Time.valueOf(time_end));
             s.setEstimated_time(Time.valueOf(estimed_time));
             s.setFilmset((Filmset) hibernate.findById(Filmset.class, filmset));
+            s.setFilm_id(filmid);
             s = ss.create(s);
             d = new Dialogue();
             d.setScene_id(s.getId());
+
             for (int i = 0; i < d_perso.length; i++) {
                 d.setCharacter(
                         (app.apps.model.Character) hibernate.findById(app.apps.model.Character.class, d_perso[i]));

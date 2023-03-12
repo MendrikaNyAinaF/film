@@ -8,14 +8,13 @@
     <div class="card">
           <div class="card-body">
                          <h4 class="card-title">Ajouter une scène</h4>
-                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/create" method="POST"
-                              enctype="multipart/form-data">
+                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/create" method="POST">
                               <div class="form-body">
                                    <div class="row">
                                         <div class="col-md-12">
                                              <div class="form-group">
                                                   <label for="">Titre</label>
-                                                  <input type="text" class="form-control" placeholder="titre" name="titre">
+                                                  <input type="text" class="form-control" placeholder="titre" name="titre" />
                                              </div>
                                         </div>
                                         <div class="col-md-12">
@@ -47,7 +46,7 @@
                                         <div class="col-md-4">
                                              <div class="form-group">
                                                   <label for="">Plateau</label>
-                                                  <select name="type" class="form-control" name="filmset">
+                                                  <select  class="form-control" name="filmset">
                                                        <% if(request.getAttribute("plateau")!=null){
                                                             List<Filmset>filmset=(List<Filmset>)request.getAttribute("plateau");
                                                             for(Filmset f: filmset){ %>
