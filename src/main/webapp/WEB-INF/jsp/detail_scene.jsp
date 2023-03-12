@@ -28,6 +28,11 @@
 
                               <h4 class="card-title">Status</h4>
                               <p><%= "" %></p>
+                              <% if(1=1){ //si le status est ok 
+                              %>
+                                   <a class="btn btn-success" href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update">modifier</a>
+                              <% }
+                                   %>
                          </div>
                     </div>
                     <div class="card col-6">

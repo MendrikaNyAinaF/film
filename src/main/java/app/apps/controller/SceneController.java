@@ -169,4 +169,35 @@ public class SceneController {
         }
         return to_create(request);
     }
+
+    @GetMapping(value = "/film/{id}/scene/{idscene}/update")
+    public String to_update(HttpServletRequest request, HttpSession session) {
+        Film current = null;
+        session = SceneController.session();
+        current = (Film) session.getAttribute("current_film");
+        List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
+        request.setAttribute("plateau", fss.getAllFilmSet());
+        // envoyer la scene dans la page
+        return "update_scene";
+    }
+
+    @PostMapping(value = "/film/{id}/scene/{idscene}/update")
+    public String update(@RequestParam(name = "titre") String titre,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
+            @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
+            @RequestParam(name = "prefered_shooting_start") String date_start,
+            HttpServletRequest req, HttpSession session) {
+        Scene s = null;
+        Dialogue d = null;
+        try {
+            s = new Scene();
+            // modification de la scene
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            req.setAttribute("erreur", ex.getMessage());
+
+        }
+        return to_update(req, session);
+    }
 }
