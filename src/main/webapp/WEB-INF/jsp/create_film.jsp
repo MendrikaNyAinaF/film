@@ -131,6 +131,7 @@
           reader.onload = () => {
                const spliter = reader.result.split(',')
                const f = spliter?.length > 1 ? spliter[1] : ''
+               
                // Copie la valeur du fichier sélectionné dans la valeur du input text
                textInput.value = f;
           }
@@ -142,10 +143,10 @@
      var liste_actor=[];
      var liste_gender=[];
      if(tempactor!=null){
-          liste_actor=JSON.stringify(tempactor);
+          liste_actor=tempactor;
      }
      if(tempgender!=null){
-          liste_gender=JSON.stringify(tempgender);
+          liste_gender=tempgender;
      }
      function appender(){
           ajouter(liste_actor, liste_gender);

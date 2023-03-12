@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -157,24 +158,19 @@ public class FilmController {
             @RequestParam(name = "personnage_description") String[] description,
             @RequestParam(name = "personnage_genre") Integer[] genre,
             @RequestParam(name = "personnage_acteur") Integer[] acteurs,
-            @RequestParam(name = "image") String image)
+            @RequestParam(name = "image") String image, @RequestParam(name = "duree") String timeString)
             throws Exception {
         // System.out.println(image);
         Film f = new Film();
         f.setTitle(title);
         f.setNbr_team(1);
         f.setDescription(desc);
-
-        String timeString = request.getParameter("duree"); // String representing the time
-        DateFormat format = new SimpleDateFormat("HH:mm"); // Creating a date formatter
+        f.setVisuel(image);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try {
-            Date date = format.parse(timeString);
-            Time time = new Time(date.getTime());
+            LocalTime localTime = LocalTime.parse(timeString, formatter);
+            Time time = Time.valueOf(localTime);
             f.setDuration(time);
-
-            String timeString1 = request.getParameter("tournage_debut"); // String representing the date
-            DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"); // Creating a date formatter
-            Date date1 = format1.parse(timeString1);
 
             // personnage
             ArrayList<Character> characters = new ArrayList<Character>();
@@ -189,13 +185,15 @@ public class FilmController {
             }
 
             // creer le film
-            // filmService.createFilm(f);
+            filmService.createFilm(f);
+            for (Character c : characters) {
+                c.setFilm_id(f.getId());
+                charaterService.create(c);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
             request.setAttribute("erreur", e.getMessage());
         }
-
-        filmService.createFilm(f);
 
         return getAllFilm(0, request);
     }

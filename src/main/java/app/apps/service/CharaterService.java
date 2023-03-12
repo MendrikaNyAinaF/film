@@ -12,9 +12,12 @@ public class CharaterService {
     @Autowired
     HibernateDAO hibernateDAO;
 
-    public List<Character> getCharacterByFilm(int idFilm){
-        Character c=new Character();
-        return hibernateDAO.getByIdFilm(c,idFilm);
+    public List<Character> getCharacterByFilm(int idFilm) {
+        Character c = new Character();
+        return hibernateDAO.getByIdFilm(c, idFilm);
     }
 
+    public void create(Character character) throws Exception {
+        hibernateDAO.add(character);
+    }
 }

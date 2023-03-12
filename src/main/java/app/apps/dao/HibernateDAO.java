@@ -53,7 +53,7 @@ public class HibernateDAO implements InterfaceDAO {
         this.sessionFactory = se;
     }
 
-    public SessionFactory getSessionFactory(){
+    public SessionFactory getSessionFactory() {
         return this.sessionFactory;
     }
 
@@ -255,6 +255,7 @@ public class HibernateDAO implements InterfaceDAO {
         query.setMaxResults(size);
         return query;
     }
+
     public void save1(Object o) {
         Session session = this.sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -263,13 +264,15 @@ public class HibernateDAO implements InterfaceDAO {
         System.out.println("saved");
         session.close();
     }
+
     public <T> List<T> getAll1(Object o) {
         Session session = this.sessionFactory.openSession();
-        List<T> list=session.createQuery("from "+o.getClass().getName()).list();
+        List<T> list = session.createQuery("from " + o.getClass().getName()).list();
         session.close();
         return list;
     }
-    public <T> List<T> getByIdFilm(Object o, Integer idFilm){
+
+    public <T> List<T> getByIdFilm(Object o, Integer idFilm) {
         Session session = this.sessionFactory.openSession();
         List<T> result = null;
         try {
@@ -286,7 +289,7 @@ public class HibernateDAO implements InterfaceDAO {
         return result;
     }
 
-    public <T> List<T> getByIdScene(Object o, Integer idScene){
+    public <T> List<T> getByIdScene(Object o, Integer idScene) {
         Session session = this.sessionFactory.openSession();
         List<T> result = null;
         try {
@@ -302,6 +305,7 @@ public class HibernateDAO implements InterfaceDAO {
         }
         return result;
     }
+
     public <T> List<T> getByPagination1(Object o, Integer offset, Integer limit) {
         Session session = this.sessionFactory.openSession();
         List<T> result = null;
@@ -324,14 +328,13 @@ public class HibernateDAO implements InterfaceDAO {
         try {
             session = this.sessionFactory.openSession();
             p = session.load(o.getClass(), id);
-            System.out.println("Loaded successfully, details="+p);
+            System.out.println("Loaded successfully, details=" + p);
         } catch (Exception e) {
 
-        }  finally {
+        } finally {
             session.close();
         }
-        return (T)p;
+        return (T) p;
     }
 
-    
 }
