@@ -5,7 +5,7 @@
      if(request.getSession().getAttribute("current_film")!=null){
           Film film=(Film)request.getSession().getAttribute("current_film");
           if(request.getAttribute("scene")!=null){
-               Scene s=(Scene)request.getAttribute("scene");
+               Scene_status s=(Scene_status)request.getAttribute("scene");
           
 %>
     <div class="card">
@@ -24,7 +24,7 @@
                                         <div class="col-md-12">
                                              <div class="form-group">
                                                   <label for="">Action et Description</label>
-                                                  <textarea class="form-control" placeholder="..." rows="3" name="description" value="<%= s.getGlobal_action() %>"></textarea>
+                                                  <textarea class="form-control" placeholder="..." rows="3" name="description" ><%= s.getGlobal_action() %></textarea>
                                              </div>
                                         </div>
 

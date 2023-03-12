@@ -26,23 +26,23 @@
                                         if(request.getAttribute("liste_film")!=null){
                                              List<Film> liste=(List<Film>)request.getAttribute("liste_film");
                                              for(Film f:liste){  %>
-                                        <div class="card col-4" >
+                                        <div class="card col-md-4 col-lg-4 col-xs-12" >
                                              <img class="card-img-top img-fluid" src="data:image/jpeg;base64,<%= f.getVisuel() %>"
                                                   alt="Card image cap">
                                              <div class="card-body">
                                                   <h4 class="card-title"><%= f.getTitle() %></h4>
                                                   <p class="card-text"><%= f.getDescription() %></p>
                                                   <p class="card-text"><small class="text-muted">Durée: <%= f.getDuration() %>
-                                                            ago</small></p>
+                                                            </small></p>
                                                   <div class="row">
-                                                       <div class="col-4">
+                                                       <div class="col-md-4 col-lg-4 col-xs-12">
                                                             <a href="${pageContext.request.contextPath}/film/<%= f.getId() %>/current" class="btn btn-primary">Choisir</a>
                                                        </div>
-                                                       <div class="col-4">
+                                                       <div class="col-md-4 col-lg-4 col-xs-12">
                                                             <a href="${pageContext.request.contextPath}/film/<%= f.getId() %>" class="btn btn-secondary">Voir
                                                                  Detail</a>
                                                        </div>
-                                                       <div class="col-4">
+                                                       <div class="col-md-4 col-lg-4 col-xs-12">
                                                             <a href="${pageContext.request.contextPath}/film/<%= f.getId() %>/scenes/0" class="btn btn-info">Voir
                                                                  scene</a>
                                                        </div>

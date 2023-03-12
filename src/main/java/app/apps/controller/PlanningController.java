@@ -59,7 +59,7 @@ public class PlanningController {
      * planningService.listToJson(planningService.listPlanning(current.getId())));
      * } catch (Exception ex) {
      * ex.printStackTrace();
-     * throw ex;
+     * //throws ex; request.setAttribute("erreur", ex.getMessage());
      * }
      * return "planning";
      * }

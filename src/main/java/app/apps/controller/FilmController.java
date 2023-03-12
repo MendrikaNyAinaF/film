@@ -77,42 +77,52 @@ public class FilmController {
         return getAllFilm(0, request);
     }
 
-    @GetMapping(value="/film/{id}/scenes/{page}")
-    public String getSceneByFilmId(@PathVariable("id") Integer filmId,@PathVariable("page") Integer page,HttpServletRequest request){
-        Integer limit=6;
-        Integer offset=page*limit;
-        List<Scene_status> listScene=new ArrayList<>();
+    @GetMapping(value = "/film/{id}/scenes/{page}")
+    public String getSceneByFilmId(@PathVariable("id") Integer filmId, @PathVariable("page") Integer page,
+            HttpServletRequest request) {
+        Integer limit = 6;
+        Integer offset = page * limit;
+        List<Scene_status> listScene = new ArrayList<>();
         String mc = "";
         Integer status = null;
         Integer[] actors = new Integer[0];
-        if(request.getSession().getAttribute("scene_motcle")!=null) mc =(String) request.getSession().getAttribute("scene_motcle");
-        if(request.getSession().getAttribute("scene_status")!=null) status =(Integer) request.getSession().getAttribute("scene_status");
-        if(request.getSession().getAttribute("scene_actors")!=null) actors =(Integer[]) request.getSession().getAttribute("scene_actors");
-        //System.out.println("heyheyhey");
-        listScene= sceneService.listScenes(filmId,mc,status,actors,0);
-        List<Scene> allF=sceneService.getAllScene();
-        int nbPage= allF.size();
-        nbPage= (int) Math.ceil((double)nbPage/limit);
-        Boolean endpage=false;
-        if(nbPage==page){
-            endpage=true;
+        if (request.getSession().getAttribute("scene_motcle") != null)
+            mc = (String) request.getSession().getAttribute("scene_motcle");
+        if (request.getSession().getAttribute("scene_status") != null)
+            status = (Integer) request.getSession().getAttribute("scene_status");
+        if (request.getSession().getAttribute("scene_actors") != null)
+            actors = (Integer[]) request.getSession().getAttribute("scene_actors");
+        // System.out.println("heyheyhey");
+        listScene = sceneService.listScenes(filmId, mc, status, actors, page);
+        List<Scene> allF = sceneService.getAllScene();
+        int nbPage = allF.size();
+        nbPage = (int) Math.ceil((double) nbPage / limit);
+        Boolean endpage = false;
+        if (nbPage == page) {
+            endpage = true;
         }
-        request.setAttribute("status",statusplanningService.getAllStatusPlanning());
-        request.setAttribute("character",actorService.getAllActor());
-        request.setAttribute("liste_scene",listScene);
-        request.setAttribute("endPage",endpage);
-        request.setAttribute("page",page);
+        request.setAttribute("status", statusplanningService.getAllStatusPlanning());
+        request.setAttribute("character", actorService.getAllActor());
+        request.setAttribute("liste_scene", listScene);
+        request.setAttribute("endPage", endpage);
+        request.setAttribute("page", page);
 
         return "liste_scene";
     }
+
     @PostMapping(value = "/search_scene")
-    public String searchScene(@RequestParam(name="status") Integer status, @RequestParam(name="actors",required=false) Integer[] actors,HttpServletRequest request) throws Exception {
-        request.getSession().setAttribute("scene_motcle",request.getParameter("motcle"));
-        request.getSession().setAttribute("scene_status",status);
-        if(actors!=null) request.getSession().setAttribute("scene_actors",actors);
-        else{ request.getSession().setAttribute("scene_actors",null); }
-        Film f=(Film)request.getSession().getAttribute("current_film");
-        return  getSceneByFilmId(f.getId(),0,request);
+    public String searchScene(@RequestParam(name = "status") Integer status,
+            @RequestParam(name = "actors", required = false) Integer[] actors, HttpServletRequest request)
+            throws Exception {
+        request.getSession().setAttribute("scene_motcle", request.getParameter("motcle"));
+        request.getSession().setAttribute("scene_status", status);
+        if (actors != null)
+            request.getSession().setAttribute("scene_actors", actors);
+        else {
+            request.getSession().setAttribute("scene_actors", null);
+        }
+        Film f = (Film) request.getSession().getAttribute("current_film");
+        return getSceneByFilmId(f.getId(), 0, request);
     }
 
     @GetMapping(value = "film/{id}/planning")
@@ -189,8 +199,8 @@ public class FilmController {
     public String getFilmDetails(@PathVariable("id") Integer filmId, HttpServletRequest request) throws Exception {
         Film film = filmService.getFilmById(filmId);
         List<Character> characterList = charaterService.getCharacterByFilm(filmId);
-        request.setAttribute("film", film);
-        request.setAttribute("film_personnage", characterList);
+        request.setAttribute("film_detail", film);
+        request.setAttribute("character_list", characterList);
 
         return "detail_film";
     }

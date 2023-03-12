@@ -18,8 +18,6 @@
                               </p>
                               <p><span class="card-title text-primary">Debut tournage : </span><%= f.getStart_shooting() %>
                               </p>
-
-                              <p><span class="card-title text-primary">Equipe : </span><%= f.getNbr_team() %>
                               </p>
                               <p><span class="card-title text-primary">Personnage :</span></p>
                               <ul>

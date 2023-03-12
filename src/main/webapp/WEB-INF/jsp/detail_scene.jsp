@@ -27,16 +27,13 @@
                               <p><%= s.getFilmset().getName() %></p>
 
                               <h4 class="card-title">Status</h4>
-<<<<<<< Updated upstream
-                              <p><%= "" %></p>
-                              <% if(s.getStatus().getId()>0){ //si le status est ok 
+                              <p><%= s.getStatus().getName() %></p>
+                              <% if(s.getStatus()==null || s.getStatus().getId()<1){ //si le status est non ok
                               %>
                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update">modifier</a>
                               <% }
                                    %>
-=======
-                              <p><%= s.getStatus().getName() %></p>
->>>>>>> Stashed changes
+                              
                          </div>
                     </div>
                     <div class="card col-6">
@@ -47,7 +44,7 @@
                                         List<Dialogue> dialogue=(List<Dialogue>)request.getAttribute("dialogue");
                                         for(Dialogue d: dialogue){                                    
                                    %>
-                                        <li><span class="text-primary"><%= d.getCharacter().getName() %>: '<%= d.getTexte() %>'</span> <cite
+                                        <li><span class="font-weight-bold"><%= d.getCharacter().getName() %>:</span><span class="text-primary"> '<%= d.getTexte() %>'</span> <cite
                                              title="Source Title">(<%= d.getAction() %>)</cite></li>
                                    <% } } %>
                                    
@@ -68,7 +65,7 @@
                                                             <% if(request.getAttribute("status_planning")!=null){
                                                                  List<StatusPlanning> status=(List<StatusPlanning>) request.getAttribute("status_planning");
                                                                  for(StatusPlanning st : status){ 
-                                                                      if(st.getId()!=1){ %>           
+                                                                      if(st.getId()>1){ %>           
                                                                       <option value=<%= st.getId() %>><%= st.getName() %></option>
                                                             <%  }   }
                                                             } %>

@@ -57,174 +57,196 @@ public class SceneService {
 
     private int pagination = 6;
 
-    public HibernateDAO getHibernate(){
+    public HibernateDAO getHibernate() {
         return this.hibernate;
     }
-    public void setHibernate(HibernateDAO a){
-        this.hibernate=a;
+
+    public void setHibernate(HibernateDAO a) {
+        this.hibernate = a;
     }
 
-    public List<Scene_status> listScenes(Integer idfilm,String recherche,Integer status,Integer[] idactors, int page){
-        if(recherche==null) recherche="";
+    public List<Scene_status> listScenes(Integer idfilm, String recherche, Integer status, Integer[] idactors,
+            int page) {
+        if (recherche == null)
+            recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene_status.class)
-            .add(Restrictions.or(
-                Restrictions.like("title","%"+recherche+"%"),
-                Restrictions.like("global_action","%"+recherche+"%")
-            ));
-        if(status!=null && status>=0){
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status="+status.toString()+")")));
+                .add(Restrictions.or(
+                        Restrictions.like("title", "%" + recherche + "%"),
+                        Restrictions.like("global_action", "%" + recherche + "%")));
+        if (status != null && status >= 0) {
+            cr.add(Restrictions.and(Restrictions.sqlRestriction(
+                    "this_.id in (select scene_id from planning where status=" + status.toString() + ")")));
         }
-        if(idactors.length>0){
-            String in="(";
+        if (idactors.length > 0) {
+            String in = "(";
             boolean all = false;
-            for(int i=0;i<idactors.length;i++){
-                if(idactors[i]>=0){
-                    in=in+idactors[i].toString();
-                    if(i<idactors.length-1){
-                        in=in+",";
+            for (int i = 0; i < idactors.length; i++) {
+                if (idactors[i] >= 0) {
+                    in = in + idactors[i].toString();
+                    if (i < idactors.length - 1) {
+                        in = in + ",";
                     }
-                }
-                else{
+                } else {
                     all = true;
                     break;
                 }
             }
-            in=in+")";
-            if(!all) cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+in+"))")));
+            in = in + ")";
+            if (!all)
+                cr.add(Restrictions.and(Restrictions.sqlRestriction(
+                        "this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "
+                                + in + "))")));
         }
-        cr.add(Restrictions.and(Restrictions.eq("film_id",idfilm)));
-        cr.setFirstResult((page)*pagination).setMaxResults(pagination);
+        cr.add(Restrictions.and(Restrictions.eq("film_id", idfilm)));
+        cr.setFirstResult((page) * pagination).setMaxResults(pagination);
         List<Scene_status> ls = cr.list();
         session.close();
         return ls;
     }
-    public Scene getById(Serializable id)throws Exception{
-        return (Scene) this.hibernate.findById(Scene.class,id);
+
+    public Scene getById(Integer id) throws Exception {
+        return (Scene) this.hibernate.findById(Scene.class, id);
     }
-    public Scene_status getByIdWStatus(Serializable id)throws Exception{
-        return (Scene_status) this.hibernate.findById(Scene_status.class,id);
+
+    public Scene_status getByIdWStatus(Serializable id) throws Exception {
+        return (Scene_status) this.hibernate.findById(Scene_status.class, id);
     }
-    /* public void plannifier(Scene s, Timestamp date)throws Exception{
-        PlanningService ps = new PlanningService();
-        Film f = hibernate.findById(Film.class,s.getFilm_id());
-        Planning p = new Planning();
-        if(date==null){
-            Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(System.currentTimeMillis());
-            cal.set(Calendar.HOUR_OF_DAY,8);
-            Timestamp t = new Timestamp(cal.getTimeInMillis());
-            while(!(ps.checkIfPlanFree(f,s,t))){
-                cal.add(Calendar.DAY_OF_YEAR,1);
-                t = new Timestamp(cal.getTimeInMillis());
-            }
-            p.setScene(s);
-            p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
-            p.setDate(t);
-        }
-        else{
-            if(!(ps.checkIfPlanFree(f,s,date))) throw new Exception("Planning decoseillé, date deja chargée, acteur deja sollicité, ou changement de plateau necessaire");
-            p.setScene(s);
-            p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
-            p.setDate(date);
-        }
-        ps.create(p);
-    } */
-    public Scene create(Scene s)throws Exception{
+
+    /*
+     * public void plannifier(Scene s, Timestamp date)throws Exception{
+     * PlanningService ps = new PlanningService();
+     * Film f = hibernate.findById(Film.class,s.getFilm_id());
+     * Planning p = new Planning();
+     * if(date==null){
+     * Calendar cal = Calendar.getInstance();
+     * cal.setTimeInMillis(System.currentTimeMillis());
+     * cal.set(Calendar.HOUR_OF_DAY,8);
+     * Timestamp t = new Timestamp(cal.getTimeInMillis());
+     * while(!(ps.checkIfPlanFree(f,s,t))){
+     * cal.add(Calendar.DAY_OF_YEAR,1);
+     * t = new Timestamp(cal.getTimeInMillis());
+     * }
+     * p.setScene(s);
+     * p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
+     * p.setDate(t);
+     * }
+     * else{
+     * if(!(ps.checkIfPlanFree(f,s,date))) throw new
+     * Exception("Planning decoseillé, date deja chargée, acteur deja sollicité, ou changement de plateau necessaire"
+     * );
+     * p.setScene(s);
+     * p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class,1));
+     * p.setDate(date);
+     * }
+     * ps.create(p);
+     * }
+     */
+    public Scene create(Scene s) throws Exception {
         this.hibernate.add(s);
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Scene last = (Scene) session.createCriteria(Scene.class)
-            .addOrder(Order.desc("id"))
-            .setMaxResults(1)
-            .uniqueResult();
+                .addOrder(Order.desc("id"))
+                .setMaxResults(1)
+                .uniqueResult();
         session.close();
         return last;
     }
-    public List<Scene> findByFilm(Integer idfilm){
+
+    public List<Scene> findByFilm(Integer idfilm) {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<Scene> ls = session.createCriteria(Scene.class)
-            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)))
-            .list();
+                .add(Restrictions.and(Restrictions.eq("film_id", idfilm)))
+                .list();
         session.close();
         return ls;
     }
-    public int countElements(Integer idfilm,String recherche){
-        if(recherche==null) recherche="";
+
+    public int countElements(Integer idfilm, String recherche) {
+        if (recherche == null)
+            recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<Scene> ls = session.createCriteria(Scene.class)
-            .add(Restrictions.like("title","%"+recherche+"%"))
-            .add(Restrictions.like("global_action","%"+recherche+"%"))
-            .add(Restrictions.and(Restrictions.eq("film_id",idfilm)))
-            .list();
+                .add(Restrictions.like("title", "%" + recherche + "%"))
+                .add(Restrictions.like("global_action", "%" + recherche + "%"))
+                .add(Restrictions.and(Restrictions.eq("film_id", idfilm)))
+                .list();
         session.close();
         return ls.size();
     }
-    public int countElements(List<Scene> ls){
+
+    public int countElements(List<Scene> ls) {
         return ls.size();
     }
-    public List<Actor> getActor(Scene s)throws Exception{
+
+    public List<Actor> getActor(Scene s) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        SQLQuery query = session.createSQLQuery("SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="+s.getId()+"))");
-        ArrayList<Actor> rep = new ArrayList(); 
+        SQLQuery query = session.createSQLQuery(
+                "SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="
+                        + s.getId() + "))");
+        ArrayList<Actor> rep = new ArrayList();
         List<Object[]> lp = query.list();
         Actor a = null;
-        for(Object[] row: lp){
+        for (Object[] row : lp) {
             a = new Actor();
             a.setId(Integer.parseInt(row[0].toString()));
             a.setName(row[1].toString());
             a.setBirthdate((java.sql.Date) row[2]);
             a.setContact(row[3].toString());
-            a.setGender(hibernate.findById(Gender.class,Integer.parseInt(row[4].toString())));
+            a.setGender(hibernate.findById(Gender.class, Integer.parseInt(row[4].toString())));
             rep.add(a);
         }
         session.close();
         return rep;
     }
-    public List<Dialogue> getDialogues(Scene s)throws Exception{
+
+    public List<Dialogue> getDialogues(Scene s) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<Dialogue> ls = session.createCriteria(Dialogue.class)
-            .add(Restrictions.and(Restrictions.eq("scene_id",s.getId())))
-            .list();
+                .add(Restrictions.and(Restrictions.eq("scene_id", s.getId())))
+                .list();
         session.close();
         return ls;
     }
 
-    public List<StatusPlanning> getStatusPlanning()throws Exception{
+    public List<StatusPlanning> getStatusPlanning() throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<StatusPlanning> ls = session.createCriteria(StatusPlanning.class).list();
         session.close();
         return ls;
     }
-    public boolean needSameActor(Scene a,Scene b)throws Exception{
+
+    public boolean needSameActor(Scene a, Scene b) throws Exception {
         List<Actor> la = getActor(a);
         List<Actor> lb = getActor(b);
-        for(Actor au: la){
-            for(Actor ab: lb){
-                if(au.getId()==ab.getId()){
+        for (Actor au : la) {
+            for (Actor ab : lb) {
+                if (au.getId() == ab.getId()) {
                     return true;
                 }
             }
         }
         return false;
     }
-    public List<Scene> getAllScene(){
-        return  hibernate.getAll1(new Scene());
+
+    public List<Scene> getAllScene() {
+        return hibernate.getAll1(new Scene());
     }
-    public List<Scene> getUnplannedScene(){
+
+    public List<Scene> getUnplannedScene() {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class)
-            .add(Restrictions.or(
-                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
-                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
-            ));
+                .add(Restrictions.or(
+                        Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
+                        Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")));
         List<Scene> ls = cr.list();
         session.close();
         return ls;

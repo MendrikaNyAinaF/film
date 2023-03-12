@@ -77,7 +77,8 @@ public class SceneController {
             request.setAttribute("status_planning", ss.getStatusPlanning());
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw ex;
+            // throws ex;
+            request.setAttribute("erreur", ex.getMessage());
         }
         return "detail_scene";
     }
@@ -99,7 +100,8 @@ public class SceneController {
             // ss.plannifier(s, ts);
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw ex;
+            // throws ex;
+            request.setAttribute("erreur", ex.getMessage());
         }
         return detailsScene(idscene, request);
     }
@@ -109,16 +111,18 @@ public class SceneController {
             @RequestParam(name = "status") Integer status, HttpServletRequest request) throws Exception {
         HttpSession session = null;
         Film current = null;
-
         Scene s = null;
         Timestamp ts = null;
         try {
             session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
+            s = ss.getById(idscene);
+            System.out.println("status : " + s);
             ps.changeStatus(s, status);
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw ex;
+            // throws ex;
+            request.setAttribute("erreur", ex.getMessage());
         }
         return detailsScene(idscene, request);
     }
@@ -168,19 +172,27 @@ public class SceneController {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw ex;
+            // throws ex;
+            request.setAttribute("erreur", ex.getMessage());
         }
         return to_create(request);
     }
 
     @GetMapping(value = "/film/{id}/scene/{idscene}/update")
-    public String to_update(HttpServletRequest request, HttpSession session) {
-        Film current = null;
-        session = SceneController.session();
-        current = (Film) session.getAttribute("current_film");
-        List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
-        request.setAttribute("plateau", fss.getAllFilmSet());
-        // envoyer la scene dans la page
+    public String to_update(@PathVariable Integer idscene, HttpServletRequest request, HttpSession session) {
+        Scene_status sst = null;
+        try {
+            request.setAttribute("plateau", fss.getAllFilmSet());
+            // s = ss.getById(idscene);
+            sst = ss.getByIdWStatus(idscene);
+            request.setAttribute("scene", sst);
+            request.setAttribute("status_planning", ss.getStatusPlanning());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            // throws ex;
+            request.setAttribute("erreur", ex.getMessage());
+        }
         return "update_scene";
     }
 
@@ -190,7 +202,7 @@ public class SceneController {
             @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
             @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
             @RequestParam(name = "prefered_shooting_start") String date_start,
-            HttpServletRequest req, HttpSession session) {
+            HttpServletRequest req, HttpSession session, @PathVariable Integer idscene) {
         Scene s = null;
         Dialogue d = null;
         try {
@@ -199,8 +211,7 @@ public class SceneController {
         } catch (Exception ex) {
             ex.printStackTrace();
             req.setAttribute("erreur", ex.getMessage());
-
         }
-        return to_update(req, session);
+        return to_update(idscene, req, session);
     }
 }

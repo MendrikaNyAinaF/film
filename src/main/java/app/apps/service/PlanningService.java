@@ -74,49 +74,51 @@ public class PlanningService {
         return (Settings) hibernate.findOneWhere(s, false, false);
     }
 
-    /* public void globalPlan(Film f) throws Exception {
-        SceneService ss = new SceneService();
-        Calendar calendar = Calendar.getInstance();
-        Settings workhour = getWorkHour();
-        double hour = workhour.getValue();
-        int team = f.getNbr_team();
-        int simult = 0;
-        calendar.setTimeInMillis(f.getStart_shooting().getTime());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        Timestamp plan = new Timestamp(calendar.getTimeInMillis());
-        List<Scene> ls = ss.findByFilm(f.getId());
-        Planning p = null;
-        int planned = 0;
-        while (planned != ls.size()) {
-            for (Scene s : ls) {
-                if (checkIfPlanFree(f, s, plan)) {
-                    p = new Planning();
-                    p.setScene(s);
-                    p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class, 1));
-                    p.setDate(plan);
-                    create(p);
-                    Time est = s.getEstimated_time();
-                    double h = est.toLocalTime().getHour();
-                    double m = est.toLocalTime().getMinute() / 60;
-                    double se = est.toLocalTime().getSecond() / 3600;
-                    double temps = h + m + se;
-                    if (temps > hour) {
-                        Calendar cal = Calendar.getInstance();
-                        cal.setTimeInMillis(plan.getTime());
-                        cal.add(Calendar.DAY_OF_YEAR, 1);
-                        cal.set(Calendar.HOUR_OF_DAY, 8);
-                        if (checkIfPlanFree(f, s, new Timestamp(cal.getTimeInMillis()))) {
-                            p.setDate(new Timestamp(cal.getTimeInMillis()));
-                            create(p);
-                        }
-                    }
-                    planned++;
-                }
-            }
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-            plan = new Timestamp(calendar.getTimeInMillis());
-        }
-    } */
+    /*
+     * public void globalPlan(Film f) throws Exception {
+     * SceneService ss = new SceneService();
+     * Calendar calendar = Calendar.getInstance();
+     * Settings workhour = getWorkHour();
+     * double hour = workhour.getValue();
+     * int team = f.getNbr_team();
+     * int simult = 0;
+     * calendar.setTimeInMillis(f.getStart_shooting().getTime());
+     * calendar.set(Calendar.HOUR_OF_DAY, 8);
+     * Timestamp plan = new Timestamp(calendar.getTimeInMillis());
+     * List<Scene> ls = ss.findByFilm(f.getId());
+     * Planning p = null;
+     * int planned = 0;
+     * while (planned != ls.size()) {
+     * for (Scene s : ls) {
+     * if (checkIfPlanFree(f, s, plan)) {
+     * p = new Planning();
+     * p.setScene(s);
+     * p.setStatus((StatusPlanning) hibernate.findById(StatusPlanning.class, 1));
+     * p.setDate(plan);
+     * create(p);
+     * Time est = s.getEstimated_time();
+     * double h = est.toLocalTime().getHour();
+     * double m = est.toLocalTime().getMinute() / 60;
+     * double se = est.toLocalTime().getSecond() / 3600;
+     * double temps = h + m + se;
+     * if (temps > hour) {
+     * Calendar cal = Calendar.getInstance();
+     * cal.setTimeInMillis(plan.getTime());
+     * cal.add(Calendar.DAY_OF_YEAR, 1);
+     * cal.set(Calendar.HOUR_OF_DAY, 8);
+     * if (checkIfPlanFree(f, s, new Timestamp(cal.getTimeInMillis()))) {
+     * p.setDate(new Timestamp(cal.getTimeInMillis()));
+     * create(p);
+     * }
+     * }
+     * planned++;
+     * }
+     * }
+     * calendar.add(Calendar.DAY_OF_YEAR, 1);
+     * plan = new Timestamp(calendar.getTimeInMillis());
+     * }
+     * }
+     */
 
     public List listPlanning(Integer filmid) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
@@ -157,15 +159,9 @@ public class PlanningService {
     }
 
     public void changeStatus(Scene s, Integer status) throws Exception {
-        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        List<Planning> lp = session.createCriteria(Planning.class)
-                .add(Restrictions.and(Restrictions.eq("scene_id", s.getId())))
-                .list();
-        session.close();
-        for (Planning p : lp) {
-            changeStatus(p, status);
-        }
+        Planning p = hibernate.findOneBySql(Planning.class,
+                "SELECT * FROM planning WHERE scene_id = " + s.getId() + " ORDER BY id DESC LIMIT 1");
+        changeStatus(p, status);
     }
 
     public boolean checkIfPlanFree(Film f, Scene toAdd, Timestamp t) throws Exception {
@@ -208,57 +204,57 @@ public class PlanningService {
         return true;
     }
 
-    public Filmset getPlateauOpen(List<Filmset> done,Timestamp t)throws Exception{
+    public Filmset getPlateauOpen(List<Filmset> done, Timestamp t) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Filmset.class)
-            .setMaxResults(1)
-            .add(Restrictions.or(
-                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
-                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
-            ));
+                .setMaxResults(1)
+                .add(Restrictions.or(
+                        Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
+                        Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")));
         Filmset ls = (Filmset) cr.uniqueResult();
         session.close();
         return null;
     }
-    public List<Planning> proposerPlanning(List<Scene> ls, Timestamp debut_tournage)throws Exception{
+
+    public List<Planning> proposerPlanning(List<Scene> ls, Timestamp debut_tournage) throws Exception {
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
         Filmset p = null;
         return null;
     }
-    public boolean isThereSuperposistion(Timestamp d,Timestamp f)throws Exception{
+
+    public boolean isThereSuperposistion(Timestamp d, Timestamp f) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Planning.class)
-            .add(Restrictions.and(
-                Restrictions.ge("date_fin",d),
-                Restrictions.le("date_debut",f)
-            ));
+                .add(Restrictions.and(
+                        Restrictions.ge("date_fin", d),
+                        Restrictions.le("date_debut", f)));
         List<Scene> ls = cr.list();
         session.close();
-        if(ls.size()>0) return true; 
+        if (ls.size() > 0)
+            return true;
         return false;
     }
-    public void insertPlanning(List<Planning> lp)throws Exception{
+
+    public void insertPlanning(List<Planning> lp) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = null;
-        try{
+        try {
             transaction = session.beginTransaction();
-            for(Planning pa : lp){
-                if(isThereSuperposistion(pa.getDate_debut(),pa.getDate_fin())){
+            for (Planning pa : lp) {
+                if (isThereSuperposistion(pa.getDate_debut(), pa.getDate_fin())) {
                     throw new Exception("Planning invalid: superposition de jour de tournage");
                 }
             }
             transaction.commit();
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             transaction.rollback();
             ex.printStackTrace();
             throw ex;
-        }
-        finally{
+        } finally {
             session.close();
         }
     }

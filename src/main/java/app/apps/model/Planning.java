@@ -16,7 +16,7 @@ public class Planning extends HasId {
     private Scene scene;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status")
     private StatusPlanning status;
 
     @Column
