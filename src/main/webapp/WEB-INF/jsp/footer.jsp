@@ -27,8 +27,6 @@
 <script src="${pageContext.request.contextPath}/resources/assets/extra-libs/c3/c3.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/libs/chartist/dist/chartist.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/dashboards/dashboard1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/extra-libs/prism/prism.js"></script>
 
@@ -36,9 +34,6 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/select2.js"></script>
 
 
-<script src="${pageContext.request.contextPath}/resources/assets/libs/raphael/raphael.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/libs/morris.js/morris.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/dist/js/pages/morris/morris-data.js"></script>
 
 
 </body>
