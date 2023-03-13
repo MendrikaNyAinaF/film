@@ -55,6 +55,13 @@ public class SceneController {
     @Autowired
     DialogueService ds;
 
+    @Autowired
+    SceneService sceneService;
+
+    @Autowired
+    FilmSetService filmSetService;
+
+
     public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attr.getRequest().getSession(true); // true == allow create
@@ -182,20 +189,21 @@ public class SceneController {
     }
 
     @GetMapping(value = "/film/{id}/scene/{idscene}/update")
-    public String to_update(@PathVariable Integer idscene, HttpServletRequest request, HttpSession session) {
-        Scene_status sst = null;
-        try {
-            request.setAttribute("plateau", fss.getAllFilmSet());
-            // s = ss.getById(idscene);
-            sst = ss.getByIdWStatus(idscene);
-            request.setAttribute("scene", sst);
-            request.setAttribute("status_planning", ss.getStatusPlanning());
+    public String to_update(HttpServletRequest request, HttpSession session,@PathVariable(name = "idscene") Integer idscene) {
+        Film current = null;
+        session = SceneController.session();
+        current = (Film) session.getAttribute("current_film");
+        List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
+        request.setAttribute("plateau", fss.getAllFilmSet());
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            // throws ex;
-            request.setAttribute("erreur", ex.getMessage());
+
+        // envoyer la scene dans la page
+        try {
+            Scene scene=sceneService.getById(idscene);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         return "update_scene";
     }
 
@@ -205,15 +213,37 @@ public class SceneController {
             @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
             @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
             @RequestParam(name = "prefered_shooting_start") String date_start,
-            HttpServletRequest req, HttpSession session, @PathVariable Integer idscene) {
+            HttpServletRequest req, HttpSession session,@PathVariable(name = "idscene") Integer idscene,@PathVariable(name = "id") Integer id) {
         Scene s = null;
+        Dialogue d = null;
         try {
             s = new Scene();
-            // modification de la scene
+            s.setTitle(titre);
+            s.setGlobal_action(description);
+
+            DateFormat format = new SimpleDateFormat("HH:mm");
+            Date date = format.parse(time_start);
+            s.setTime_start(new Time(date.getTime()));
+
+            Date date1=format.parse(time_end);
+            s.setTime_end(new Time(date1.getTime()));
+
+            Date date2=format.parse(estimed_time);
+            s.setEstimated_time(new Time(date2.getTime()));
+
+            s.setFilm_id(id);
+            s.setId(idscene);
+
+            s.setFilmset(filmSetService.getFilmsetById(filmset));
+
+            sceneService.updateScene(s);
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
             req.setAttribute("erreur", ex.getMessage());
+
         }
-        return to_update(idscene, req, session);
+        return to_update(req, session,s.getId());
     }
 }
