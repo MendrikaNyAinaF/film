@@ -16,4 +16,7 @@ public class FilmSetService {
     public List<Filmset> getAllFilmSet(){
         return hibernateDAO.getAll1(new Filmset());
     }
+    public Filmset getFilmsetById(int id) throws Exception {
+        return  hibernateDAO.getById(new Filmset(),id);
+    }
 }

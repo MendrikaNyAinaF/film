@@ -253,4 +253,15 @@ public class SceneService {
         session.close();
         return ls;
     }
+
+    public List<Scene> getSceneByFilmSetId(Integer id){
+        return hibernate.getByIdFilmSet(new Scene(),id);
+    }
+    public Scene getById(Integer id) throws Exception {
+        return hibernate.getById(new Scene(),id);
+    }
+
+    public  void updateScene(Scene e){
+        hibernate.update(e);
+    }
 }

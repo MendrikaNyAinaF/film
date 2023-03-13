@@ -38,11 +38,29 @@ public class FilmSetController {
      @Autowired
      SceneService sceneService;
 
+     @Autowired
+     FilmSetService filmSetService;
+
+     @Autowired
+     FilmSetPlanningService filmSetPlanningService;
+
+     @Autowired
+     VTopPlanningService vTopPlanningService;
+
      @GetMapping(value = "/filmsets")
      public String filmsets(HttpServletRequest req) {
           try {
-               // passer la liste des plateaux
+               // passer la liste des plateaux liste_filmset
+               List<Filmset> allfilmset=filmSetService.getAllFilmSet();
+               req.setAttribute("liste_filmset", allfilmset);
+
                // passer les statistiques des plateaux en json
+               Gson gson = new Gson();
+               List<V_top_planning> v_top_plannings= (List<V_top_planning>) vTopPlanningService.getTopPlanning();
+               String planningJson=gson.toJson(v_top_plannings);
+               req.setAttribute("",planningJson);
+
+
           } catch (Exception ex) {
                ex.printStackTrace();
                req.setAttribute("erreur", ex.getMessage());
@@ -54,8 +72,18 @@ public class FilmSetController {
      public String filmsetPlanning(HttpServletRequest req, @PathVariable(name = "id") Integer id) {
           try {
                // passer le plateau
+               Filmset filmset=filmSetService.getFilmsetById(id);
+               req.setAttribute("liste_filmset", filmset);
+
                // passer la disponibilite du plateau
+               List<Filmset_planning> filmset_plannings= filmSetPlanningService.getByFilmsetId(id);
+               req.setAttribute("liste_filmsetplanning",filmset_plannings);
+
                // passer le planning des plateaux
+               List<Scene> allScene=sceneService.getSceneByFilmSetId(id);
+               req.setAttribute("liste_scene",allScene);
+
+
           } catch (Exception ex) {
                ex.printStackTrace();
                req.setAttribute("erreur", ex.getMessage());

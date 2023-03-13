@@ -338,4 +338,21 @@ public class HibernateDAO implements InterfaceDAO {
         return (T) p;
     }
 
+    public <T> List<T> getByIdFilmSet(Object o, Integer idFilmSet){
+        Session session = this.sessionFactory.openSession();
+        List<T> result = null;
+        try {
+            Criteria criteria = session.createCriteria(o.getClass());
+            criteria.add(Restrictions.eq("filmset_id", idFilmSet));
+            result = criteria
+                    .list();
+
+        } catch (Exception e) {
+
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
 }
