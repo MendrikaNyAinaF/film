@@ -237,25 +237,28 @@ public class PlanningService {
             return true;
         return false;
     }
-
-    public void insertPlanning(List<Planning> lp) throws Exception {
-        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
-        Session session = sessionFactory.openSession();
+    public void insertPlanning(List<Planning> lp)throws Exception{
+        SessionFactory sessionFactory = null;
+        Session session = null;
         Transaction transaction = null;
-        try {
+        try{
+            sessionFactory = this.hibernate.getSessionFactory();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             for (Planning pa : lp) {
                 if (isThereSuperposistion(pa.getDate_debut(), pa.getDate_fin())) {
                     throw new Exception("Planning invalid: superposition de jour de tournage");
                 }
+                session.save(pa);
             }
             transaction.commit();
         } catch (Exception ex) {
             transaction.rollback();
             ex.printStackTrace();
             throw ex;
-        } finally {
-            session.close();
+        }
+        finally{
+            if(session!=null) session.close();
         }
     }
 }

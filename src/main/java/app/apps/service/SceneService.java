@@ -239,14 +239,15 @@ public class SceneService {
     public List<Scene> getAllScene() {
         return hibernate.getAll1(new Scene());
     }
-
-    public List<Scene> getUnplannedScene() {
+    public List<Scene> getUnplannedScene(Integer idf){
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class)
-                .add(Restrictions.or(
-                        Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
-                        Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")));
+            .add(Restrictions.or(
+                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
+                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
+            ));
+        cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
         List<Scene> ls = cr.list();
         session.close();
         return ls;

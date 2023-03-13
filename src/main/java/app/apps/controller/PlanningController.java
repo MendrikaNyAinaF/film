@@ -72,6 +72,7 @@ public class PlanningController {
         try {
             current = (Film) session.getAttribute("current_film");
             // liste des scenes non planifiées atao dans "liste_scene"
+            request.setAttribute("liste_scene",sceneService.getUnplannedScene(current.getId()));
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());

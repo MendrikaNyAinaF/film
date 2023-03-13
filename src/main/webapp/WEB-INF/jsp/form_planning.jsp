@@ -44,7 +44,7 @@
                                                                       id="customCheck1" name="idscene" />
                                                                  <label class="mb-0 text-white custom-control-label"
                                                                       for="customCheck1">
-                                                                      s.getTitle()
+                                                                      <%= s.getTitle() %>
                                                                  </label>
                                                             </div>
                                                        </div>
