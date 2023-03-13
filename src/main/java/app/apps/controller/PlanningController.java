@@ -92,6 +92,9 @@ public class PlanningController {
                 commencement = java.sql.Date.valueOf(date);
             }
             // traitement du planning
+            request.setAttribute("nbr_scene",ids.length);
+            request.setAttribute("start_date",date.toString());
+            request.setAttribute("liste_planning",null);
             return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();

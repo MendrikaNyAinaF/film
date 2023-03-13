@@ -76,8 +76,7 @@ public class SceneService {
                         Restrictions.like("title", "%" + recherche + "%"),
                         Restrictions.like("global_action", "%" + recherche + "%")));
         if (status != null && status >= 0) {
-            cr.add(Restrictions.and(Restrictions.sqlRestriction(
-                    "this_.id in (select scene_id from planning where status=" + status.toString() + ")")));
+            cr.add(Restrictions.and(Restrictions.eq("status",status)));
         }
         if (idactors.length > 0) {
             String in = "(";
@@ -218,7 +217,9 @@ public class SceneService {
     public List<StatusPlanning> getStatusPlanning() throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        List<StatusPlanning> ls = session.createCriteria(StatusPlanning.class).list();
+        List<StatusPlanning> ls = session.createCriteria(StatusPlanning.class)
+            .add(Restrictions.and(Restrictions.gt("id",0)))
+            .list();
         session.close();
         return ls;
     }

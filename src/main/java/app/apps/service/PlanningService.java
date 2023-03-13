@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Calendar;
@@ -204,23 +205,50 @@ public class PlanningService {
         return true;
     }
 
-    public Filmset getPlateauOpen(List<Filmset> done, Timestamp t) throws Exception {
+    public List<Filmset> getOpenFilmset(Integer idf,Timestamp t) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Criteria cr = session.createCriteria(Filmset.class)
-                .setMaxResults(1)
-                .add(Restrictions.or(
-                        Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
-                        Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")));
-        Filmset ls = (Filmset) cr.uniqueResult();
+        Criteria cr = session.createCriteria(Filmset.class);
+        cr.add(Restrictions.and(
+            Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+idf+")"),
+            Restrictions.sqlRestriction("this_.id in (select filmset_id from filmset_planning where weekday = date_part('isodow','"+t.toString()+"'::timestamp) and timestart <= '"+t.toString()+"'::time and timeend >= '"+t.toString()+"'::time")
+            )
+        );
+        cr.addOrder(Order.asc("id"));
+        List<Filmset> ls = cr.list();
         session.close();
-        return null;
+        return ls;
     }
 
-    public List<Planning> proposerPlanning(List<Scene> ls, Timestamp debut_tournage) throws Exception {
+    public List<Planning> proposerPlanning(Integer idf,Integer[] ls, Timestamp debut_tournage) throws Exception {
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
-        Filmset p = null;
+        double worked = 0;
+        List<Filmset> lf = getOpenFilmset(idf,debut_tournage);
+        ArrayList<Planning> lp = new ArrayList<Planning>();
+        Calendar cal = Calendar.getInstance();
+        Timestamp shooting = debut_tournage;
+        cal.setTime(shooting);
+        //cal.add(Calendar.DAY_OF_YEAR, 14);
+        shooting.setTime(cal.getTime().getTime());
+        Planning p = null;
+        Filmset f = null;
+        Scene s = null;
+        int i;
+        LocalTime check = null;
+        LocalTime left = null;
+        LocalTime right = null;
+        while(lp.size()<ls.length){
+            f = (Filmset) lf.get(0);
+            while(worked<hour){
+                for(i=0;i<ls.length;i++){
+                    s = (Scene) hibernate.getById(Scene.class,ls[i]);
+                    if(s.getFilmset().getId()!=f.getId()){
+                        continue;
+                    }
+                }
+            }
+        }
         return null;
     }
 
