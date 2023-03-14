@@ -40,10 +40,9 @@
                                                   <div class="card border-dark">
                                                        <div class="card-header bg-dark">
                                                             <div class="custom-control custom-checkbox">
-                                                                 <input type="checkbox" class="custom-control-input"
-                                                                      id="customCheck1" name="idscene" value=<%= s.getId() %> />
+                                                                 <input type="checkbox" class="custom-control-input" id="customCheck<%= s.getId() %>" name="idscene" value=<%= s.getId() %> />
                                                                  <label class="mb-0 text-white custom-control-label"
-                                                                      for="customCheck1">
+                                                                      for="customCheck<%= s.getId() %>">
                                                                       <%= s.getTitle() %>
                                                                  </label>
                                                             </div>
