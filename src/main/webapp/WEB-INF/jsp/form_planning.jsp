@@ -41,7 +41,7 @@
                                                        <div class="card-header bg-dark">
                                                             <div class="custom-control custom-checkbox">
                                                                  <input type="checkbox" class="custom-control-input"
-                                                                      id="customCheck1" name="idscene" />
+                                                                      id="customCheck1" name="idscene" value=<%= s.getId() %> />
                                                                  <label class="mb-0 text-white custom-control-label"
                                                                       for="customCheck1">
                                                                       <%= s.getTitle() %>

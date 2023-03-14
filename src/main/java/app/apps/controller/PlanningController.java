@@ -94,7 +94,7 @@ public class PlanningController {
             // traitement du planning
             request.setAttribute("nbr_scene",ids.length);
             request.setAttribute("start_date",date.toString());
-            request.setAttribute("liste_planning",null);
+            request.setAttribute("liste_planning",planningService.proposerPlanning(ids,Timestamp.valueOf(date.replace("T"," ")+":00")));
             return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();

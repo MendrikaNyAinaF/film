@@ -236,27 +236,40 @@ public class PlanningService {
         Scene s = null;
         StatusPlanning sp = (StatusPlanning) hibernate.getById(StatusPlanning.class,1);
         int i;
-        Time shooting_hour = Time.valueOf("08:00:00");
+        Time est;
+        double h;
+        double m;
+        double se;
+        double estWork;
+        Timestamp start = null;
+        Timestamp end = null;
         for(i=0;i<ls.length;i++){
             s = (Scene) hibernate.getById(Scene.class,ls[i]);
             if(f==null) f = s.getFilmset();
             if(f.getId()!=s.getFilmset().getId()) continue;
-            Time est = s.getEstimated_time();
-            double h = est.toLocalTime().getHour();
-            double m = est.toLocalTime().getMinute() / 60;
-            double se = est.toLocalTime().getSecond() / 3600;
-            double estWork = h+m+se;
+            est = s.getEstimated_time();
+            h = est.toLocalTime().getHour();
+            m = est.toLocalTime().getMinute() / 60;
+            se = est.toLocalTime().getSecond() / 3600;
+            estWork = h+m+se;
             if(worked+estWork>8){
                 cal.add(Calendar.DAY_OF_YEAR,1);
                 cal.set(Calendar.HOUR_OF_DAY,8);
+                cal.set(Calendar.MINUTE,0);
+                cal.set(Calendar.SECOND,0);
+                shooting.setTime(cal.getTimeInMillis());
             }
-            if(s.getPreferred_shooting_time()!=null){
-            }
-            else{
-                cal.set(Calendar.HOUR_OF_DAY,0);
-            }
+            start = new Timestamp(shooting.getTime());
+            end = new Timestamp(shooting.getTime()+est.getTime());
+            p = new Planning();
+            p.setScene(s);
+            p.setStatus(sp);
+            p.setDate_debut(start);
+            p.setDate_fin(end);
+            lp.add(p);
+            shooting.setTime(end.getTime()+1200000);
         }
-        return null;
+        return (List<Planning>) lp;
     }
 
     public boolean isThereSuperposistion(Timestamp d, Timestamp f) throws Exception {
