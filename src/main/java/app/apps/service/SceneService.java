@@ -249,6 +249,7 @@ public class SceneService {
                 Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
             ));
         cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
+        cr.addOrder(Order.asc("id","preferred_shooting_time"));
         List<Scene> ls = cr.list();
         session.close();
         return ls;
