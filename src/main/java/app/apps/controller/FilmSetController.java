@@ -7,13 +7,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
+import app.apps.model.V_top_planning;
+import app.apps.model.Scene;
+import app.apps.model.Scene_status;
+import app.apps.model.Planning;
+import app.apps.model.StatusPlanning;
+import app.apps.model.Film;
+import app.apps.model.Gender;
+import app.apps.model.Actor;
+import app.apps.model.Dialogue;
+import app.apps.model.Character;
+import app.apps.model.Filmset;
+import app.apps.model.Filmset_planning;
+import app.apps.model.StatusPlanning;
+import app.apps.dao.HibernateDAO;
+
 import app.apps.service.ActorService;
 import app.apps.service.CharaterService;
 import app.apps.service.FilmService;
+import app.apps.service.FilmSetService;
+import app.apps.service.FilmSetPlanningService;
 import app.apps.service.GenderService;
 import app.apps.service.PlanningService;
 import app.apps.service.SceneService;
 import app.apps.service.StatusPlanningService;
+import app.apps.service.VTopPlanningService;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class FilmSetController {

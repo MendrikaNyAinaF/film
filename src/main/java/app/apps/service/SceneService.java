@@ -105,9 +105,9 @@ public class SceneService {
         return ls;
     }
 
-    public Scene getById(Integer id) throws Exception {
+    /* public Scene getById(Integer id) throws Exception {
         return (Scene) this.hibernate.findById(Scene.class, id);
-    }
+    } */
 
     public Scene_status getByIdWStatus(Serializable id) throws Exception {
         return (Scene_status) this.hibernate.findById(Scene_status.class, id);
@@ -249,7 +249,8 @@ public class SceneService {
                 Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
             ));
         cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
-        cr.addOrder(Order.asc("id","preferred_shooting_time"));
+        cr.addOrder(Order.asc("id"));
+        cr.addOrder(Order.asc("preferred_shooting_time"));
         List<Scene> ls = cr.list();
         session.close();
         return ls;

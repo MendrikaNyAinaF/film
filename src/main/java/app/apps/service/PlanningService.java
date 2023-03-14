@@ -57,6 +57,9 @@ public class PlanningService {
     @Autowired
     HibernateDAO hibernate;
 
+    @Autowired
+    FilmSetService filmsetService;
+
     public HibernateDAO getHibernate() {
         return this.hibernate;
     }
@@ -204,7 +207,7 @@ public class PlanningService {
         }
         return true;
     }
-
+/* 
     public List<Filmset> getOpenFilmset(Integer idf,Timestamp t) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
@@ -219,34 +222,38 @@ public class PlanningService {
         session.close();
         return ls;
     }
-
-    public List<Planning> proposerPlanning(Integer idf,Integer[] ls, Timestamp debut_tournage) throws Exception {
+*/
+    public List<Planning> proposerPlanning(Integer[] ls, Timestamp debut_tournage) throws Exception {
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
         double worked = 0;
-        List<Filmset> lf = getOpenFilmset(idf,debut_tournage);
         ArrayList<Planning> lp = new ArrayList<Planning>();
         Calendar cal = Calendar.getInstance();
         Timestamp shooting = debut_tournage;
         cal.setTime(shooting);
-        //cal.add(Calendar.DAY_OF_YEAR, 14);
-        shooting.setTime(cal.getTime().getTime());
         Planning p = null;
         Filmset f = null;
         Scene s = null;
+        StatusPlanning sp = (StatusPlanning) hibernate.getById(StatusPlanning.class,1);
         int i;
-        LocalTime check = null;
-        LocalTime left = null;
-        LocalTime right = null;
-        while(lp.size()<ls.length){
-            f = (Filmset) lf.get(0);
-            while(worked<hour){
-                for(i=0;i<ls.length;i++){
-                    s = (Scene) hibernate.getById(Scene.class,ls[i]);
-                    if(s.getFilmset().getId()!=f.getId()){
-                        continue;
-                    }
-                }
+        Time shooting_hour = Time.valueOf("08:00:00");
+        for(i=0;i<ls.length;i++){
+            s = (Scene) hibernate.getById(Scene.class,ls[i]);
+            if(f==null) f = s.getFilmset();
+            if(f.getId()!=s.getFilmset().getId()) continue;
+            Time est = s.getEstimated_time();
+            double h = est.toLocalTime().getHour();
+            double m = est.toLocalTime().getMinute() / 60;
+            double se = est.toLocalTime().getSecond() / 3600;
+            double estWork = h+m+se;
+            if(worked+estWork>8){
+                cal.add(Calendar.DAY_OF_YEAR,1);
+                cal.set(Calendar.HOUR_OF_DAY,8);
+            }
+            if(s.getPreferred_shooting_time()!=null){
+            }
+            else{
+                cal.set(Calendar.HOUR_OF_DAY,0);
             }
         }
         return null;
