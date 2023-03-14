@@ -85,11 +85,11 @@ public class PlanningController {
             @RequestParam(required = false, name = "idscene") Integer[] ids,
             @RequestParam(name = "start_date") String date) {
         Film current = null;
-        java.sql.Date commencement = null;
+        Timestamp commencement = null;
         try {
             current = (Film) session.getAttribute("current_film");
             if (current != null) {
-                commencement = java.sql.Date.valueOf(date);
+                commencement = Timestamp.valueOf(date.replace("T"," ")+":00");
             }
             // traitement du planning
             request.setAttribute("nbr_scene",ids.length);

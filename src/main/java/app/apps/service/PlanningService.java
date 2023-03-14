@@ -243,8 +243,10 @@ public class PlanningService {
         double estWork;
         Timestamp start = null;
         Timestamp end = null;
+        System.out.println(ls.length);
         for(i=0;i<ls.length;i++){
-            s = (Scene) hibernate.getById(Scene.class,ls[i]);
+            s = (Scene) hibernate.findById(Scene.class,ls[i]);
+            System.out.println(s);
             if(f==null) f = s.getFilmset();
             if(f.getId()!=s.getFilmset().getId()) continue;
             est = s.getEstimated_time();

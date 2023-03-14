@@ -14,7 +14,7 @@
           <button class="btn btn-info" type="submit">Confirmer</button>
           <br />
           <br />
-               <% if(request.getAttribute("liste_planning"){
+               <% if(request.getAttribute("liste_planning")!=null){
                     List<Planning> liste_planning = (List<Planning>) request.getAttribute("liste_planning");
                     for(Planning p: liste_planning){ %>
                          
@@ -51,15 +51,15 @@
                          </div>
                          
                <%     }
-               }) %>
+               } %>
                     
         </form>  
      </div>
 </div>
 <script type="text/javascript">
-     const nbr_scene= <%= request.getAttribute("nbr_scene") %>;
-     const urlredirect=<%= request.getContextPath() %>+"/film/"+film.getId()+"/planning";
-     const url=<%= request.getContextPath() %>+"/film/"+film.getId()+"/confirmer_planning";
+     const nbr_scene = <%= request.getAttribute("nbr_scene") %>;
+     const urlredirect = <%= request.getContextPath()+"/film/"+film.getId()+"/planning" %>;
+     const url = <%= request.getContextPath()+"/film/"+film.getId()+"/confirmer_planning" %>;
      const formulaire = document.getElementById('confirmer_plan');
 
      formulaire.addEventListener('submit', function(event) {
@@ -90,6 +90,6 @@
      });
 </script>
 <% else {
-     out.println("pas encore de film")
-}- %>
+     out.println("pas encore de film");
+} %>
 <jsp:include page="footer.jsp" />

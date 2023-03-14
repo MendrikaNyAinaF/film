@@ -50,7 +50,7 @@
                                                        </div>
                                                        <div class="card-body">
                                                             <h3 class="card-title">Plateau: <%= s.getFilmset().getName() %></h3>
-                                                            <p class="card-text">Temps estime de {s.getEstimated_time()}, 
+                                                            <p class="card-text">Temps estime de <%= s.getEstimated_time() %>, 
                                                                  <% if(s.getPreferred_shooting_time()!=null){
                                                                       out.println(" avec une preference pour "+s.getPreferred_shooting_time());
                                                                  }else{
