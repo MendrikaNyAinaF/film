@@ -262,7 +262,7 @@ public class PlanningService {
                 shooting.setTime(cal.getTimeInMillis());
             }
             start = new Timestamp(shooting.getTime());
-            end = new Timestamp(shooting.getTime()+est.getTime());
+            end = new Timestamp(shooting.getTime()-est.getTime());
             p = new Planning();
             p.setScene(s);
             p.setStatus(sp);

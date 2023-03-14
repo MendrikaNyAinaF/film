@@ -92,9 +92,12 @@ public class PlanningController {
                 commencement = Timestamp.valueOf(date.replace("T"," ")+":00");
             }
             // traitement du planning
+            List<Planning> lp = planningService.proposerPlanning(ids,Timestamp.valueOf(date.replace("T"," ")+":00"));
+            System.out.println(lp);
+            if(lp!=null) System.out.println(lp.size());
             request.setAttribute("nbr_scene",ids.length);
             request.setAttribute("start_date",date.toString());
-            request.setAttribute("liste_planning",planningService.proposerPlanning(ids,Timestamp.valueOf(date.replace("T"," ")+":00")));
+            request.setAttribute("liste_planning",lp);
             return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();

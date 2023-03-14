@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character,app.apps.model.StatusPlanning" %>
 <jsp:include page="header.jsp" />
-<%  if(request.getSession().getAttribute("current_film")==null){
+<%  if(request.getSession().getAttribute("current_film")!=null){
      Film film=(Film)request.getSession().getAttribute("current_film");
 %>                 
 <div class="card col-lg-12">
@@ -32,16 +32,15 @@
                                              <h3 class="card-title">Plateau: <%= p.getScene().getFilmset().getName() %></h3>
                                              <p class="card-text">Tournage:</p>
                                              <div class="row">
+                                                  <input type="hidden" class="id" value=<%= p.getScene().getId() %>>
                                                   <div class="col-md-6">
                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="form-control"
-                                                                 placeholder="1">
+                                                            <input type="datetime-local" class="date_debut" value="<%= p.getDate_debut().toString() %>">
                                                        </div>
                                                   </div>
                                                   <div class="col-md-6">
                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="form-control"
-                                                                 placeholder="col-md-11">
+                                                            <input type="datetime-local" class="date_fin value="<%= p.getDate_fin().toString() %>">
                                                        </div>
                                                   </div>
                                              </div>
