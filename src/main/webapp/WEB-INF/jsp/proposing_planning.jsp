@@ -40,7 +40,7 @@
                                                   </div>
                                                   <div class="col-md-6">
                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="date_fin value="<%= p.getDate_fin().toString() %>">
+                                                            <input type="datetime-local" class="date_fin" value="<%= p.getDate_fin().toString() %>">
                                                        </div>
                                                   </div>
                                              </div>
