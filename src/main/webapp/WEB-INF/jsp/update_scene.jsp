@@ -50,7 +50,7 @@
                                         <div class="col-md-4">
                                              <div class="form-group">
                                                   <label for="">Plateau</label>
-                                                  <select name="type" class="form-control" name="filmset">
+                                                  <select class="form-control" name="filmset">
                                                        <% if(request.getAttribute("plateau")!=null){
                                                             List<Filmset>filmset=(List<Filmset>)request.getAttribute("plateau");
                                                             for(Filmset f: filmset){ 
@@ -76,7 +76,7 @@
                                                   <label for="">Heure de tournage souhaite</label>
                                                   <input type="time" step="1" class="form-control" value="<% if(s.getPreferred_shooting_time()!=null){
                                                        out.print(s.getPreferred_shooting_time());
-                                                  } %>" name="preferred_shooting_time">
+                                                  } %>" name="preferred_shooting_start">
                                              </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary" >modifier</button>

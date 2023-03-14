@@ -13,7 +13,7 @@
                                     <div class="col-lg-12">
                                         <div class="card-body b-l calender-sidebar">
                                              <h1>Planning du plateau: <%= filmset.getName() %></h1>
-                                            <div id="calendar"></div>
+                                             <div id="calendar"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -25,9 +25,13 @@
 <script src="${pageContext.request.contextPath}/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/assets/libs/moment/min/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>      
-    <script type="text/javascript">
-        $.CalendarApp.init(<%= request.getAttribute("plateau_dispo") %>, <%= request.getAttribute("plateau_occupe") %>);
+<script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-filmset.js"></script>
+<script type="text/javascript">
+        const dis=<%= request.getAttribute("liste_filmsetplanning") %>;
+        const scenes=<%= request.getAttribute("liste_scene") %>
+            $.CalendarApp2.init(dis, scenes);
+
     </script>
 <%   } else{ %>
      <div class="alert alert-danger" role="alert">

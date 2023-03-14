@@ -30,8 +30,8 @@
                                    List<Filmset> liste_filmset=(List<Filmset>)request.getAttribute("liste_filmset");
                                    for(Filmset f:liste_filmset){ %>
                                         <tr>
-                                             <td>{f.getName()}</td>
-                                             <td>{f.getType().getName()}</td>
+                                             <td><%= f.getName() %></td>
+                                             <td><%= f.getType().getName() %></td>
                                              <td>
                                                   <a href="${pageContext.request.contextPath}/filmset/<%= f.getId() %>/planning" class="btn btn-info" >voir</a>
                                              </td>
@@ -59,7 +59,6 @@
      const barchart=<%= request.getAttribute("filmset_json") %>
      window.onload = function() {
           stat_filmset(barchart);
-          console.log("rajouté")
      };
 
 </script>

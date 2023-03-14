@@ -1,7 +1,7 @@
 ! function ($) {
      "use strict";
  
-     var CalendarApp = function () {
+     var CalendarApp2 = function () {
          this.$body = $("body")
          this.$calendar = $('#calendar'),
              this.$event = ('#calendar-events div.calendar-events'),
@@ -14,7 +14,7 @@
  
  
      /* on drop */
-     CalendarApp.prototype.onDrop = function (eventObj, date) {
+     CalendarApp2.prototype.onDrop = function (eventObj, date) {
          var $this = this;
          // retrieve the dropped element's stored Event Object
          var originalEventObject = eventObj.data('eventObject');
@@ -33,7 +33,7 @@
              eventObj.remove();
          }
      },
-         CalendarApp.prototype.enableDrag = function () {
+         CalendarApp2.prototype.enableDrag = function () {
              //init events
              $(this.$event).each(function () {
                  // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -52,7 +52,9 @@
              });
          }
      /* Initializing */
-     CalendarApp.prototype.init = function ( datadispo, dataoccu) {
+     CalendarApp2.prototype.init = function ( datadispo, dataoccu) {
+         console.log(datadispo);
+         console.log(dataoccu);
          this.enableDrag();
          /*  Initialize the calendar  */
          var date = new Date();
@@ -61,11 +63,7 @@
          var y = date.getFullYear();
          var form = '';
          var today = new Date($.now());
- 
-         //prendre les events;
-        /* $.get('/film/' + idfilm + '/planning', function (data) {
-             
-         });*/
+
          var datas_dispo =[];
          var datas_occu =[];
          if(datadispo!=null){
@@ -74,32 +72,63 @@
          if(dataoccu!=null){
                datas_occu=dataoccu;
          }
-         console.log(datas_dispo); 
+         const transformTime=(timeString)=> {
+             // Split the time string into its components
+             const [time, meridian] = timeString.split(' ');
+
+             // Split the hours, minutes, and seconds components
+             const [hours, minutes, seconds] = time.split(':').map(Number);
+
+             // Convert the hours component to 24-hour format
+             let newHours = hours;
+             if ((meridian === 'pm' || meridian === 'PM') && hours !== 12) {
+                 newHours += 12;
+             } else if ((meridian === 'am' || meridian === 'AM') && hours === 12) {
+                 newHours = 0;
+             }
+
+             // Format the hours component to 2 digits
+             const formattedHours = String(newHours).padStart(2, '0');
+
+             // Return the transformed time string
+             return `${formattedHours}:${String(minutes).padStart(2, '0')}`;
+         }
+
+
+
          //traitement des disponibilite
          const event=[];
           for (let i = 0; i < datas_dispo.length; i++) {
                event.push({
+                   id:i,
                     title: "disponible",
-                    startTime: datas_dispo[i].timestart, // Heure de début (8h)
-                    endTime: datas_dispo[i].timeend, // Heure de fin (17h)
-                    daysOfWeek: [datas_dispo[i].weekday], // Jours de la semaine (lundi à vendredi)
-                    startRecur: moment().startOf("year").toDate(), // Date de début de la récurrence (aujourd'hui)
-                    endRecur: null, // Date de fin de la récurrence (null = pas de fin)
-                    className: 'bg-success',
+                    start: transformTime(datas_dispo[i].timestart), // Heure de début (8h)
+                    end: transformTime(datas_dispo[i].timeend), // Heure de fin (17h)
+                    dow: [datas_dispo[i].weekday], // Jours de la semaine (lundi à vendredi)// Date de début de la récurrence (aujourd'hui)
+                    className: 'bg-success'
                }
                );
           }
+         event.push({
+             id:4,
+             title: "disponible",
+             start: '10:00', // Heure de début (8h)
+             end: '03:00', // Heure de fin (17h)
+             dow: [1], // Jours de la semaine (lundi à vendredi)// Date de début de la récurrence (aujourd'hui)
+             className: 'bg-success',
+         });
 
           //tratement des tournages
           for (let i = 0; i < datas_occu.length; i++) {
                event.push({
-                    title: datas_occu[i].scene.title,
+                    title: datas_occu[i].title,
                     start: datas_occu[i].date_debut,
                     end: datas_occu[i].date_fin,
                     className: 'bg-info',
                }
                );
           }
+          console.log(event)
              var $this = this;
              $this.$calendarObj = $this.$calendar.fullCalendar({
                  slotDuration: '00:15:00',
@@ -126,11 +155,11 @@
              });
      },
          //init CalendarApp
-         $.CalendarApp = new CalendarApp, $.CalendarApp.Constructor = CalendarApp
+         $.CalendarApp2 = new CalendarApp2, $.CalendarApp2.Constructor = CalendarApp2
  
  }(window.jQuery),
- 
-     //initializing CalendarApp
-     $(window).on('load', function () {
-     });
+
+    //initializing CalendarApp
+    $(window).on('load', function () {
+    });
  
