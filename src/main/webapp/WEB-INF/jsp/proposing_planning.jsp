@@ -51,7 +51,7 @@
                          </div>
                          
                <%     }
-               } %>
+          } %>
                     
         </form>  
      </div>
@@ -89,7 +89,7 @@
           });
      });
 </script>
-<% else {
+<% }else {
      out.println("pas encore de film");
 } %>
 <jsp:include page="footer.jsp" />
