@@ -250,6 +250,7 @@ public class PlanningService {
             if(f==null) f = s.getFilmset();
             if(f.getId()!=s.getFilmset().getId()) continue;
             est = s.getEstimated_time();
+            System.out.println(est.toString());
             h = est.toLocalTime().getHour();
             m = est.toLocalTime().getMinute() / 60;
             se = est.toLocalTime().getSecond() / 3600;
@@ -261,8 +262,9 @@ public class PlanningService {
                 cal.set(Calendar.SECOND,0);
                 shooting.setTime(cal.getTimeInMillis());
             }
+            System.out.println(est.getTime());
             start = new Timestamp(shooting.getTime());
-            end = new Timestamp(shooting.getTime()+est.getTime());
+            end = new Timestamp(shooting.getTime()-est.getTime());
             p = new Planning();
             p.setScene(s);
             p.setStatus(sp);
