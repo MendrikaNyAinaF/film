@@ -37,7 +37,7 @@ public class FilmSetService {
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Filmset.class);
         cr.add(Restrictions.and(
-            Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+f.getId()+")"),
+            /* Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+f.getId()+")"), */
             Restrictions.sqlRestriction("this_.id in (select filmset_id from filmset_planning where weekday = date_part('isodow','"+t.toString()+"'::timestamp) and timestart <= '"+t.toString()+"'::time and timeend >= '"+t.toString()+"'::time"),
             Restrictions.eq("id",f.getId())
             )
@@ -47,5 +47,27 @@ public class FilmSetService {
         session.close();
         if(ls.size()>0) return true;
         return false;
+    }
+    public List<Filmset> neededFilmsets(Integer[] idscenes)throws Exception{
+        SessionFactory sessionFactory = this.hibernateDAO.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String in = "(";
+        boolean all = false;
+        for (int i = 0; i < idscenes.length; i++) {
+            if (idscenes[i] >= 0) {
+                in = in + idscenes[i].toString();
+                if (i < idscenes.length - 1) {
+                    in = in + ",";
+                }
+            } else {
+                all = true;
+                break;
+            }
+        }
+        in = in + ")";
+        Criteria cr = session.createCriteria(Filmset.class);
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select filmset_id from scene where id in "+ in + ")")));
+        List<Filmset> lf = cr.list();
+        return lf;
     }
 }
