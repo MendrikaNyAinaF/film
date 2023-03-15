@@ -7,24 +7,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.sql.Time;
+import java.sql.Date;
 
-@Entity
 @Getter
 @Setter
-public class Filmset_planning extends HasId {
+@MappedSuperclass
+public class Filmset_unavailable extends HasId {
 
     @Column
-    Integer weekday;
+    Date date_debut;
 
     @Column
-    Time timestart;
+    Date date_fin;
 
     @Column
-    Time timeend;
-
-    @ManyToOne
-    @JoinColumn(name = "filmset_id")
-    private Filmset filmset;
+    String observation;
 
 }

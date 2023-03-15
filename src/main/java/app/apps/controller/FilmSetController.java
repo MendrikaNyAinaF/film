@@ -76,7 +76,7 @@ public class FilmSetController {
                req.setAttribute("plateau", filmset);
 
                // passer la disponibilite du plateau
-               List<Filmset_planning> filmset_plannings= filmSetPlanningService.getByFilmsetId(id);
+               List<Filmset_unavailable> filmset_plannings= filmSetPlanningService.getByFilmsetId(id);
                Gson gson = new Gson();
                req.setAttribute("liste_filmsetplanning",gson.toJson(filmset_plannings));
 

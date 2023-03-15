@@ -14,11 +14,7 @@ public class Planning extends HasId {
     @ManyToOne
     @JoinColumn(name = "scene_id")
     private Scene scene;
-
-    @ManyToOne
-    @JoinColumn(name = "status")
-    private StatusPlanning status;
-
+    
     @Column
     private Timestamp date_debut;
 

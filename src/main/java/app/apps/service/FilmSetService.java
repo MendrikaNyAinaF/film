@@ -6,7 +6,7 @@ import app.apps.model.Filmset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
+import java.sql.date;
 
 import java.util.List;
 
@@ -32,13 +32,13 @@ public class FilmSetService {
     public Filmset getFilmsetById(int id) throws Exception {
         return  hibernateDAO.getById(new Filmset(),id);
     }
-    public boolean isOpen(Filmset f,Timestamp t) throws Exception{
+    public boolean isOpen(Filmset f,Date t) throws Exception{
         SessionFactory sessionFactory = this.hibernateDAO.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Filmset.class);
         cr.add(Restrictions.and(
             /* Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+f.getId()+")"), */
-            Restrictions.sqlRestriction("this_.id in (select filmset_id from filmset_planning where weekday = date_part('isodow','"+t.toString()+"'::timestamp) and timestart <= '"+t.toString()+"'::time and timeend >= '"+t.toString()+"'::time"),
+            Restrictions.sqlRestriction("this_.id not in (select filmset_id from filmset_unavailable where date_debut <= '"+t.toString()+"'::date and timeend >= '"+t.toString()+"'::date"),
             Restrictions.eq("id",f.getId())
             )
         );
