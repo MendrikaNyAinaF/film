@@ -36,7 +36,6 @@ import org.hibernate.criterion.Example;
 import org.hibernate.query.Query;
 
 import app.apps.model.Scene;
-import app.apps.model.Scene_status;
 import app.apps.model.Planning;
 import app.apps.model.StatusPlanning;
 import app.apps.model.Film;
@@ -65,13 +64,13 @@ public class SceneService {
         this.hibernate = a;
     }
 
-    public List<Scene_status> listScenes(Integer idfilm, String recherche, Integer status, Integer[] idactors,
+    public List<Scene> listScenes(Integer idfilm, String recherche, Integer status, Integer[] idactors,
             int page) {
         if (recherche == null)
             recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Criteria cr = session.createCriteria(Scene_status.class)
+        Criteria cr = session.createCriteria(Scene.class)
                 .add(Restrictions.or(
                         Restrictions.like("title", "%" + recherche + "%"),
                         Restrictions.like("global_action", "%" + recherche + "%")));
@@ -100,7 +99,7 @@ public class SceneService {
         }
         cr.add(Restrictions.and(Restrictions.eq("film_id", idfilm)));
         cr.setFirstResult((page) * pagination).setMaxResults(pagination);
-        List<Scene_status> ls = cr.list();
+        List<Scene> ls = cr.list();
         session.close();
         return ls;
     }
@@ -108,10 +107,6 @@ public class SceneService {
     /* public Scene getById(Integer id) throws Exception {
         return (Scene) this.hibernate.findById(Scene.class, id);
     } */
-
-    public Scene_status getByIdWStatus(Serializable id) throws Exception {
-        return (Scene_status) this.hibernate.findById(Scene_status.class, id);
-    }
 
     /*
      * public void plannifier(Scene s, Timestamp date)throws Exception{

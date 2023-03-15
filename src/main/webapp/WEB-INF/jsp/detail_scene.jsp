@@ -7,7 +7,7 @@
           <h1>Film, <%= film.getTitle() %></h1>
                <div class="row">
                     <% if(request.getAttribute("scene")!=null){
-                         Scene_status s=(Scene_status)request.getAttribute("scene"); %>
+                         Scene s=(Scene)request.getAttribute("scene"); %>
                     <div class="card col-6">
                          <div class="card-body">
                               <div class="card p-3 bg-info text-white">

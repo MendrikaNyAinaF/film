@@ -136,7 +136,6 @@ public class PlanningService {
             p = new Planning();
             p.setId(Integer.parseInt(row[0].toString()));
             p.setScene(hibernate.findById(Scene.class, Integer.parseInt(row[1].toString())));
-            p.setStatus(hibernate.findById(StatusPlanning.class, Integer.parseInt(row[2].toString())));
             p.setDate_debut((Timestamp) row[3]);
             p.setDate_fin((Timestamp) row[4]);
             rep.add(p);
@@ -151,21 +150,9 @@ public class PlanningService {
         return json;
     }
 
-    public void changeStatus(Integer idPlanning, Integer status) throws Exception {
-        Planning p = (Planning) this.hibernate.findById(Planning.class, idPlanning);
-        p.setStatus(hibernate.findById(StatusPlanning.class, status));
-        hibernate.update(p);
-    }
-
-    public void changeStatus(Planning p, Integer status) throws Exception {
-        p.setStatus(hibernate.findById(StatusPlanning.class, status));
-        hibernate.update(p);
-    }
-
     public void changeStatus(Scene s, Integer status) throws Exception {
-        Planning p = hibernate.findOneBySql(Planning.class,
-                "SELECT * FROM planning WHERE scene_id = " + s.getId() + " ORDER BY id DESC LIMIT 1");
-        changeStatus(p, status);
+        s.setStatus(hibernate.findById(StatusPlanning.class, status));
+        hibernate.update(s);
     }
 
     public boolean checkIfPlanFree(Film f, Scene toAdd, Timestamp t) throws Exception {
@@ -266,7 +253,6 @@ public class PlanningService {
                 end = new Timestamp(shooting.getTime()+(long) (estWork*3600000));
                 p = new Planning();
                 p.setScene(s);
-                p.setStatus(sp);
                 p.setDate_debut(start);
                 p.setDate_fin(end);
                 lp.add(p);

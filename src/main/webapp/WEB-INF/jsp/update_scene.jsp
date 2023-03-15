@@ -5,7 +5,7 @@
      if(request.getSession().getAttribute("current_film")!=null){
           Film film=(Film)request.getSession().getAttribute("current_film");
           if(request.getAttribute("scene")!=null){
-               Scene_status s=(Scene_status)request.getAttribute("scene");
+               Scene s=(Scene)request.getAttribute("scene");
           
 %>
     <div class="card">

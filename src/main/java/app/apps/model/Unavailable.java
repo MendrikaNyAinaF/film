@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.sql.Date;
+import javax.persistence.MappedSuperclass;
 
 @Getter
 @Setter
 @MappedSuperclass
-public class Filmset_unavailable extends HasId {
+public class Unavailable extends HasId {
 
     @Column
     Date date_debut;

@@ -46,8 +46,8 @@
                     <div class="row">
                          
                          <% if(request.getAttribute("liste_scene")!=null){
-                              List<Scene_status>liste=(List<Scene_status>)request.getAttribute("liste_scene");
-                              for(Scene_status s: liste){ %>
+                              List<Scene>liste=(List<Scene>)request.getAttribute("liste_scene");
+                              for(Scene s: liste){ %>
                          <div class="col-md-4">
                               <div class="card text-white bg-info">
                                    <div class="card-header">

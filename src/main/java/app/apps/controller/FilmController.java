@@ -83,7 +83,7 @@ public class FilmController {
             HttpServletRequest request) {
         Integer limit = 6;
         Integer offset = page * limit;
-        List<Scene_status> listScene = new ArrayList<>();
+        List<Scene> listScene = new ArrayList<>();
         String mc = "";
         Integer status = null;
         Integer[] actors = new Integer[0];
