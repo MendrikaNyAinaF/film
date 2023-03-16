@@ -24,7 +24,7 @@
 '               <div class="col-md-4">'+
 '                    <div class="form-group">'+
 '                         <label for="">Genre</label>'+
-'                         <select name="type" class="form-control" name="personnage_genre">'+
+'                         <select class="form-control" name="personnage_genre">'+
 '                              '+optiongender+
 '                         </select>'+
 '                    </div>'+
@@ -40,7 +40,7 @@
 '               <div class="col-md-6" id="dialogue_action">'+
 '                    <div class="form-group">'+
 '                         <label for="">Acteur</label>'+
-'                         <select name="type" class="form-control" name="personnage_acteur">'+ optionactors+
+'                         <select class="form-control" name="personnage_acteur">'+ optionactors+
 '                         </select>'+
 '                    </div>'+
 '               </div>'+

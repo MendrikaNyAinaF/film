@@ -12,5 +12,8 @@ import lombok.Setter;
 public class HasName extends HasId {
 
      @Column
-     private String name;
+     public String name;
+
+     public HasName() {
+     }
 }

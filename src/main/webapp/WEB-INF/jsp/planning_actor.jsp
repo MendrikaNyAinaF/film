@@ -47,7 +47,7 @@
     </script>
 <%   } else{ %>
      <div class="alert alert-danger" role="alert">
-          <strong>Choisissez un plateau!, </strong> 
+          <strong>Choisissez un acteur!, </strong> 
      </div>
 <% }
 %>

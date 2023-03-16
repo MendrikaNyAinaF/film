@@ -16,8 +16,6 @@
                               </p>
                               <p><span class="card-title text-primary">Durée : </span><%= f.getDuration() %>
                               </p>
-                              <p><span class="card-title text-primary">Debut tournage : </span><%= f.getStart_shooting() %>
-                              </p>
                               </p>
                               <p><span class="card-title text-primary">Personnage :</span></p>
                               <ul>

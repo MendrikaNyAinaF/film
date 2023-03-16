@@ -93,10 +93,12 @@ public class FilmController {
             status = (Integer) request.getSession().getAttribute("scene_status");
         if (request.getSession().getAttribute("scene_actors") != null)
             actors = (Integer[]) request.getSession().getAttribute("scene_actors");
-        // System.out.println("heyheyhey");
+
         listScene = sceneService.listScenes(filmId, mc, status, actors, page);
+
         List<Scene> allF = sceneService.getAllScene();
         int nbPage = allF.size();
+
         nbPage = (int) Math.ceil((double) nbPage / limit);
         Boolean endpage = false;
         if (nbPage == page) {
@@ -212,8 +214,7 @@ public class FilmController {
     public String setFilmSession(@PathVariable("id") Integer filmId, HttpServletRequest request, Model m)
             throws Exception {
         request.getSession().setAttribute("current_film", filmService.getFilmById(filmId));
-        System.out.println(request.getSession().getAttribute("current_film"));
-        System.out.println("ici");
+
         return getAllFilm(0, request);
     }
 

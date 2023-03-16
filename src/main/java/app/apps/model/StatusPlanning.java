@@ -13,7 +13,9 @@ import lombok.Setter;
 @Setter
 public class StatusPlanning extends HasName {
 
-    public StatusPlanning() {}
+    public StatusPlanning() {
+        super();
+    }
 
     public StatusPlanning(Integer id) {
         setId(id);

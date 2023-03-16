@@ -16,4 +16,7 @@ public class HasId {
      @Id
      @GeneratedValue(strategy = IDENTITY)
      public Integer id;
+
+     public HasId() {
+     }
 }
