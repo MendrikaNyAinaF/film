@@ -30,6 +30,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Example;
@@ -159,18 +160,19 @@ public class SceneService {
         return ls;
     }
 
-    public int countElements(Integer idfilm, String recherche) {
+    public Integer countElements(Integer idfilm, String recherche) {
         if (recherche == null)
             recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        List<Scene> ls = session.createCriteria(Scene.class)
+        Criteria cr = session.createCriteria(Scene.class)
                 .add(Restrictions.like("title", "%" + recherche + "%"))
                 .add(Restrictions.like("global_action", "%" + recherche + "%"))
                 .add(Restrictions.and(Restrictions.eq("film_id", idfilm)))
-                .list();
+                .setProjection(Projections.rowCount());
         session.close();
-        return ls.size();
+        Integer res = ((Number) cr.uniqueResult()).intValue();
+        return res;
     }
 
     public int countElements(List<Scene> ls) {
@@ -238,11 +240,8 @@ public class SceneService {
     public List<Scene> getUnplannedScene(Integer idf){
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Criteria cr = session.createCriteria(Scene.class)
-            .add(Restrictions.or(
-                Restrictions.sqlRestriction("this_.id not in (select scene_id from planning)"),
-                Restrictions.sqlRestriction("this_.id in (select scene_id from planning where status>=3 )")
-            ));
+        Criteria cr = session.createCriteria(Scene.class);
+        cr.add(Restrictions.and(Restrictions.eq("status", 3)));
         cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
         cr.addOrder(Order.asc("id"));
         cr.addOrder(Order.asc("preferred_shooting_time"));
