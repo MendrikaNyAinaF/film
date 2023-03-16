@@ -16,6 +16,6 @@ public class Actor_unavailable extends Unavailable {
 
     @ManyToOne
     @JoinColumn(name = "actor_id")
-    private Actor actor;
+    private Actor actor_id;
 
 }

@@ -16,6 +16,6 @@ public class Filmset_unavailable extends Unavailable {
 
     @ManyToOne
     @JoinColumn(name = "filmset_id")
-    private Filmset filmset;
+    private Filmset filmset_id;
 
 }
