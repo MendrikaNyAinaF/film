@@ -4,35 +4,44 @@
 <% if(request.getAttribute("plateau")!=null){
                Filmset filmset=(Filmset)request.getAttribute("plateau"); %>
           
-    <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                         
-                            <div class="" >
-                                <div class="row">                                  
-                                    <div class="col-lg-12">
-                                        <div class="card-body b-l calender-sidebar">
-                                            <h2>Indisponibilite</h2>
-                                                <form action="${pageContext.request.contextPath}/search_scene" method="post" class="row">
-                                                    <div class="customize-input col-md-12">
-                                                        <input class="form-control custom-shadow border-0 bg-white col-3" type="date"
-                                                                placeholder="Search"  name="date_debut">
-                                                        <input class="form-control custom-shadow border-0 bg-white col-3" type="date"
-                                                                placeholder="Search"  name="date_fin">
-                                                        <input class="form-control custom-shadow border-0 bg-white col-3" type="text"
-                                                                placeholder="Search"  name="observation">
-                                                        <button type="submit" class="btn btn-primary col-1">ajouter</button>
-                                                    </div>
-                                                </form>
-                                             <h1>Planning du plateau: <%= filmset.getName() %></h1>
-                                             <div id="calendar"></div>
-                                        </div>
-                                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h4 class="card-title">Indisponibilite</h4>
+                <div class="card-body">
+                <form action="${pageContext.request.contextPath}/filmset/<%= filmset.getId() %>/indisponible" method="post" class="row">
+                    <div class="row">
+                        <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Date debut</label>
+                                    <input type="date" class="form-control" placeholder="titre" name="date_debut" />
                                 </div>
-                            </div>
+                        </div>
+                        <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Date fin</label>
+                                    <input type="date" class="form-control" placeholder="titre" name="date_fin" />
+                                </div>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Observation</label>
+                                    <input type="text" class="form-control" placeholder="..." name="observation" />
+                                </div>
                         </div>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">ajouter</button>
+                </form>  
+                </div> 
+        </div>  
+        <div class="card">     
+            <div class="card-body b-l calender-sidebar">  
+                <h1>Planning du plateau: <%= filmset.getName() %></h1>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="${pageContext.request.contextPath}/resources/assets/jquery/jquery.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/libs/jquery/dist/jquery.min.js"></script>
 
@@ -40,9 +49,9 @@
 <script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-filmset.js"></script>
 <script type="text/javascript">
-        const dis=<%= request.getAttribute("liste_filmsetplanning") %>;
+        const indis=<%= request.getAttribute("liste_filmset_unavailable") %>;
         const scenes=<%= request.getAttribute("liste_scene") %>
-            $.CalendarApp2.init(dis, scenes);
+            $.CalendarApp2.init(indis, scenes);
 
     </script>
 <%   } else{ %>

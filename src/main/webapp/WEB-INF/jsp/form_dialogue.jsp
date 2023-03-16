@@ -71,6 +71,18 @@
                               </form>
                          </div>
                     </div>
+<script src="${pageContext.request.contextPath}/resources/js/dialogue_form.js"></script>
+<script type="text/javascript">
+     var tempchara=<%= request.getAttribute("liste_character_json").toString() %>;
+     var liste_chara=[];
+     if(tempchara!=null){
+          liste_chara=tempchara;
+     }
+     function appender(){
+          //console.log(tempchara)
+          ajouter(liste_chara);
+     }
+</script>
                     <%     
                     } %>
                </div>

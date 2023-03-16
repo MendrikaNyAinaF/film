@@ -72,32 +72,20 @@
          if(dataoccu!=null){
                datas_occu=dataoccu;
          }
-         
-
-
-
-         //traitement des indisponibilite
+     
+         //traitement des disponibilite
          const event=[];
-         //traitements des indisponibilite
-         for (let i = 0; i < datas_dispo.length; i++) {
-            event.push({
-                 title: datas_dispo[i].observation,
-                 start: datas_dispo[i].date_debut,
-                 end: datas_dispo[i].date_fin,
-                 className: 'bg-info',
-            }
-            );
-        }
-
-        for (let i = 0; i < datas_occu.length; i++) {
-            event.push({
-                 title: datas_occu[i].title,
-                 start: datas_occu[i].date_debut,
-                 end: datas_occu[i].date_fin,
-                 className: 'bg-success',
-            }
-            );
-       }
+          for (let i = 0; i < datas_dispo.length; i++) {
+               event.push({
+                   id:i,
+                    title: "disponible",
+                    start: transformTime(datas_dispo[i].timestart), // Heure de début (8h)
+                    end: transformTime(datas_dispo[i].timeend), // Heure de fin (17h)
+                    dow: [datas_dispo[i].weekday], // Jours de la semaine (lundi à vendredi)// Date de début de la récurrence (aujourd'hui)
+                    className: 'bg-success'
+               }
+               );
+          }
           console.log(event)
              var $this = this;
              $this.$calendarObj = $this.$calendar.fullCalendar({

@@ -8,14 +8,14 @@
           <form action="${pageContext.request.contextPath}/ferie" method="POST">
                <div class="col-md-6">
                     <div class="form-group">
-                         <label for="">Nom</label>
+                         <label for="">Event</label>
                          <input type="text" class="form-control" placeholder="evenement" name="nom" />
                     </div>
                </div>
                <div class="col-md-6">
                     <div class="form-group">
                          <label for="">Jour</label>
-                         <input type="date" class="form-control" placeholder="evenement" name="nom" />
+                         <input type="date" class="form-control" placeholder="evenement" name="date" />
                     </div>
                </div>
                <button type="submit" class="btn btn-primary" >Enregistrer</button>
