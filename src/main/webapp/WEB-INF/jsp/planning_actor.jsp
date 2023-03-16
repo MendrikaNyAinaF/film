@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <%@page import="java.util.List,app.apps.model.*, app.apps.service.Utilitaire,app.apps.model.Character" %>
 <jsp:include page="header.jsp" />
-<% if(request.getAttribute("plateau")!=null){
-               Filmset filmset=(Filmset)request.getAttribute("plateau"); %>
+<% if(request.getAttribute("actor")!=null){
+               Actor ac=(Actor)request.getAttribute("actor"); %>
           
     <div class="row">
                     <div class="col-md-12">
@@ -24,7 +24,7 @@
                                                         <button type="submit" class="btn btn-primary col-1">ajouter</button>
                                                     </div>
                                                 </form>
-                                             <h1>Planning du plateau: <%= filmset.getName() %></h1>
+                                             <h1>Planning de l'acteur: <%= ac.getName() %></h1>
                                              <div id="calendar"></div>
                                         </div>
                                     </div>
@@ -40,7 +40,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-filmset.js"></script>
 <script type="text/javascript">
-        const dis=<%= request.getAttribute("liste_filmsetplanning") %>;
+        const indis=<%= request.getAttribute("liste_actor_unavailable") %>;
         const scenes=<%= request.getAttribute("liste_scene") %>
             $.CalendarApp2.init(dis, scenes);
 

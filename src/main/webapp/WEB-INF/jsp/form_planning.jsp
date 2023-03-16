@@ -20,6 +20,10 @@
                                         <label class="form-check-label" for="">Date de commencement</label>
                                         <input type="datetime-local" class="form-check-input form-control"
                                              name="start_date" >
+                                             
+                                        <label class="form-check-label" for="">Date de fin</label>
+                                        <input type="datetime-local" class="form-check-input form-control"
+                                             name="end_date" >
                                    </div>
                                    
                                    <br />
