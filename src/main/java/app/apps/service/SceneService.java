@@ -160,18 +160,41 @@ public class SceneService {
         return ls;
     }
 
-    public Integer countElements(Integer idfilm, String recherche) {
+    public Integer countElements(Integer idfilm, String recherche, Integer status, Integer[] idactors) {
         if (recherche == null)
             recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class)
                 .add(Restrictions.like("title", "%" + recherche + "%"))
-                .add(Restrictions.like("global_action", "%" + recherche + "%"))
-                .add(Restrictions.and(Restrictions.eq("film_id", idfilm)))
-                .setProjection(Projections.rowCount());
-        session.close();
+                .add(Restrictions.like("global_action", "%" + recherche + "%"));
+        if (status != null && status >= 0) {
+            cr.add(Restrictions.and(Restrictions.eq("status",status)));
+        }
+        if (idactors.length > 0) {
+            String in = "(";
+            boolean all = false;
+            for (int i = 0; i < idactors.length; i++) {
+                if (idactors[i] >= 0) {
+                    in = in + idactors[i].toString();
+                    if (i < idactors.length - 1) {
+                        in = in + ",";
+                    }
+                } else {
+                    all = true;
+                    break;
+                }
+            }
+            in = in + ")";
+            if (!all)
+                cr.add(Restrictions.and(Restrictions.sqlRestriction(
+                        "this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "
+                                + in + "))")));
+        }
+        cr.add(Restrictions.and(Restrictions.eq("film_id", idfilm)));
+        cr.setProjection(Projections.rowCount());
         Integer res = ((Number) cr.uniqueResult()).intValue();
+        session.close();
         return res;
     }
 

@@ -97,11 +97,16 @@ public class FilmController {
         listScene = sceneService.listScenes(filmId, mc, status, actors, page);
 
         List<Scene> allF = sceneService.getAllScene();
-        int nbPage = allF.size();
-
+        int nbPage;
+        if(request.getSession().getAttribute("nbrScene")==null){
+            nbPage = allF.size();
+        }
+        else{
+            nbPage = (int) request.getSession().getAttribute("nbrScene");
+        }
         nbPage = (int) Math.ceil((double) nbPage / limit);
         Boolean endpage = false;
-        if (nbPage == page) {
+        if (nbPage == page+1) {
             endpage = true;
         }
         request.setAttribute("status", statusplanningService.getAllStatusPlanning());
@@ -125,6 +130,9 @@ public class FilmController {
             request.getSession().setAttribute("scene_actors", null);
         }
         Film f = (Film) request.getSession().getAttribute("current_film");
+        if(actors == null) actors = new Integer[0];
+        Integer countScenesWithResearch = sceneService.countElements(f.getId(),request.getParameter("motcle"),status,actors);
+        request.getSession().setAttribute("nbrScene",countScenesWithResearch);
         return getSceneByFilmId(f.getId(), 0, request);
     }
 
