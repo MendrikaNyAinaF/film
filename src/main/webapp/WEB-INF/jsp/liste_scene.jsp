@@ -4,7 +4,7 @@
 <%
      if(request.getSession().getAttribute("current_film")!=null){
           Film film=(Film)request.getSession().getAttribute("current_film"); %>
-          <a class="nav-link col-12" href="javascript:void(0)">
+                    <a class="nav-link col-12" href="javascript:void(0)">
                          <form action="${pageContext.request.contextPath}/search_scene" method="post">
                               <div class="customize-input row">
                                    <input class="form-control custom-shadow border-0 bg-white col-5" type="search"
