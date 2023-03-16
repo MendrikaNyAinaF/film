@@ -165,13 +165,14 @@ INSERT INTO film( id, title, description, duration, nbr_team, visuel ) VALUES ( 
 INSERT INTO gender( id, name ) VALUES ( 1, 'male' ); 
 INSERT INTO gender( id, name ) VALUES ( 2, 'female' ); 
 INSERT INTO settings( id, name, value ) VALUES ( 1, 'work hour', 8.0 ); 
-INSERT INTO status_planning( id, name ) VALUES ( 2, 'created' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 3, 'writing in progress' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 4, 'finished writing' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 5, 'planned' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 6, 'shooting done' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 7, 'montage' ); 
-INSERT INTO status_planning( id, name ) VALUES ( 8, 'done' ); 
+
+INSERT INTO status_planning( id, name ) VALUES ( 1, 'created' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 2, 'writing in progress' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 3, 'finished writing' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 4, 'planned' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 5, 'shooting done' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 6, 'montage' ); 
+INSERT INTO status_planning( id, name ) VALUES ( 7, 'done' ); 
 
 INSERT INTO type_filmset( id, name ) VALUES ( 1, 'public' ); 
 INSERT INTO type_filmset( id, name ) VALUES ( 2, 'private' ); 
@@ -219,18 +220,17 @@ VALUES
 	(3,'2023-03-22','2023-03-22',3,'maladie'),
 	(4,'2023-03-29','2023-03-29',4,'maladie'),
 	(5,'2023-03-29','2023-03-29',5,'maladie'),
-	(6,'2023-03-29','2023-03-29',6,'maladie'),
+	(6,'2023-03-29','2023-03-29',6,'maladie');
 
-
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 1, 'seul dans le parc', 'Sungjae assis sur un banc repensant a son ex, et ensuite discute avec une inconnue', '00:10:00', '00:10:05', '02:00:00', 1, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 2, 'appel du frere', 'Son frere appelle Sungjae pour sortir', '00:10:07', '00:10:11', '01:30:00', 2, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 3, 'durant la soiree', 'Enviant le bohneur des autres', '00:10:12', '00:10:13', '03:00:00', 2, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 4, 'Moment coince en classe', 'Ils sont coincÃ©s dans une salle de classe et ils discutent', '00:45:00', '00:52:00', '02:00:00', 6, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 5, 'Rendez-surprise', 'Sunjae a ete par son frere de bien s''habille et son frere le traine en ville, son frere a organise un rendez vous avec Joy et ca devient genant', '01:05:00', '01:12:00', '01:00:00', 1, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 6, 'Declaration', 'Sunjae avoue a Joy qu''il l''aime, dans le cafe', '01:20:00', '01:24:00', '02:00:00', 3, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 7, 'Joy et Sunjae dans la rue', 'Joy et Sunjae sont dans la rue et ils discutent', '01:25:00', '01:30:00', '02:00:00', 1, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 8, 'Sunjae et son ex se disputent', 'Sunjae et son ex se disputent pendant que Joy les espionnent de loin', '00:30:00', '00:37:00', '02:00:00', 3, 1, 1 ); 
-INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status ) VALUES ( 9, 'Joy et crush discutent dans la chambre', 'Joy et crush parle de Sunjae, que Joy apprecie secretement', '00:40:00', '00:45:00', '02:00:00', 4, 1, 1 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 1, 'seul dans le parc', 'Sungjae assis sur un banc repensant a son ex, et ensuite discute avec une inconnue', '00:10:00', '00:10:05', '02:00:00', 1, 1, 1,1 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 2, 'appel du frere', 'Son frere appelle Sungjae pour sortir', '00:10:07', '00:10:11', '01:30:00', 2, 1, 1,2 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 3, 'durant la soiree', 'Enviant le bohneur des autres', '00:10:12', '00:10:13', '03:00:00', 2, 1, 1,3 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 4, 'Moment coince en classe', 'Ils sont coincÃ©s dans une salle de classe et ils discutent', '00:45:00', '00:52:00', '02:00:00', 6, 1, 1,4 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 5, 'Rendez-surprise', 'Sunjae a ete par son frere de bien s''habille et son frere le traine en ville, son frere a organise un rendez vous avec Joy et ca devient genant', '01:05:00', '01:12:00', '01:00:00', 1, 1, 1,5 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 6, 'Declaration', 'Sunjae avoue a Joy qu''il l''aime, dans le cafe', '01:20:00', '01:24:00', '02:00:00', 3, 1, 1,6 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 7, 'Joy et Sunjae dans la rue', 'Joy et Sunjae sont dans la rue et ils discutent', '01:25:00', '01:30:00', '02:00:00', 1, 1, 1,7 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 8, 'Sunjae et son ex se disputent', 'Sunjae et son ex se disputent pendant que Joy les espionnent de loin', '00:30:00', '00:37:00', '02:00:00', 3, 1, 1,8 ); 
+INSERT INTO scene( id, title, global_action, time_start, time_end, estimated_time, filmset_id, film_id, status, ordre ) VALUES ( 9, 'Joy et crush discutent dans la chambre', 'Joy et crush parle de Sunjae, que Joy apprecie secretement', '00:40:00', '00:45:00', '02:00:00', 4, 1, 1,9 ); 
 
 
 INSERT INTO dialogue( id, scene_id, character_id, texte, action ) VALUES ( 1, 1, 1, 'Les papillons sont vraiment magnifiques aujourd''hui. Regardez-les virevolter autour de moi', 'soupirant' ); 
