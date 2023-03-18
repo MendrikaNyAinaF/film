@@ -227,7 +227,8 @@ public class PlanningService {
     }
     public boolean isWeekend(Timestamp t)throws Exception{
         int j;
-        Calendar c = new GregorianCalendar(t.getYear(),t.getMonth(),t.getDay());
+        Calendar c = Calendar.getInstance();
+        c.setTime(t);
         j = c.get(Calendar.DAY_OF_WEEK);
         if(j==Calendar.SATURDAY || j==Calendar.SUNDAY) return true; 
         return false;
@@ -256,6 +257,9 @@ public class PlanningService {
         //System.out.println(ls.length);
         double tomillis;
         while(new Date(shooting.getTime()).compareTo(new Date(fin_tournage.getTime()))<=0){
+            System.out.println("Shooting : " + shooting.toString());
+            System.out.println("is week-end: " +(isWeekend(shooting)));
+            System.out.println("Holidays: "+(getHoliday(shooting).size()>0));
             if(!isWeekend(shooting) && !(getHoliday(shooting).size()>0)){
                 for(Filmset f : lf ){
                     if(filmsetService.isOpen(f,new Date(shooting.getTime())).size()>0) continue;
@@ -266,7 +270,7 @@ public class PlanningService {
                         //System.out.println(s);
                         if(f.getId()!=s.getFilmset().getId()) continue;
                         est = s.getEstimated_time();
-                        System.out.println(est.toString());
+                        //System.out.println(est.toString());
                         h = (double) est.toLocalTime().getHour();
                         m = ((double) est.toLocalTime().getMinute())/60;
                         se = ((double) est.toLocalTime().getSecond())/3600;
