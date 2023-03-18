@@ -104,6 +104,28 @@ public class SceneService {
         session.close();
         return ls;
     }
+    public List<Scene> getSceneIn(Integer[] idscenes)throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        String in = "(";
+        boolean all = false;
+        for (int i = 0; i < idscenes.length; i++) {
+            if (idscenes[i] >= 0) {
+                in = in + idscenes[i].toString();
+                if (i < idscenes.length - 1) {
+                    in = in + ",";
+                }
+            } else {
+                all = true;
+                break;
+            }
+        }
+        in = in + ")";
+        Criteria cr = session.createCriteria(Scene.class);
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN "+ in)));
+        List<Scene> lf = cr.list();
+        return lf;
+    }
 
     /* public Scene getById(Integer id) throws Exception {
         return (Scene) this.hibernate.findById(Scene.class, id);
@@ -206,6 +228,26 @@ public class SceneService {
         SQLQuery query = session.createSQLQuery(
                 "SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="
                         + s.getId() + "))");
+        ArrayList<Actor> rep = new ArrayList();
+        List<Object[]> lp = query.list();
+        Actor a = null;
+        for (Object[] row : lp) {
+            a = new Actor();
+            a.setId(Integer.parseInt(row[0].toString()));
+            a.setName(row[1].toString());
+            a.setBirthdate((java.sql.Date) row[2]);
+            a.setContact(row[3].toString());
+            a.setGender(hibernate.findById(Gender.class, Integer.parseInt(row[4].toString())));
+            rep.add(a);
+        }
+        session.close();
+        return rep;
+    }
+    
+    public List<Actor> getActorUnavailable(Scene s,Date d) throws Exception {
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        SQLQuery query = session.createSQLQuery("SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="+ s.getId() + ")) and id IN (SELECT actor_id from actor_unavailable where date_debut>='"+d.toString()+"' and date_fin<='"+d.toString()+"')");
         ArrayList<Actor> rep = new ArrayList();
         List<Object[]> lp = query.list();
         Actor a = null;

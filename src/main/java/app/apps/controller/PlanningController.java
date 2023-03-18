@@ -83,20 +83,20 @@ public class PlanningController {
     @PostMapping(value = "/film/{id}/planifier")
     public String planning(HttpServletRequest request, HttpSession session,
             @RequestParam(required = false, name = "idscene") Integer[] ids,
-            @RequestParam(name = "start_date") String date) {
+            @RequestParam(name = "start_date") String date1, @RequestParam(name = "end_date") String date2) {
         Film current = null;
         Timestamp commencement = null;
         try {
             current = (Film) session.getAttribute("current_film");
             if (current != null) {
-                commencement = Timestamp.valueOf(date.replace("T"," ")+":00");
+                commencement = Timestamp.valueOf(date1.replace("T"," ")+":00");
             }
             // traitement du planning
-            List<Planning> lp = planningService.proposerPlanning(ids,Timestamp.valueOf(date.replace("T"," ")+":00"));
+            List<Planning> lp = planningService.proposerPlanning(ids,Timestamp.valueOf(date1.replace("T"," ")+":00"),Timestamp.valueOf(date2.replace("T"," ")+":00"));
             System.out.println(lp);
             if(lp!=null) System.out.println(lp.size());
             request.setAttribute("nbr_scene",ids.length);
-            request.setAttribute("start_date",date.toString());
+            request.setAttribute("start_date",date1.replace("T"," "));
             request.setAttribute("liste_planning",lp);
             return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {

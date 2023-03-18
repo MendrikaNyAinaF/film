@@ -14,8 +14,7 @@ import java.sql.Date;
 @Setter
 public class Filmset_unavailable extends Unavailable {
 
-    @ManyToOne
-    @JoinColumn(name = "filmset_id")
-    private Filmset filmset_id;
+    @Column
+    private Integer filmset_id;
 
 }

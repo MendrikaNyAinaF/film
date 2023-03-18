@@ -14,8 +14,7 @@ import java.sql.Date;
 @Setter
 public class Actor_unavailable extends Unavailable {
 
-    @ManyToOne
-    @JoinColumn(name = "actor_id")
-    private Actor actor_id;
+    @Column
+    private Integer actor_id;
 
 }
