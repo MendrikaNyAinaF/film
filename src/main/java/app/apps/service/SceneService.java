@@ -323,4 +323,9 @@ public class SceneService {
     public  void updateScene(Scene e){
         hibernate.update(e);
     }
+
+    public List<? extends Scene> findByActorId(Integer actorId) throws Exception {
+        String query="select id,title,global_action,time_start,time_end,estimated_time,filmset_id,film_id,preferred_shooting_time,status,ordre from v_actor_scene where actor_id="+actorId;
+        return hibernate.findBySql(new Scene().getClass(),query,0,1000);
+    }
 }
