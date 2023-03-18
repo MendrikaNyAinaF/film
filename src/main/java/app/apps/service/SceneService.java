@@ -76,7 +76,7 @@ public class SceneService {
                         Restrictions.like("title", "%" + recherche + "%"),
                         Restrictions.like("global_action", "%" + recherche + "%")));
         if (status != null && status >= 0) {
-            cr.add(Restrictions.and(Restrictions.eq("status",status)));
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = "+status)));
         }
         if (idactors.length > 0) {
             String in = "(";
@@ -165,11 +165,9 @@ public class SceneService {
             recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Criteria cr = session.createCriteria(Scene.class)
-                .add(Restrictions.like("title", "%" + recherche + "%"))
-                .add(Restrictions.like("global_action", "%" + recherche + "%"));
+        String query = "Select count(*) from Scene where film_id = "+idfilm.toString() +" and (title like '%"+recherche+"%' or global_action like '%"+recherche+"%')";
         if (status != null && status >= 0) {
-            cr.add(Restrictions.and(Restrictions.eq("status",status)));
+            query = query + " and (status = "+status.toString()+")";
         }
         if (idactors.length > 0) {
             String in = "(";
@@ -186,14 +184,14 @@ public class SceneService {
                 }
             }
             in = in + ")";
-            if (!all)
-                cr.add(Restrictions.and(Restrictions.sqlRestriction(
-                        "this_.id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "
-                                + in + "))")));
+            if (!all){
+                query = query + " and id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+ in + "))";
+            }
         }
-        cr.add(Restrictions.and(Restrictions.eq("film_id", idfilm)));
-        cr.setProjection(Projections.rowCount());
-        Integer res = ((Number) cr.uniqueResult()).intValue();
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        Integer res = 0;
+        res = ((Number)sqlquery.uniqueResult()).intValue();
+        System.out.println(res);
         session.close();
         return res;
     }
@@ -264,7 +262,7 @@ public class SceneService {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class);
-        cr.add(Restrictions.and(Restrictions.eq("status", 3)));
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = "+3)));
         cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
         cr.addOrder(Order.asc("id"));
         cr.addOrder(Order.asc("preferred_shooting_time"));
