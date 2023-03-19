@@ -63,20 +63,18 @@ public class SceneController {
     @Autowired
     FilmSetService filmSetService;
 
-
     public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attr.getRequest().getSession(true); // true == allow create
     }
 
     @GetMapping(value = "/film/{idf}/scene/{ids}")
-    public String detailsScene(@PathVariable(name = "ids") Integer idscene, HttpServletRequest request)
+    public String detailsScene(@PathVariable(name = "ids") Integer idscene, HttpServletRequest request,
+            HttpSession session)
             throws Exception {
-        HttpSession session = null;
         Film current = null;
         Scene s = null;
         try {
-            session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
             s = ss.getById(idscene);
             request.setAttribute("scene", s);
@@ -92,13 +90,11 @@ public class SceneController {
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/planifier")
     public String plannifier(@PathVariable(name = "ids") Integer idscene, @RequestParam(name = "plan") String plan,
-            HttpServletRequest request) throws Exception {
-        HttpSession session = null;
+            HttpServletRequest request, HttpSession session) throws Exception {
         Film current = null;
         Scene s = null;
         Timestamp ts = null;
         try {
-            session = SceneController.session();
             current = (Film) session.getAttribute("current_film");
             s = ss.getById(idscene);
             if (plan != null && !(plan.equals(""))) {
@@ -110,7 +106,7 @@ public class SceneController {
             // throws ex;
             request.setAttribute("erreur", ex.getMessage());
         }
-        return detailsScene(idscene, request);
+        return detailsScene(idscene, request, session);
     }
 
     @PostMapping(value = "/film/{idf}/scene/{ids}/status")
@@ -131,7 +127,7 @@ public class SceneController {
             // throws ex;
             request.setAttribute("erreur", ex.getMessage());
         }
-        return detailsScene(idscene, request);
+        return detailsScene(idscene, request, session);
     }
 
     @GetMapping(value = "/film/{id}/scene/create")
@@ -154,9 +150,9 @@ public class SceneController {
             @RequestParam(name = "description") String description,
             @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
             @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
-            @RequestParam(name = "dialogue_personnage") Integer[] d_perso,
-            @RequestParam(name = "dialogue_texte") String[] d_dialogue,
-            @RequestParam(name = "dialogue_action") String[] d_action, HttpServletRequest request,
+            @RequestParam(name = "dialogue_personnage", required = false) Integer[] d_perso,
+            @RequestParam(name = "dialogue_texte", required = false) String[] d_dialogue,
+            @RequestParam(name = "dialogue_action", required = false) String[] d_action, HttpServletRequest request,
             @PathVariable(name = "id") Integer filmid) throws Exception {
         Scene s = null;
         Dialogue d = null;
@@ -169,17 +165,23 @@ public class SceneController {
             s.setEstimated_time(Time.valueOf(estimed_time));
             s.setFilmset((Filmset) hibernate.findById(Filmset.class, filmset));
             s.setFilm_id(filmid);
+            s.setStatus(new StatusPlanning(1));
+            s.setOrdre(1);
             s = ss.create(s);
+
             d = new Dialogue();
             d.setScene_id(s.getId());
 
-            for (int i = 0; i < d_perso.length; i++) {
-                d.setCharacter(
-                        (app.apps.model.Character) hibernate.findById(app.apps.model.Character.class, d_perso[i]));
-                d.setTexte(d_dialogue[i]);
-                d.setAction(d_action[i]);
-                ds.createDialogue(d);
+            if (d_perso != null) {
+                for (int i = 0; i < d_perso.length; i++) {
+                    d.setCharacter(
+                            (app.apps.model.Character) hibernate.findById(app.apps.model.Character.class, d_perso[i]));
+                    d.setTexte(d_dialogue[i]);
+                    d.setAction(d_action[i]);
+                    ds.createDialogue(d);
+                }
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
             // throws ex;
@@ -189,17 +191,17 @@ public class SceneController {
     }
 
     @GetMapping(value = "/film/{id}/scene/{idscene}/update")
-    public String to_update(HttpServletRequest request, HttpSession session,@PathVariable(name = "idscene") Integer idscene) {
+    public String to_update(HttpServletRequest request, HttpSession session,
+            @PathVariable(name = "idscene") Integer idscene) {
         Film current = null;
         session = SceneController.session();
         current = (Film) session.getAttribute("current_film");
         List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
         request.setAttribute("plateau", fss.getAllFilmSet());
 
-
         // envoyer la scene dans la page
         try {
-            Scene scene=sceneService.getById(idscene);
+            Scene scene = sceneService.getById(idscene);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -213,7 +215,8 @@ public class SceneController {
             @RequestParam(name = "time_start") String time_start, @RequestParam(name = "time_end") String time_end,
             @RequestParam(name = "filmset") Integer filmset, @RequestParam(name = "estimed_time") String estimed_time,
             @RequestParam(name = "prefered_shooting_start") String date_start,
-            HttpServletRequest req, HttpSession session,@PathVariable(name = "idscene") Integer idscene,@PathVariable(name = "id") Integer id) {
+            HttpServletRequest req, HttpSession session, @PathVariable(name = "idscene") Integer idscene,
+            @PathVariable(name = "id") Integer id) {
         Scene s = null;
         Dialogue d = null;
         try {
@@ -225,10 +228,10 @@ public class SceneController {
             Date date = format.parse(time_start);
             s.setTime_start(new Time(date.getTime()));
 
-            Date date1=format.parse(time_end);
+            Date date1 = format.parse(time_end);
             s.setTime_end(new Time(date1.getTime()));
 
-            Date date2=format.parse(estimed_time);
+            Date date2 = format.parse(estimed_time);
             s.setEstimated_time(new Time(date2.getTime()));
 
             s.setFilm_id(id);
@@ -238,12 +241,11 @@ public class SceneController {
 
             sceneService.updateScene(s);
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
             req.setAttribute("erreur", ex.getMessage());
 
         }
-        return to_update(req, session,s.getId());
+        return to_update(req, session, s.getId());
     }
 }

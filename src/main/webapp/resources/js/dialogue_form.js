@@ -8,6 +8,7 @@ function ajouter(liste_perso) {
                     optionactors+='<option value="'+liste_perso[i].id+'">'+liste_perso[i].name+'</option>';
                }
      var html = '<div class="row custom-shadow" >'+
+     '<input type="hidden" name="iddialogue" value="0" id="iddialogue"></input>'+
 '     <div class="col-md-12" id="dialogue_personnage">'+
 '          <label for="">Personnage</label>'+
 '          <div class="form-group row">'+

@@ -28,7 +28,7 @@
 
                               <h4 class="card-title">Status</h4>
                               <p><%= s.getStatus().getName() %></p>
-                              <% if(s.getStatus()==null || s.getStatus().getId()<1){ //si le status est non ok
+                              <% if(s.getStatus()==null || s.getStatus().getId()<3){ //si le status est non ok
                               %>
                                    <a class="btn btn-success" href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update">modifier</a>
                               <% }
@@ -49,6 +49,11 @@
                                    <% } } %>
                                    
                               </ul>
+                              <% if(s.getStatus()==null || s.getStatus().getId()<3){ //si le status est non ok
+                                   %>
+                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/dialogue/update">modifier le script</a>
+                                   <% }
+                                   %>
                          </div>
                     </div>
 

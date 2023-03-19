@@ -22,7 +22,11 @@ public class DialogueService {
     }
 
     public void updateDialogue(List<Dialogue> dialogue) throws Exception {
-        for (Dialogue d : dialogue)
-            hibernateDAO.add(d);
+        for (Dialogue d : dialogue) {
+            if (d.getId() == null)
+                hibernateDAO.add(d);
+            else
+                hibernateDAO.update(d);
+        }
     }
 }
