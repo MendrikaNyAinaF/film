@@ -12,7 +12,11 @@ public class ActorService {
     @Autowired
     HibernateDAO hibernateDAO;
 
-    public List<Actor> getAllActor(){
+    public List<Actor> getAllActor() {
         return hibernateDAO.getAll1(new Actor());
+    }
+
+    public Actor getActorById(Integer id) throws Exception {
+        return hibernateDAO.getById(new Actor(), id);
     }
 }

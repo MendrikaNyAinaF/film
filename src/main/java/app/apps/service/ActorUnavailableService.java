@@ -12,10 +12,14 @@ public class ActorUnavailableService {
     @Autowired
     HibernateDAO hibernateDAO;
 
-    public void insertUnavailable(Actor_unavailable actor_unavailable){
+    public void insertUnavailable(Actor_unavailable actor_unavailable) {
         hibernateDAO.save1(actor_unavailable);
     }
-    public List<Actor_unavailable> dateUnavailableActor(Integer idActor){
-        return hibernateDAO.getByIdActor(new Actor_unavailable(),idActor);
+
+    public List<Actor_unavailable> dateUnavailableActor(Integer idActor) throws Exception {
+        // return hibernateDAO.getByIdActor(new Actor_unavailable(),idActor);
+        Actor_unavailable f = new Actor_unavailable();
+        f.setActor_id(idActor);
+        return hibernateDAO.findWhere(f, 0, 0, null, true, true, false);
     }
 }

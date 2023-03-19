@@ -12,12 +12,17 @@ public class DialogueService {
     @Autowired
     HibernateDAO hibernateDAO;
 
-    public void createDialogue(Dialogue d){
+    public void createDialogue(Dialogue d) {
         hibernateDAO.save1(d);
     }
 
-    public List<Dialogue> getDialogueBySceneId(int idScene){
-        Dialogue dialogue=new Dialogue();
-        return hibernateDAO.getByIdScene(dialogue,idScene);
+    public List<Dialogue> getDialogueBySceneId(int idScene) {
+        Dialogue dialogue = new Dialogue();
+        return hibernateDAO.getByIdScene(dialogue, idScene);
+    }
+
+    public void updateDialogue(List<Dialogue> dialogue) throws Exception {
+        for (Dialogue d : dialogue)
+            hibernateDAO.add(d);
     }
 }

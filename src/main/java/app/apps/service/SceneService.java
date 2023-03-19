@@ -76,7 +76,7 @@ public class SceneService {
                         Restrictions.like("title", "%" + recherche + "%"),
                         Restrictions.like("global_action", "%" + recherche + "%")));
         if (status != null && status >= 0) {
-            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = "+status)));
+            cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = " + status)));
         }
         if (idactors.length > 0) {
             String in = "(";
@@ -104,7 +104,8 @@ public class SceneService {
         session.close();
         return ls;
     }
-    public List<Scene> getSceneIn(Integer[] idscenes)throws Exception{
+
+    public List<Scene> getSceneIn(Integer[] idscenes) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         String in = "(";
@@ -122,14 +123,16 @@ public class SceneService {
         }
         in = in + ")";
         Criteria cr = session.createCriteria(Scene.class);
-        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN "+ in)));
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN " + in)));
         List<Scene> lf = cr.list();
         return lf;
     }
 
-    /* public Scene getById(Integer id) throws Exception {
-        return (Scene) this.hibernate.findById(Scene.class, id);
-    } */
+    /*
+     * public Scene getById(Integer id) throws Exception {
+     * return (Scene) this.hibernate.findById(Scene.class, id);
+     * }
+     */
 
     /*
      * public void plannifier(Scene s, Timestamp date)throws Exception{
@@ -187,9 +190,10 @@ public class SceneService {
             recherche = "";
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        String query = "Select count(*) from Scene where film_id = "+idfilm.toString() +" and (title like '%"+recherche+"%' or global_action like '%"+recherche+"%')";
+        String query = "Select count(*) from Scene where film_id = " + idfilm.toString() + " and (title like '%"
+                + recherche + "%' or global_action like '%" + recherche + "%')";
         if (status != null && status >= 0) {
-            query = query + " and (status = "+status.toString()+")";
+            query = query + " and (status = " + status.toString() + ")";
         }
         if (idactors.length > 0) {
             String in = "(";
@@ -206,13 +210,15 @@ public class SceneService {
                 }
             }
             in = in + ")";
-            if (!all){
-                query = query + " and id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "+ in + "))";
+            if (!all) {
+                query = query
+                        + " and id IN (select scene_id from dialogue where character_id in (select id from character where actor_id in "
+                        + in + "))";
             }
         }
         SQLQuery sqlquery = session.createSQLQuery(query);
         Integer res = 0;
-        res = ((Number)sqlquery.uniqueResult()).intValue();
+        res = ((Number) sqlquery.uniqueResult()).intValue();
         System.out.println(res);
         session.close();
         return res;
@@ -243,11 +249,14 @@ public class SceneService {
         session.close();
         return rep;
     }
-    
-    public List<Actor> getActorUnavailable(Scene s,Date d) throws Exception {
+
+    public List<Actor> getActorUnavailable(Scene s, Date d) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
-        SQLQuery query = session.createSQLQuery("SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="+ s.getId() + ")) and id IN (SELECT actor_id from actor_unavailable where date_debut>='"+d.toString()+"' and date_fin<='"+d.toString()+"')");
+        SQLQuery query = session.createSQLQuery(
+                "SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="
+                        + s.getId() + ")) and id IN (SELECT actor_id from actor_unavailable where date_debut>='"
+                        + d.toString() + "' and date_fin<='" + d.toString() + "')");
         ArrayList<Actor> rep = new ArrayList();
         List<Object[]> lp = query.list();
         Actor a = null;
@@ -278,8 +287,8 @@ public class SceneService {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List<StatusPlanning> ls = session.createCriteria(StatusPlanning.class)
-            .add(Restrictions.and(Restrictions.gt("id",0)))
-            .list();
+                .add(Restrictions.and(Restrictions.gt("id", 0)))
+                .list();
         session.close();
         return ls;
     }
@@ -300,12 +309,13 @@ public class SceneService {
     public List<Scene> getAllScene() {
         return hibernate.getAll1(new Scene());
     }
-    public List<Scene> getUnplannedScene(Integer idf){
+
+    public List<Scene> getUnplannedScene(Integer idf) {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class);
-        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = "+3)));
-        cr.add(Restrictions.and(Restrictions.eq("film_id",idf)));
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = " + 3)));
+        cr.add(Restrictions.and(Restrictions.eq("film_id", idf)));
         cr.addOrder(Order.asc("id"));
         cr.addOrder(Order.asc("preferred_shooting_time"));
         List<Scene> ls = cr.list();
@@ -313,19 +323,21 @@ public class SceneService {
         return ls;
     }
 
-    public List<Scene> getSceneByFilmSetId(Integer id){
-        return hibernate.getByIdFilmSet(new Scene(),id);
-    }
-    public Scene getById(Integer id) throws Exception {
-        return hibernate.getById(new Scene(),id);
+    public List<Scene> getSceneByFilmSetId(Integer id) {
+        return hibernate.getByIdFilmSet(new Scene(), id);
     }
 
-    public  void updateScene(Scene e){
+    public Scene getById(Integer id) throws Exception {
+        return hibernate.getById(new Scene(), id);
+    }
+
+    public void updateScene(Scene e) {
         hibernate.update(e);
     }
 
     public List<? extends Scene> findByActorId(Integer actorId) throws Exception {
-        String query="select id,title,global_action,time_start,time_end,estimated_time,filmset_id,film_id,preferred_shooting_time,status,ordre from v_actor_scene where actor_id="+actorId;
-        return hibernate.findBySql(new Scene().getClass(),query,0,1000);
+        String query = "select id,title,global_action,time_start,time_end,estimated_time,filmset_id,film_id,preferred_shooting_time,status,ordre from v_actor_scene where actor_id="
+                + actorId;
+        return hibernate.findBySql(new Scene().getClass(), query, 0, 1000);
     }
 }

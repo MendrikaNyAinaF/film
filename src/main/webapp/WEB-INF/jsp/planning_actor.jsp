@@ -9,7 +9,7 @@
         <div class="card">
             <h4 class="card-title">Indisponibilite</h4>
                 <div class="card-body">
-                <form action="${pageContext.request.contextPath}/actor/<%= ac.getId() %>/indisponible" method="post" class="row">
+                <form action="${pageContext.request.contextPath}/actor/<%= ac.getId() %>/indisponible" method="post">
                     <div class="row">
                         <div class="col-md-3">
                                 <div class="form-group">
@@ -50,8 +50,8 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-filmset.js"></script>
 <script type="text/javascript">
         const indis=<%= request.getAttribute("liste_actor_unavailable") %>;
-        const scenes=<%= request.getAttribute("liste_scene") %>
-            $.CalendarApp2.init(dis, scenes);
+        const scenes=<%= request.getAttribute("liste_scene") %>;
+            $.CalendarApp2.init(indis, scenes);
 
     </script>
 <%   } else{ %>

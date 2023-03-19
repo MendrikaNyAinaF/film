@@ -327,7 +327,7 @@ CREATE or REPLACE view v_top_planning as
 	join scene on scene.filmset_id=filmset.id ;
 
 CREATE or REPLACE view v_planning as 
-	select planning.*,name,type_id,x,y,title,global_action,time_start,time_end,estimated_time,filmset_id,film_id 
+	select planning.*,name,type_id,x,y,title,global_action,time_start,time_end,estimated_time,filmset_id,film_id,status
 	from scene join filmset on scene.filmset_id=filmset.id 
 	join planning on scene.id=planning.scene_id;
 

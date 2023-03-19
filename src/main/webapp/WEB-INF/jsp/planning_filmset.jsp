@@ -9,7 +9,7 @@
         <div class="card">
             <h4 class="card-title">Indisponibilite</h4>
                 <div class="card-body">
-                <form action="${pageContext.request.contextPath}/filmset/<%= filmset.getId() %>/indisponible" method="post" class="row">
+                <form action="${pageContext.request.contextPath}/filmset/<%= filmset.getId() %>/indisponible" method="post" >
                     <div class="row">
                         <div class="col-md-3">
                                 <div class="form-group">

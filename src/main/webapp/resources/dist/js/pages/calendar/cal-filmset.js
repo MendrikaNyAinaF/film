@@ -73,17 +73,14 @@
                datas_occu=dataoccu;
          }
          
-
-
-
          //traitement des indisponibilite
          const event=[];
          //traitements des indisponibilite
          for (let i = 0; i < datas_dispo.length; i++) {
             event.push({
                  title: datas_dispo[i].observation,
-                 start: datas_dispo[i].date_debut,
-                 end: datas_dispo[i].date_fin,
+                 start: new Date(datas_dispo[i].date_debut),
+                 end: new Date(datas_dispo[i].date_fin),
                  className: 'bg-info',
             }
             );
@@ -91,7 +88,7 @@
 
         for (let i = 0; i < datas_occu.length; i++) {
             event.push({
-                 title: datas_occu[i].title,
+                 title: "tournage: "+datas_occu[i].title,
                  start: datas_occu[i].date_debut,
                  end: datas_occu[i].date_fin,
                  className: 'bg-success',
