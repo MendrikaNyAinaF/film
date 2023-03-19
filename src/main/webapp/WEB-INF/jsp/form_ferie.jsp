@@ -9,7 +9,7 @@
                <div class="col-md-6">
                     <div class="form-group">
                          <label for="">Event</label>
-                         <input type="text" class="form-control" placeholder="evenement" name="nom" />
+                         <input type="text" class="form-control" placeholder="evenement" name="name" />
                     </div>
                </div>
                <div class="col-md-6">

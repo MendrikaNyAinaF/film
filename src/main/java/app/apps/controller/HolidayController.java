@@ -18,20 +18,22 @@ public class HolidayController {
     @Autowired
     HolidayService holidayService;
 
-    @GetMapping(value = "/holiday/insert")
-    public String holidayForm(){
+    @GetMapping(value = "/ferie")
+    public String holidayForm(HttpServletRequest request) {
         return "form_ferie";
     }
 
-    @PostMapping(value = "/holiday/insert")
-    public String insertHoliday(HttpServletRequest request,@RequestParam(name = "name") String name,@RequestParam(name = "date") String date){
-        Holiday holiday=new Holiday();
+    @PostMapping(value = "/ferie")
+    public String insertHoliday(HttpServletRequest request, @RequestParam(name = "name") String name,
+            @RequestParam(name = "date") String date) {
+        Holiday holiday = new Holiday();
         holiday.setName(name);
         try {
             holiday.setDate(java.sql.Date.valueOf(date));
             holidayService.saveHoliday(holiday);
+        } catch (Exception e) {
+            request.setAttribute("erreur", "Data non valida");
         }
-        catch (Exception e){}
-        return "";
+        return holidayForm(request);
     }
 }

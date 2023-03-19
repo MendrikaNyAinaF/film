@@ -60,7 +60,7 @@ public class ActorController {
         return "planning_actor";
     }
 
-    @PostMapping("/filmset/{id}/indisponible")
+    @PostMapping("/actor/{id}/indisponible")
     public String actorIndisponible(@RequestParam Date date_debut, @RequestParam Date date_fin,
             @RequestParam String observation, @PathVariable(name = "id") Integer id,
             RedirectAttributes redirectAttributes) {
