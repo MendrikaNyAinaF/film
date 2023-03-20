@@ -199,41 +199,52 @@ public class PlanningService {
         }
         return true;
     }
-/* 
-    public List<Filmset> getOpenFilmset(Integer idf,Timestamp t) throws Exception {
-        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Criteria cr = session.createCriteria(Filmset.class);
-        cr.add(Restrictions.and(
-            Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+idf+")"),
-            Restrictions.sqlRestriction("this_.id in (select filmset_id from filmset_planning where weekday = date_part('isodow','"+t.toString()+"'::timestamp) and timestart <= '"+t.toString()+"'::time and timeend >= '"+t.toString()+"'::time")
-            )
-        );
-        cr.addOrder(Order.asc("id"));
-        List<Filmset> ls = cr.list();
-        session.close();
-        return ls;
-    }
-*/
-    public List<Holiday> getHoliday(Timestamp t)throws Exception{
+
+    /*
+     * public List<Filmset> getOpenFilmset(Integer idf,Timestamp t) throws Exception
+     * {
+     * SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+     * Session session = sessionFactory.openSession();
+     * Criteria cr = session.createCriteria(Filmset.class);
+     * cr.add(Restrictions.and(
+     * Restrictions.
+     * sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "
+     * +idf+")"),
+     * Restrictions.
+     * sqlRestriction("this_.id in (select filmset_id from filmset_planning where weekday = date_part('isodow','"
+     * +t.toString()+"'::timestamp) and timestart <= '"+t.toString()
+     * +"'::time and timeend >= '"+t.toString()+"'::time")
+     * )
+     * );
+     * cr.addOrder(Order.asc("id"));
+     * List<Filmset> ls = cr.list();
+     * session.close();
+     * return ls;
+     * }
+     */
+    public List<Holiday> getHoliday(Timestamp t) throws Exception {
         Date d = new Date(t.getTime());
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Holiday.class);
-        cr.add(Restrictions.and(Restrictions.eq("date",d)));
+        cr.add(Restrictions.and(Restrictions.eq("date", d)));
         List<Holiday> ls = cr.list();
         session.close();
         return ls;
     }
-    public boolean isWeekend(Timestamp t)throws Exception{
+
+    public boolean isWeekend(Timestamp t) throws Exception {
         int j;
         Calendar c = Calendar.getInstance();
         c.setTime(t);
         j = c.get(Calendar.DAY_OF_WEEK);
-        if(j==Calendar.SATURDAY || j==Calendar.SUNDAY) return true; 
+        if (j == Calendar.SATURDAY || j == Calendar.SUNDAY)
+            return true;
         return false;
     }
-    public List<Planning> proposerPlanning(Integer[] ls, Timestamp debut_tournage, Timestamp fin_tournage) throws Exception {
+
+    public List<Planning> proposerPlanning(Integer[] ls, Timestamp debut_tournage, Timestamp fin_tournage)
+            throws Exception {
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
         double worked = 0;
@@ -245,13 +256,13 @@ public class PlanningService {
         List<Filmset> lf = filmsetService.neededFilmsets(ls);
         List<Scene> lis = sceneService.getSceneIn(ls);
         Integer[] lstatus = new Integer[ls.length];
-        int i=0;
-        for(Scene sce : lis){
-            lstatus[i]=sce.getStatus().getId();
+        int i = 0;
+        for (Scene sce : lis) {
+            lstatus[i] = sce.getStatus().getId();
             i++;
         }
-        //Scene s = null;
-        StatusPlanning sp = (StatusPlanning) hibernate.getById(StatusPlanning.class,4);
+        // Scene s = null;
+        StatusPlanning sp = (StatusPlanning) hibernate.getById(StatusPlanning.class, 4);
         Time est;
         double h;
         double m;
@@ -259,72 +270,76 @@ public class PlanningService {
         double estWork;
         Timestamp start = null;
         Timestamp end = null;
-        //System.out.println(ls.length);
+        // System.out.println(ls.length);
         double tomillis;
         Scene s = null;
-        while(shooting.before(fin_tournage)){
-            /* System.out.println("Shooting : " + shooting.toString());
-            System.out.println("is week-end: " +(isWeekend(shooting)));
-            System.out.println("Holidays: "+(getHoliday(shooting).size()>0)); */
-            if(!isWeekend(shooting) && !(getHoliday(shooting).size()>0)){
-                for(Filmset f : lf ){
-                    if(filmsetService.isOpen(f,new Date(shooting.getTime())).size()>0) continue;
-                    for(i=0;i<ls.length;i++){
+        while (shooting.before(fin_tournage)) {
+            /*
+             * System.out.println("Shooting : " + shooting.toString());
+             * System.out.println("is week-end: " +(isWeekend(shooting)));
+             * System.out.println("Holidays: "+(getHoliday(shooting).size()>0));
+             */
+            if (!isWeekend(shooting) && !(getHoliday(shooting).size() > 0)) {
+                for (Filmset f : lf) {
+                    if (filmsetService.isOpen(f, new Date(shooting.getTime())).size() > 0)
+                        continue;
+                    for (i = 0; i < ls.length; i++) {
                         s = (Scene) lis.get(i);
-                        if(lstatus[i]>3){
+                        if (lstatus[i] > 3) {
                             System.out.println("=>  Scene deja pris");
                             continue;
                         }
-                        System.out.println("=>  Acteur indisp.: "+sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size());
-                        if(sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size()>0){
+                        System.out.println("=>  Acteur indisp.: "
+                                + sceneService.getActorUnavailable(s, new Date(shooting.getTime())).size());
+                        if (sceneService.getActorUnavailable(s, new Date(shooting.getTime())).size() > 0) {
                             System.out.println("=>  Acteur(s) indisponible");
                             continue;
                         }
-                        System.out.println("=>  Plateau: "+f.getId());
-                        System.out.println("=>  Plateau de scene: "+s.getFilmset().getId());
-                        if(!f.getId().equals(s.getFilmset().getId())){
+                        System.out.println("=>  Plateau: " + f.getId());
+                        System.out.println("=>  Plateau de scene: " + s.getFilmset().getId());
+                        if (!f.getId().equals(s.getFilmset().getId())) {
                             System.out.println("=>  Changement de plateau");
-                            cal.add(Calendar.DAY_OF_YEAR,1);
-                            cal.set(Calendar.HOUR_OF_DAY,8);
-                            cal.set(Calendar.MINUTE,0);
-                            cal.set(Calendar.SECOND,0);
+                            cal.add(Calendar.DAY_OF_YEAR, 1);
+                            cal.set(Calendar.HOUR_OF_DAY, 8);
+                            cal.set(Calendar.MINUTE, 0);
+                            cal.set(Calendar.SECOND, 0);
                             shooting.setTime(cal.getTimeInMillis());
                             break;
                         }
                         est = s.getEstimated_time();
-                        //System.out.println(est.toString());
+                        // System.out.println(est.toString());
                         h = (double) est.toLocalTime().getHour();
-                        m = ((double) est.toLocalTime().getMinute())/60;
-                        se = ((double) est.toLocalTime().getSecond())/3600;
-                        estWork = h+m+se;
-                        if(worked+estWork>8){
-                            worked=0;
-                            cal.add(Calendar.DAY_OF_YEAR,1);
-                            cal.set(Calendar.HOUR_OF_DAY,8);
-                            cal.set(Calendar.MINUTE,0);
-                            cal.set(Calendar.SECOND,0);
+                        m = ((double) est.toLocalTime().getMinute()) / 60;
+                        se = ((double) est.toLocalTime().getSecond()) / 3600;
+                        estWork = h + m + se;
+                        if (worked + estWork > 8) {
+                            worked = 0;
+                            cal.add(Calendar.DAY_OF_YEAR, 1);
+                            cal.set(Calendar.HOUR_OF_DAY, 8);
+                            cal.set(Calendar.MINUTE, 0);
+                            cal.set(Calendar.SECOND, 0);
                             shooting.setTime(cal.getTimeInMillis());
                             break;
                         }
                         start = new Timestamp(shooting.getTime());
-                        tomillis = estWork*3600000;
-                        end = new Timestamp(shooting.getTime()+(long) tomillis);
+                        tomillis = estWork * 3600000;
+                        end = new Timestamp(shooting.getTime() + (long) tomillis);
                         p = new Planning();
                         p.setScene(s);
                         p.setDate_debut(start);
                         p.setDate_fin(end);
                         lp.add(p);
-                        System.out.println("=>    "+ lp.size());
+                        System.out.println("=>    " + lp.size());
                         lstatus[i] = 4;
                         worked = worked + estWork;
-                        shooting.setTime(end.getTime()+1200000);
+                        shooting.setTime(end.getTime() + 1200000);
                     }
                 }
             }
-            cal.add(Calendar.DAY_OF_YEAR,1);
-            cal.set(Calendar.HOUR_OF_DAY,8);
-            cal.set(Calendar.MINUTE,0);
-            cal.set(Calendar.SECOND,0);
+            cal.add(Calendar.DAY_OF_YEAR, 1);
+            cal.set(Calendar.HOUR_OF_DAY, 8);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
             shooting.setTime(cal.getTimeInMillis());
         }
         return (List<Planning>) lp;
@@ -343,11 +358,12 @@ public class PlanningService {
             return true;
         return false;
     }
-    public void insertPlanning(List<Planning> lp)throws Exception{
+
+    public void insertPlanning(List<Planning> lp) throws Exception {
         SessionFactory sessionFactory = null;
         Session session = null;
         Transaction transaction = null;
-        try{
+        try {
             sessionFactory = this.hibernate.getSessionFactory();
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
@@ -362,9 +378,16 @@ public class PlanningService {
             transaction.rollback();
             ex.printStackTrace();
             throw ex;
+        } finally {
+            if (session != null)
+                session.close();
         }
-        finally{
-            if(session!=null) session.close();
-        }
+    }
+
+    public List<Planning> findByActorId(Integer actorId) throws Exception {
+        String query = "select * from planning where scene_id in(SELECT scene_id from v_scene_actor WHERE actor_id="
+                + actorId + ")";
+        System.out.println(query);
+        return hibernate.findBySql(Planning.class, query, 0, 0);
     }
 }

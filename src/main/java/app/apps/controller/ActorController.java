@@ -2,9 +2,11 @@ package app.apps.controller;
 
 import app.apps.model.Actor;
 import app.apps.model.Actor_unavailable;
+import app.apps.model.Planning;
 import app.apps.model.Scene;
 import app.apps.service.ActorService;
 import app.apps.service.ActorUnavailableService;
+import app.apps.service.PlanningService;
 import app.apps.service.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,9 @@ public class ActorController {
     @Autowired
     ActorUnavailableService aus;
 
+    @Autowired
+    PlanningService planningService;
+
     @GetMapping(value = "/actors")
     public String actorList(HttpServletRequest request) {
         try {
@@ -56,7 +61,7 @@ public class ActorController {
             List<Actor_unavailable> nonDisponibilite = actorUnavailableService.dateUnavailableActor(actorId);
             request.setAttribute("liste_actor_unavailable", gson.toJson(nonDisponibilite));
 
-            List<Scene> actorScene = (List<Scene>) sceneService.findByActorId(actorId);
+            List<Planning> actorScene = planningService.findByActorId(actorId);
             request.setAttribute("liste_scene", gson.toJson(actorScene));
         } catch (Exception e) {
         }

@@ -87,8 +87,9 @@
         }
 
         for (let i = 0; i < datas_occu.length; i++) {
+            const name = datas_occu[i].title?datas_occu[i].title:"";
             event.push({
-                 title: "tournage: "+datas_occu[i].title,
+                 title: "tournage: "+name,
                  start: datas_occu[i].date_debut,
                  end: datas_occu[i].date_fin,
                  className: 'bg-success',
@@ -117,7 +118,7 @@
                  selectable: true,
                  drop: function (date) { $this.onDrop($(this), date); },
                  select: function (start, end, allDay) { $this.onSelect(start, end, allDay); },
-                 eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
+                 //eventClick: function (calEvent, jsEvent, view) { $this.onEventClick(calEvent, jsEvent, view); }
  
              });
      },

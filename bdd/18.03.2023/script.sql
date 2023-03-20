@@ -338,6 +338,10 @@ CREATE OR REPLACE view v_actor_scene as
 	join character on dialogue.character_id=character.id 
 	join actor on character.actor_id=actor.id;
 
+CREATE OR REPLACE VIEW v_scene_actor as
+	SELECT s.id as scene_id, c.id as actor_id
+	from scene s, dialogue d, character c
+	where s.id = d.scene_id and c.id = d.character_id;
 
 --view
 	--scene_status non necessaire avec le status deja dans la table scene
