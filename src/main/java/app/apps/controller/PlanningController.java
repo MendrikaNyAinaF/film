@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -104,6 +105,16 @@ public class PlanningController {
             request.setAttribute("erreur", ex.getMessage());
             return to_planning(request, session);
         }
+    }
+
+    @PostMapping("/film/{idf}/confirmer_planning")
+    @ResponseBody
+    public String confirmPlanning(@RequestParam(name = "id") Integer[] ids, @RequestParam(name = "date_debut") String[] date1, @RequestParam(name = "date_fin") String[] date2)throws Exception{
+        String rep = "";
+        for(int i=0;i<ids.length;i++){
+            rep = rep+"    "+ids[i]+" "+date1[i]+" "+date2[i];
+        }
+        return rep;
     }
 
 }

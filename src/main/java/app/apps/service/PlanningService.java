@@ -363,7 +363,10 @@ public class PlanningService {
         SessionFactory sessionFactory = null;
         Session session = null;
         Transaction transaction = null;
-        try {
+        Scene s = null;
+        StatusPlanning sp = null;
+        try{
+            sp = (StatusPlanning) hibernate.getById(StatusPlanning.class,4);
             sessionFactory = this.hibernate.getSessionFactory();
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
@@ -372,6 +375,9 @@ public class PlanningService {
                     throw new Exception("Planning invalid: superposition de jour de tournage");
                 }
                 session.save(pa);
+                s = pa.getScene();
+                s.setStatus(sp);
+                session.update(s);
             }
             transaction.commit();
         } catch (Exception ex) {
