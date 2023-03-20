@@ -47,6 +47,9 @@ public class FilmController {
     @Autowired
     SceneService sceneService;
 
+    @Autowired
+    HolidayService holidayService;
+
     @GetMapping(value = "/films/{page}")
     public String getAllFilm(@PathVariable("page") Integer page, HttpServletRequest request) throws Exception {
         Integer limit = 3;
@@ -141,6 +144,7 @@ public class FilmController {
             throws Exception {
         Gson gson = new Gson();
         request.setAttribute("liste_planning", gson.toJson(planningService.listPlanning(filmId)));
+        request.setAttribute("liste_holiday", gson.toJson(holidayService.listHoliday()));
         return "planning";
     }
 
