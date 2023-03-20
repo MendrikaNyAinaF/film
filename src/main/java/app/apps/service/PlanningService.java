@@ -271,9 +271,19 @@ public class PlanningService {
                     if(filmsetService.isOpen(f,new Date(shooting.getTime())).size()>0) continue;
                     for(i=0;i<ls.length;i++){
                         s = (Scene) lis.get(i);
-                        if(lstatus[i]>3) continue;
-                        if(sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size()>0) continue;
+                        if(lstatus[i]>3){
+                            System.out.println("=>  Scene deja pris");
+                            continue;
+                        }
+                        System.out.println("=>  Acteur indisp.: "+sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size());
+                        if(sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size()>0){
+                            System.out.println("=>  Acteur(s) indisponible");
+                            continue;
+                        }
+                        System.out.println("=>  Plateau: "+f.getId());
+                        System.out.println("=>  Plateau de scene: "+s.getFilmset().getId());
                         if(!f.getId().equals(s.getFilmset().getId())){
+                            System.out.println("=>  Changement de plateau");
                             cal.add(Calendar.DAY_OF_YEAR,1);
                             cal.set(Calendar.HOUR_OF_DAY,8);
                             cal.set(Calendar.MINUTE,0);
@@ -304,6 +314,7 @@ public class PlanningService {
                         p.setDate_debut(start);
                         p.setDate_fin(end);
                         lp.add(p);
+                        System.out.println("=>    "+ lp.size());
                         lstatus[i] = 4;
                         worked = worked + estWork;
                         shooting.setTime(end.getTime()+1200000);

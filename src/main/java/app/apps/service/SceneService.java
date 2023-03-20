@@ -124,6 +124,7 @@ public class SceneService {
         in = in + ")";
         Criteria cr = session.createCriteria(Scene.class);
         cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN " + in)));
+        cr.addOrder(Order.asc("filmset"));
         List<Scene> lf = cr.list();
         /* for(Scene s : lf){
             System.out.println(s.getStatus());

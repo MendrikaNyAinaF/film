@@ -67,6 +67,7 @@ public class FilmSetService {
         in = in + ")";
         Criteria cr = session.createCriteria(Filmset.class);
         cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN (select filmset_id from scene where id in "+ in + ")")));
+        cr.addOrder(Order.asc("id"));
         List<Filmset> lf = cr.list();
         return lf;
     }
