@@ -262,18 +262,29 @@ public class PlanningService {
         //System.out.println(ls.length);
         double tomillis;
         Scene s = null;
-        while(new Date(shooting.getTime()).compareTo(new Date(fin_tournage.getTime()))<=0){
+        while(shooting.before(fin_tournage)){
             /* System.out.println("Shooting : " + shooting.toString());
             System.out.println("is week-end: " +(isWeekend(shooting)));
             System.out.println("Holidays: "+(getHoliday(shooting).size()>0)); */
             if(!isWeekend(shooting) && !(getHoliday(shooting).size()>0)){
                 for(Filmset f : lf ){
+                    System.out.println("==>    Plateau : "+f.getName());
+                    System.out.println("==>    Tournage : "+new Date(shooting.getTime()).toString());
+                    System.out.println("==>    Indisponibilite : " + filmsetService.isOpen(f,new Date(shooting.getTime())).size());
                     if(filmsetService.isOpen(f,new Date(shooting.getTime())).size()>0) continue;
                     for(i=0;i<ls.length;i++){
                         s = (Scene) lis.get(i);
                         if(lstatus[i]>3) continue;
+                        System.out.println("==>    Indisp.Acteur : " + sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size());
                         if(sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size()>0) continue;
-                        if(!f.getId().equals(s.getFilmset().getId())) continue;
+                        if(!f.getId().equals(s.getFilmset().getId())){
+                            cal.add(Calendar.DAY_OF_YEAR,1);
+                            cal.set(Calendar.HOUR_OF_DAY,8);
+                            cal.set(Calendar.MINUTE,0);
+                            cal.set(Calendar.SECOND,0);
+                            shooting.setTime(cal.getTimeInMillis());
+                            break;
+                        }
                         est = s.getEstimated_time();
                         //System.out.println(est.toString());
                         h = (double) est.toLocalTime().getHour();
@@ -281,7 +292,12 @@ public class PlanningService {
                         se = ((double) est.toLocalTime().getSecond())/3600;
                         estWork = h+m+se;
                         if(worked+estWork>8){
-                            worked = 0;
+                            worked=0;
+                            cal.add(Calendar.DAY_OF_YEAR,1);
+                            cal.set(Calendar.HOUR_OF_DAY,8);
+                            cal.set(Calendar.MINUTE,0);
+                            cal.set(Calendar.SECOND,0);
+                            shooting.setTime(cal.getTimeInMillis());
                             break;
                         }
                         start = new Timestamp(shooting.getTime());
@@ -295,11 +311,6 @@ public class PlanningService {
                         lstatus[i] = 4;
                         shooting.setTime(end.getTime()+1200000);
                     }
-                    cal.add(Calendar.DAY_OF_YEAR,1);
-                    cal.set(Calendar.HOUR_OF_DAY,8);
-                    cal.set(Calendar.MINUTE,0);
-                    cal.set(Calendar.SECOND,0);
-                    shooting.setTime(cal.getTimeInMillis());
                 }
             }
             cal.add(Calendar.DAY_OF_YEAR,1);

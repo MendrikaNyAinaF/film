@@ -258,8 +258,8 @@ public class SceneService {
         Session session = sessionFactory.openSession();
         SQLQuery query = session.createSQLQuery(
                 "SELECT * from actor where id IN (SELECT actor_id from character WHERE id IN (SELECT character_id FROM dialogue WHERE scene_id="
-                        + s.getId() + ")) and id IN (SELECT actor_id from actor_unavailable where date_debut>='"
-                        + d.toString() + "' and date_fin<='" + d.toString() + "')");
+                        + s.getId() + ")) and id IN (SELECT actor_id from actor_unavailable where date_debut<='"
+                        + d.toString() + "' and date_fin>='" + d.toString() + "')");
         ArrayList<Actor> rep = new ArrayList();
         List<Object[]> lp = query.list();
         Actor a = null;

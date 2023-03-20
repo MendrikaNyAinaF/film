@@ -39,8 +39,8 @@ public class FilmSetService {
         Criteria cr = session.createCriteria(Filmset_unavailable.class);
         cr.add(Restrictions.and(
             /* Restrictions.sqlRestriction("this_.id in (select filmset_id from scene where id not in (select scene_id from planning) and film_id = "+f.getId()+")"), */
-            Restrictions.ge("date_debut",t),
-            Restrictions.le("date_fin",t),
+            Restrictions.le("date_debut",t),
+            Restrictions.ge("date_fin",t),
             Restrictions.eq("filmset_id",f.getId())
             )
         );
