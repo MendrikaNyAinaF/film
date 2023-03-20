@@ -110,11 +110,23 @@ public class PlanningController {
     @PostMapping("/film/{idf}/confirmer_planning")
     @ResponseBody
     public String confirmPlanning(@RequestParam(name = "id") Integer[] ids, @RequestParam(name = "date_debut") String[] date1, @RequestParam(name = "date_fin") String[] date2)throws Exception{
-        String rep = "";
-        for(int i=0;i<ids.length;i++){
-            rep = rep+"    "+ids[i]+" "+date1[i]+" "+date2[i];
+        List<Planning> lp = null;
+        Planning p = null;
+        try{
+            lp = new ArrayList<Planning>();
+            for(int i=0;i<ids.length;i++){
+                p = new Planning();
+                p.setDate_debut(Timestamp.valueOf(date1[i].replace("T"," ")+":00"));
+                p.setDate_fin(Timestamp.valueOf(date2[i].replace("T"," ")+":00"));
+                p.setScene(sceneService.getById(ids[i]));
+                lp.add(p);
+            }
+            planningService.insertPlanning(lp);
         }
-        return rep;
+        catch(Exception ex){
+            throw ex;
+        }
+        return "";
     }
 
 }
