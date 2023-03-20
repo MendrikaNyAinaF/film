@@ -125,6 +125,9 @@ public class SceneService {
         Criteria cr = session.createCriteria(Scene.class);
         cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN " + in)));
         List<Scene> lf = cr.list();
+        /* for(Scene s : lf){
+            System.out.println(s.getStatus());
+        } */
         return lf;
     }
 
@@ -316,7 +319,7 @@ public class SceneService {
         Criteria cr = session.createCriteria(Scene.class);
         cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = " + 3)));
         cr.add(Restrictions.and(Restrictions.eq("film_id", idf)));
-        cr.addOrder(Order.asc("id"));
+        cr.addOrder(Order.asc("filmset"));
         cr.addOrder(Order.asc("preferred_shooting_time"));
         List<Scene> ls = cr.list();
         session.close();
