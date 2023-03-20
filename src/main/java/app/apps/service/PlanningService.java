@@ -141,8 +141,8 @@ public class PlanningService {
             p = new Planning();
             p.setId(Integer.parseInt(row[0].toString()));
             p.setScene(hibernate.findById(Scene.class, Integer.parseInt(row[1].toString())));
-            p.setDate_debut((Timestamp) row[3]);
-            p.setDate_fin((Timestamp) row[4]);
+            p.setDate_debut((Timestamp) row[2]);
+            p.setDate_fin((Timestamp) row[3]);
             rep.add(p);
         }
         session.close();
@@ -268,14 +268,10 @@ public class PlanningService {
             System.out.println("Holidays: "+(getHoliday(shooting).size()>0)); */
             if(!isWeekend(shooting) && !(getHoliday(shooting).size()>0)){
                 for(Filmset f : lf ){
-                    System.out.println("==>    Plateau : "+f.getName());
-                    System.out.println("==>    Tournage : "+new Date(shooting.getTime()).toString());
-                    System.out.println("==>    Indisponibilite : " + filmsetService.isOpen(f,new Date(shooting.getTime())).size());
                     if(filmsetService.isOpen(f,new Date(shooting.getTime())).size()>0) continue;
                     for(i=0;i<ls.length;i++){
                         s = (Scene) lis.get(i);
                         if(lstatus[i]>3) continue;
-                        System.out.println("==>    Indisp.Acteur : " + sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size());
                         if(sceneService.getActorUnavailable(s,new Date(shooting.getTime())).size()>0) continue;
                         if(!f.getId().equals(s.getFilmset().getId())){
                             cal.add(Calendar.DAY_OF_YEAR,1);
@@ -309,6 +305,7 @@ public class PlanningService {
                         p.setDate_fin(end);
                         lp.add(p);
                         lstatus[i] = 4;
+                        worked = worked + estWork;
                         shooting.setTime(end.getTime()+1200000);
                     }
                 }
