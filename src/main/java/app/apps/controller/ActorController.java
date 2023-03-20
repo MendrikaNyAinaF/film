@@ -34,6 +34,9 @@ public class ActorController {
 
     Gson gson = new Gson();
 
+    @Autowired
+    ActorUnavailableService aus;
+
     @GetMapping(value = "/actors")
     public String actorList(HttpServletRequest request) {
         try {
@@ -60,17 +63,20 @@ public class ActorController {
         return "planning_actor";
     }
 
-    @PostMapping("/actor/{id}/indisponible")
-    public String actorIndisponible(@RequestParam Date date_debut, @RequestParam Date date_fin,
-            @RequestParam String observation, @PathVariable(name = "id") Integer id,
-            RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/actor/{id}/indisponible")
+    public String insertActorUnavailable(@PathVariable(name = "id") Integer actorId,
+            @RequestParam(name = "date_debut") String date_debut, @RequestParam(name = "date_fin") String date_fin,
+            @RequestParam(name = "observation") String observation, RedirectAttributes redirectAttributes) {
+        Actor_unavailable actor_unavailable = new Actor_unavailable();
+        actor_unavailable.setActor_id(actorId);
         try {
-            // enregister l'indisponibilite du plateau
-
-        } catch (Exception ex) {
-            redirectAttributes.addFlashAttribute("erreur", ex.getMessage());
-
+            actor_unavailable.setDate_debut(java.sql.Date.valueOf(date_debut));
+            actor_unavailable.setDate_fin(java.sql.Date.valueOf(date_fin));
+            actor_unavailable.setObservation(observation);
+            aus.insertUnavailable(actor_unavailable);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("erreur", e.getMessage());
         }
-        return "redirect:/actor/" + id + "/planning";
+        return "redirect:/actor/" + actorId + "/planning";
     }
 }

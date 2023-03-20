@@ -51,6 +51,9 @@ public class FilmSetController {
      @Autowired
      VPlanningService vPlanningService;
 
+     @Autowired
+     FilmsetUnavailableService fus;
+
      @GetMapping(value = "/filmsets")
      public String filmsets(HttpServletRequest req) {
           try {
@@ -95,17 +98,22 @@ public class FilmSetController {
           return "planning_filmset";
      }
 
-     @PostMapping("/filmset/{id}/indisponible")
-     public String filmsetIndisponible(@RequestParam Date date_debut, @RequestParam Date date_fin,
-               @RequestParam String observation, @PathVariable(name = "id") Integer id,
-               RedirectAttributes redirectAttributes) {
+     @PostMapping(value = "/filmset/{id}/indisponible")
+     public String insertFilmsetUnavailable(@PathVariable(name = "id") Integer filmsetId,
+               @RequestParam(name = "date_debut") String date_debut, @RequestParam(name = "date_fin") String date_fin,
+               @RequestParam(name = "observation") String observation, RedirectAttributes redirectAttributes) {
+          Filmset_unavailable filmset_unavailable = new Filmset_unavailable();
+          filmset_unavailable.setFilmset_id(filmsetId);
           try {
-               // enregister l'indisponibilite du plateau
-
-          } catch (Exception ex) {
-               redirectAttributes.addFlashAttribute("erreur", ex.getMessage());
-
+               filmset_unavailable.setDate_debut(java.sql.Date.valueOf(date_debut));
+               filmset_unavailable.setDate_fin(java.sql.Date.valueOf(date_fin));
+               filmset_unavailable.setObservation(observation);
+               fus.saveUnavailableFilmSet(filmset_unavailable);
+          } catch (Exception e) {
+               e.printStackTrace();
+               redirectAttributes.addFlashAttribute("erreur", e.getMessage());
           }
-          return "redirect:/filmset/" + id + "/planning";
+
+          return "redirect:/filmset/" + filmsetId + "/planning";
      }
 }
