@@ -366,7 +366,7 @@ public class PlanningService {
         Scene s = null;
         StatusPlanning sp = null;
         try{
-            sp = (StatusPlanning) hibernate.getById(StatusPlanning.class,4);
+            sp = hibernate.findById(StatusPlanning.class, 4);
             sessionFactory = this.hibernate.getSessionFactory();
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();

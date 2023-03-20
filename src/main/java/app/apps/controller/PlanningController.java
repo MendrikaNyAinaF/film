@@ -108,8 +108,7 @@ public class PlanningController {
     }
 
     @PostMapping("/film/{idf}/confirmer_planning")
-    @ResponseBody
-    public String confirmPlanning(@RequestParam(name = "id") Integer[] ids, @RequestParam(name = "date_debut") String[] date1, @RequestParam(name = "date_fin") String[] date2)throws Exception{
+    public String confirmPlanning(HttpServletRequest request, HttpSession session, @RequestParam(name = "id[]") Integer[] ids, @RequestParam(name = "date_debut[]") String[] date1, @RequestParam(name = "date_fin[]") String[] date2)throws Exception{
         List<Planning> lp = null;
         Planning p = null;
         try{
@@ -126,7 +125,7 @@ public class PlanningController {
         catch(Exception ex){
             throw ex;
         }
-        return "";
+        return to_planning(request, session);
     }
 
 }
