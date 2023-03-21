@@ -115,27 +115,4 @@ public class PlanningController {
             return to_planning(request, session);
         }
     }
-
-    @RequestMapping(value = "/film/{idf}/confirmer_planning", method = RequestMethod.POST)
-    public @ResponseBody String confirmPlanning(@RequestBody Planning[] planning) throws Exception {
-        List<Planning> lp = null;
-        Planning p = null;
-        try {
-            lp = new ArrayList<Planning>();
-            for (int i = 0; i < planning.length; i++) {
-                p = new Planning();
-                p.setDate_debut(planning[i].getDate_debut());
-                p.setDate_fin(planning[i].getDate_fin());
-                p.setScene(sceneService.getById(planning[i].getId()));
-                lp.add(p);
-
-            }
-            planningService.insertPlanning(lp);
-        } catch (Exception ex) {
-            System.out.println("    Error:" + ex.getMessage());
-            return ex.getMessage();
-        }
-        System.out.println("    Success confirmation");
-        return "Success";
-    }
 }

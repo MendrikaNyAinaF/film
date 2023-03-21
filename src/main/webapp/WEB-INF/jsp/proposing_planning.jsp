@@ -76,18 +76,21 @@
                     "date_fin": new Date(date_fin[i])
                })
           }
+          for(let i=0;i<nbr_scene;i++){
+               console.log(data[i]);
+          }
           $.ajax({
                url: url,
-               type: 'POST',
+               type: "POST",
                data: JSON.stringify(data),
+               dataType: "json",
+               contentType: "application/json",
                success: function(response) {
                     window.location.href = urlredirect;
                },
                error: function(xhr, status, error) {
                     document.getElementById("erreur").html=xhr.responseText;
-               },
-               dataType: "json",
-               contentType: "application/json"
+               }
           });
      });
 </script>
