@@ -122,9 +122,10 @@ public class PlanningController {
             lp = new ArrayList<Planning>();
             for(int i=0;i<planning.length;i++){
                 p = new Planning();
-                p.setDate_debut(planning[i].getDate_debut());
-                p.setDate_fin(planning[i].getDate_fin());
+                p.setDate_debut(new Timestamp(planning[i].getDate_debut().getTime()-(3*3600000)));
+                p.setDate_fin(new Timestamp(planning[i].getDate_fin().getTime()-(3*3600000)));
                 p.setScene(sceneService.getById(planning[i].getId()));
+                System.out.println("    "+p.getDate_debut().toString());
                 lp.add(p);
             }
             planningService.insertPlanning(lp);
