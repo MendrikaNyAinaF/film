@@ -178,7 +178,7 @@ public class SceneController {
             s.setFilm_id(filmid);
             s.setStatus(new StatusPlanning(1));
             s.setOrdre(1);
-            s.setAutheur(new Author(autheur));
+            s.setAuthor(new Author(autheur));
             s = ss.create(s);
 
             d = new Dialogue();
