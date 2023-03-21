@@ -57,7 +57,8 @@ public class RestPlanningController {
     SceneService sceneService;
 
     @RequestMapping(value="/film/{idf}/confirmer_planning", method=RequestMethod.POST)
-    public String confirmPlanning(@RequestBody Planning[] planning)throws Exception{
+    @ResponseBody
+    public ResponseEntity<String> confirmPlanning(@RequestBody Planning[] planning)throws Exception{
         List<Planning> lp = null;
         Planning p = null;
         try{
@@ -74,9 +75,9 @@ public class RestPlanningController {
         }
         catch(Exception ex){
             System.out.println("    Error:"+ex.getMessage());
-            return ex.getMessage();
+            return new ResponseEntity(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }
         System.out.println("    Success confirmation");
-        return "Success";
+        return new ResponseEntity("Planning confirmed",HttpStatus.OK);
     }
 }
