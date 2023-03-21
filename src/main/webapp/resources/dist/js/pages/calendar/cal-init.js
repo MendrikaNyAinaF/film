@@ -52,7 +52,7 @@
             });
         }
     /* Initializing */
-    CalendarApp.prototype.init = function (idfilm, data) {
+    CalendarApp.prototype.init = function (idfilm, data, holiday) {
         this.enableDrag();
         /*  Initialize the calendar  */
         var date = new Date();
@@ -67,9 +67,13 @@
             
         });*/
         var datas =[];
+        var holi=[];
         if(data!=null){
              datas=data;
-        }    
+        }   
+        if(holiday!=null){
+            holi=holiday;
+        } 
         console.log(datas); 
             var event = [];
             
@@ -81,12 +85,25 @@
                         start: new Date(datas[i].date_debut),
                         end: new Date(datas[i].date_fin),
                         className: 'bg-info',
-                        url: '/film/' + idfilm + '/scene/' + datas[i].scene.id
+                        url: '/film/film/' + idfilm + '/scene/' + datas[i].scene.id
                     }
                 );
-                
-
             }
+            
+            for (let i = 0; i < holi.length; i++) {
+                //console.log(new Date(holi[i].date_debut))
+                //console.log(new Date(holi[i].date));
+                event.push(
+                    {
+                        title: 'ferie '+ holi[i].name,
+                        start: holi[i].date +" 00:00:00",
+                        end: holi[i].date+ " 23:59:59",
+                        className: 'bg-success',               
+                    }
+                );
+            }
+            console.log(holi);
+            console.log(event);
             var $this = this;
             $this.$calendarObj = $this.$calendar.fullCalendar({
                 slotDuration: '00:15:00',

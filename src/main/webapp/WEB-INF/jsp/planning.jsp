@@ -51,7 +51,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/dist/js/pages/calendar/cal-init.js"></script>            
     <script type="text/javascript">
-        $.CalendarApp.init(<%= film.getId() %>,<%= request.getAttribute("liste_planning") %>);
+        $.CalendarApp.init(<%= film.getId() %>,<%= request.getAttribute("liste_planning") %>, <%= request.getAttribute("liste_holiday") %>);
     </script>
 <%   }
 %>

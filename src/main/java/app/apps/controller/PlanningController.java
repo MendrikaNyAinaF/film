@@ -79,7 +79,7 @@ public class PlanningController {
         try {
             current = (Film) session.getAttribute("current_film");
             // liste des scenes non planifiées atao dans "liste_scene"
-            request.setAttribute("liste_scene",sceneService.getUnplannedScene(current.getId()));
+            request.setAttribute("liste_scene", sceneService.getUnplannedScene(current.getId()));
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());
@@ -96,15 +96,18 @@ public class PlanningController {
         try {
             current = (Film) session.getAttribute("current_film");
             if (current != null) {
-                commencement = Timestamp.valueOf(date1.replace("T"," ")+":00");
+                commencement = Timestamp.valueOf(date1.replace("T", " ") + ":00");
             }
             // traitement du planning
-            List<Planning> lp = planningService.proposerPlanning(ids,Timestamp.valueOf(date1.replace("T"," ")+":00"),Timestamp.valueOf(date2.replace("T"," ")+":00"));
+            List<Planning> lp = planningService.proposerPlanning(ids,
+                    Timestamp.valueOf(date1.replace("T", " ") + ":00"),
+                    Timestamp.valueOf(date2.replace("T", " ") + ":00"));
             System.out.println(lp);
-            if(lp!=null) System.out.println(lp.size());
-            request.setAttribute("nbr_scene",ids.length);
-            request.setAttribute("start_date",date1.replace("T"," "));
-            request.setAttribute("liste_planning",lp);
+            if (lp != null)
+                System.out.println(lp.size());
+            request.setAttribute("nbr_scene", ids.length);
+            request.setAttribute("start_date", date1.replace("T", " "));
+            request.setAttribute("liste_planning", lp);
             return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -113,23 +116,23 @@ public class PlanningController {
         }
     }
 
-    @RequestMapping(value="/film/{idf}/confirmer_planning", method=RequestMethod.POST)
-    public @ResponseBody String confirmPlanning(@RequestBody Planning[] planning)throws Exception{
+    @RequestMapping(value = "/film/{idf}/confirmer_planning", method = RequestMethod.POST)
+    public @ResponseBody String confirmPlanning(@RequestBody Planning[] planning) throws Exception {
         List<Planning> lp = null;
         Planning p = null;
-        try{
+        try {
             lp = new ArrayList<Planning>();
-            for(int i=0;i<planning.length;i++){
+            for (int i = 0; i < planning.length; i++) {
                 p = new Planning();
                 p.setDate_debut(planning[i].getDate_debut());
                 p.setDate_fin(planning[i].getDate_fin());
                 p.setScene(sceneService.getById(planning[i].getId()));
                 lp.add(p);
+
             }
             planningService.insertPlanning(lp);
-        }
-        catch(Exception ex){
-            System.out.println("    Error:"+ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println("    Error:" + ex.getMessage());
             return ex.getMessage();
         }
         System.out.println("    Success confirmation");

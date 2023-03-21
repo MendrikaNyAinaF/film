@@ -14,11 +14,12 @@
           <button class="btn btn-info" type="submit">Confirmer</button>
           <br />
           <br />
+          <div class="row">
                <% if(request.getAttribute("liste_planning")!=null){
                     List<Planning> liste_planning = (List<Planning>) request.getAttribute("liste_planning");
                     for(Planning p: liste_planning){ %>
                          
-                         <div class="row">
+                         
                               <div class="col-md-6">
                                    <div class="card border-dark">
                                         <div class="card-header bg-dark">
@@ -35,23 +36,23 @@
                                                   <input type="hidden" class="id" value=<%= p.getScene().getId() %>>
                                                   <div class="col-md-6">
                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="date_debut" value="<%= p.getDate_debut().toString() %>">
+                                                            <input type="datetime-local" class="form-control date_debut" value="<%= p.getDate_debut().toString() %>">
                                                        </div>
                                                   </div>
                                                   <div class="col-md-6">
                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="date_fin" value="<%= p.getDate_fin().toString() %>">
+                                                            <input type="datetime-local" class="form-control date_fin" value="<%= p.getDate_fin().toString() %>">
                                                        </div>
                                                   </div>
                                              </div>
                                         </div>
                                    </div>
                               </div>
-                         </div>
+                        
                          
                <%     }
           } %>
-                    
+     </div>      
         </form>  
      </div>
 </div>
@@ -71,23 +72,22 @@
           for(let i=0;i<nbr_scene;i++){
                data.push({
                     "id": id[i],
-                    "date_debut": date_debut[i].replace("T"," ")+":00",
-                    "date_fin": date_fin[i].replace("T"," ")+":00"
+                    "date_debut": new Date(date_debut[i]),
+                    "date_fin": new Date(date_fin[i])
                })
           }
           $.ajax({
                url: url,
                type: 'POST',
                data: JSON.stringify(data),
-               dataType: 'json',
-               contentType: 'application/json',
                success: function(response) {
-                    alert(response);
                     window.location.href = urlredirect;
                },
                error: function(xhr, status, error) {
                     document.getElementById("erreur").html=xhr.responseText;
-               }
+               },
+               dataType: "json",
+               contentType: "application/json"
           });
      });
 </script>

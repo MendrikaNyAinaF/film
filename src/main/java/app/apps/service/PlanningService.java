@@ -365,7 +365,7 @@ public class PlanningService {
         Transaction transaction = null;
         Scene s = null;
         StatusPlanning sp = null;
-        try{
+        try {
             sp = hibernate.findById(StatusPlanning.class, 4);
             sessionFactory = this.hibernate.getSessionFactory();
             session = sessionFactory.openSession();
@@ -374,7 +374,9 @@ public class PlanningService {
                 if (isThereSuperposistion(pa.getDate_debut(), pa.getDate_fin())) {
                     throw new Exception("Planning invalid: superposition de jour de tournage");
                 }
+                System.out.println(pa.getDate_debut());
                 session.save(pa);
+                System.out.println(pa.getDate_debut());
                 s = pa.getScene();
                 s.setStatus(sp);
                 session.update(s);
