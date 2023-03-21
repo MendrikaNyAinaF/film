@@ -7,7 +7,7 @@
 <div class="card col-lg-12">
      <div class="card-body">
           <h4>Le planning commencera le <%= request.getAttribute("start_date") %></h4>
-          <div class="alert alert-danger" role="alert" style="display:none">
+          <div id="div-erreur" class="alert alert-danger" role="alert" style="display: none;">
                          <strong id="erreur"></strong> 
           </div>
           <form id="confirmer_plan">
@@ -81,15 +81,24 @@
           }
           $.ajax({
                url: url,
-               type: "POST",
+               type: 'POST',
                data: JSON.stringify(data),
-               dataType: "json",
-               contentType: "application/json",
+               dataType: 'json',
+               contentType: 'application/json',
                success: function(response) {
+                    //console.log(response);
                     window.location.href = urlredirect;
                },
                error: function(xhr, status, error) {
-                    document.getElementById("erreur").html=xhr.responseText;
+                    console.log(xhr);
+                    if(xhr.status==200||xhr.status=="200"){
+                         window.location.href = urlredirect;
+                    }
+                    else{
+                         console.log(xhr.responseText);
+                         document.getElementById("erreur").innerHTML=xhr.responseText;
+                         document.getElementById("div-erreur").style.display = "block";
+                    }
                }
           });
      });
