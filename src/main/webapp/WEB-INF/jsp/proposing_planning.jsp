@@ -57,34 +57,36 @@
 </div>
 <script type="text/javascript">
      const nbr_scene = <%= request.getAttribute("nbr_scene") %>;
-     const urlredirect = <%= request.getContextPath()+"/film/"+film.getId()+"/planning" %>;
-     const url = <%= request.getContextPath()+"/film/"+film.getId()+"/confirmer_planning" %>;
+     const urlredirect = '<%= request.getContextPath()+"/film/"+film.getId()+"/planning" %>';
+     const url = '<%= request.getContextPath()+"/film/"+film.getId()+"/confirmer_planning" %>';
      const formulaire = document.getElementById('confirmer_plan');
 
      formulaire.addEventListener('submit', function(event) {
           event.preventDefault(); // Empêche le formulaire d'être soumis
-          const date_debut = Array.from(document.getByElementsByClassName("date_debut")).map(option => option.value);
-          const date_fin= Array.from(document.getByElementsByClassName("date_fin")).map(option => option.value);
-          const id= Array.from(document.getByElementsByClassName("id")).map(option => option.value);
-          
+          const date_debut = Array.from(document.getElementsByClassName("date_debut")).map(option => option.value);
+          const date_fin= Array.from(document.getElementsByClassName("date_fin")).map(option => option.value);
+          const id= Array.from(document.getElementsByClassName("id")).map(option => option.value);
+          //alert("Submit pressed");
           const data=[]
           for(let i=0;i<nbr_scene;i++){
                data.push({
-                    id: id[i],
-                    date_debut: date_debut[i],
-                    date_fin: date_fin[i]
+                    "id": id[i],
+                    "date_debut": date_debut[i],
+                    "date_fin": date_fin[i]
                })
           }
           $.ajax({
                url: url,
-               type: "POST",
-               data: data,
+               type: 'POST',
+               data: JSON.stringify(data),
                success: function(response) {
-                    window.location.href = "https://example.com";
+                    window.location.href = urlredirect;
                },
                error: function(xhr, status, error) {
                     document.getElementById("erreur").html=xhr.responseText;
-               }
+               },
+               dataType: "json",
+               contentType: "application/json"
           });
      });
 </script>
