@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import app.apps.service.SceneService;
 import app.apps.service.PlanningService;
 import app.apps.service.FilmSetService;
+import app.apps.service.AuthorService;
 import app.apps.service.CharaterService;
 import app.apps.service.DialogueService;
 import app.apps.model.Scene;
@@ -31,6 +32,7 @@ import app.apps.model.StatusPlanning;
 import app.apps.model.Film;
 import app.apps.model.Gender;
 import app.apps.model.Actor;
+import app.apps.model.Author;
 import app.apps.model.Dialogue;
 import app.apps.model.Character;
 import app.apps.model.Filmset;
@@ -62,6 +64,9 @@ public class SceneController {
 
     @Autowired
     FilmSetService filmSetService;
+
+    @Autowired
+    AuthorService authorService;
 
     public static HttpSession session() {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -140,6 +145,11 @@ public class SceneController {
         request.setAttribute("plateau", fss.getAllFilmSet());
         request.setAttribute("liste_chara", lc);
         request.setAttribute("liste_character_json", ps.listToJson(lc));
+        try {
+            request.setAttribute("autheur", authorService.getAll());
+        } catch (Exception ex) {
+            request.setAttribute("erreur", ex.getMessage());
+        }
         return "create_scene";
     }
 
@@ -153,6 +163,7 @@ public class SceneController {
             @RequestParam(name = "dialogue_personnage", required = false) Integer[] d_perso,
             @RequestParam(name = "dialogue_texte", required = false) String[] d_dialogue,
             @RequestParam(name = "dialogue_action", required = false) String[] d_action, HttpServletRequest request,
+            @RequestParam(name = "autheur") Integer autheur,
             @PathVariable(name = "id") Integer filmid) throws Exception {
         Scene s = null;
         Dialogue d = null;
@@ -167,6 +178,7 @@ public class SceneController {
             s.setFilm_id(filmid);
             s.setStatus(new StatusPlanning(1));
             s.setOrdre(1);
+            s.setAuthor(new Author(autheur));
             s = ss.create(s);
 
             d = new Dialogue();

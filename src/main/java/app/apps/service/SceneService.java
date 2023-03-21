@@ -126,9 +126,11 @@ public class SceneService {
         cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.id IN " + in)));
         cr.addOrder(Order.asc("filmset"));
         List<Scene> lf = cr.list();
-        /* for(Scene s : lf){
-            System.out.println(s.getStatus());
-        } */
+        /*
+         * for(Scene s : lf){
+         * System.out.println(s.getStatus());
+         * }
+         */
         return lf;
     }
 
@@ -278,13 +280,17 @@ public class SceneService {
     }
 
     public List<Dialogue> getDialogues(Scene s) throws Exception {
-        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        List<Dialogue> ls = session.createCriteria(Dialogue.class)
-                .add(Restrictions.and(Restrictions.eq("scene_id", s.getId())))
-                .list();
-        session.close();
-        return ls;
+        /*
+         * SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+         * Session session = sessionFactory.openSession();
+         * List<Dialogue> ls = session.createCriteria(Dialogue.class)
+         * .add(Restrictions.and(Restrictions.eq("scene_id", s.getId())))
+         * .list();
+         * session.close();
+         */
+        Dialogue d = new Dialogue();
+        d.setScene_id(s.getId());
+        return hibernate.findWhere(d, 0, 0, "id", true, true, false);
     }
 
     public List<StatusPlanning> getStatusPlanning() throws Exception {

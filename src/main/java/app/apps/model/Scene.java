@@ -47,6 +47,10 @@ public class Scene extends HasId {
     @Column
     private Integer ordre;
 
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
+
     public Scene() {
     }
 

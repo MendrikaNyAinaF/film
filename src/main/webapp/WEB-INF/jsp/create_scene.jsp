@@ -23,7 +23,20 @@
                                                   <textarea class="form-control" placeholder="..." rows="3" name="description"></textarea>
                                              </div>
                                         </div>
+                                        <div class="col-md-4">
+                                             <div class="form-group">
+                                                  <label for="">Autheur</label>
+                                                  <select  class="form-control" name="autheur">
+                                                       <% if(request.getAttribute("autheur")!=null){
+                                                            List<Author>filmset=(List<Author>)request.getAttribute("autheur");
+                                                            for(Author f: filmset){ %>
+                                                                 <option value=<%= f.getId() %>><%= f.getName() %></option>
+                                                       <%     }
+                                                       } %>
 
+                                                  </select>
+                                             </div>
+                                        </div>
                                         <div class="col-md-12">
                                              <div class="form-group">
                                                   <label for="">Time line</label>

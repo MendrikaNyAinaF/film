@@ -4,6 +4,8 @@ import app.apps.model.*;
 import app.apps.model.Character;
 import app.apps.service.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,15 +103,14 @@ public class FilmController {
 
         List<Scene> allF = sceneService.getAllScene();
         int nbPage;
-        if(request.getSession().getAttribute("nbrScene")==null){
+        if (request.getSession().getAttribute("nbrScene") == null) {
             nbPage = allF.size();
-        }
-        else{
+        } else {
             nbPage = (int) request.getSession().getAttribute("nbrScene");
         }
         nbPage = (int) Math.ceil((double) nbPage / limit);
         Boolean endpage = false;
-        if (nbPage == page+1) {
+        if (nbPage == page + 1) {
             endpage = true;
         }
         request.setAttribute("status", statusplanningService.getAllStatusPlanning());
@@ -133,16 +134,21 @@ public class FilmController {
             request.getSession().setAttribute("scene_actors", null);
         }
         Film f = (Film) request.getSession().getAttribute("current_film");
-        if(actors == null) actors = new Integer[0];
-        Integer countScenesWithResearch = sceneService.countElements(f.getId(),request.getParameter("motcle"),status,actors);
-        request.getSession().setAttribute("nbrScene",countScenesWithResearch);
+        if (actors == null)
+            actors = new Integer[0];
+        Integer countScenesWithResearch = sceneService.countElements(f.getId(), request.getParameter("motcle"), status,
+                actors);
+        request.getSession().setAttribute("nbrScene", countScenesWithResearch);
         return getSceneByFilmId(f.getId(), 0, request);
     }
 
     @GetMapping(value = "film/{id}/planning")
     public String getPlanningByIdFilm(@PathVariable("id") Integer filmId, Model m, HttpServletRequest request)
             throws Exception {
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Gson gson = builder.create();
+
         request.setAttribute("liste_planning", gson.toJson(planningService.listPlanning(filmId)));
         request.setAttribute("liste_holiday", gson.toJson(holidayService.listHoliday()));
         return "planning";
