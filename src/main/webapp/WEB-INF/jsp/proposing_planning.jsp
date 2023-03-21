@@ -71,16 +71,19 @@
           for(let i=0;i<nbr_scene;i++){
                data.push({
                     "id": id[i],
-                    "date_debut": date_debut[i].replace("T"," ")+":00",
-                    "date_fin": date_fin[i].replace("T"," ")+":00"
+                    "date_debut": date_debut[i],
+                    "date_fin": date_fin[i]
                })
+          }
+          for(let i=0;i<nbr_scene;i++){
+               console.log(data[i]);
           }
           $.ajax({
                url: url,
-               type: 'POST',
+               type: "POST",
                data: JSON.stringify(data),
-               dataType: 'json',
-               contentType: 'application/json',
+               dataType: "json",
+               contentType: "application/json",
                success: function(response) {
                     alert(response);
                     window.location.href = urlredirect;

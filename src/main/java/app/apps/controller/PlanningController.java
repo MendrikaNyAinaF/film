@@ -114,7 +114,8 @@ public class PlanningController {
     }
 
     @RequestMapping(value="/film/{idf}/confirmer_planning", method=RequestMethod.POST)
-    public @ResponseBody String confirmPlanning(@RequestBody Planning[] planning)throws Exception{
+    @ResponseBody
+    public String confirmPlanning(@RequestBody Planning[] planning)throws Exception{
         List<Planning> lp = null;
         Planning p = null;
         try{
