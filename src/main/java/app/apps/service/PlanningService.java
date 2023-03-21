@@ -38,13 +38,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Example;
 import org.hibernate.query.Query;
 
-import app.apps.model.Film;
-import app.apps.model.Filmset;
-import app.apps.model.Scene;
-import app.apps.model.Planning;
-import app.apps.model.StatusPlanning;
-import app.apps.model.Settings;
-import app.apps.model.Holiday;
+import app.apps.model.*;
 import app.apps.dao.HibernateDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +58,12 @@ public class PlanningService {
 
     @Autowired
     SceneService sceneService;
+
+    @Autowired
+    ActorUnavailableService actorUnavailableService;
+
+    @Autowired
+    FilmsetUnavailableService filmsetUnavailableService;
 
     public HibernateDAO getHibernate() {
         return this.hibernate;
@@ -248,10 +248,14 @@ public class PlanningService {
         Settings workhour = getWorkHour();
         double hour = workhour.getValue();
         double worked = 0;
+        int onwork = 0;
         ArrayList<Planning> lp = new ArrayList<Planning>();
         Calendar cal = Calendar.getInstance();
         Timestamp shooting = new Timestamp(debut_tournage.getTime());
         cal.setTime(shooting);
+        Calendar c_noon = Calendar.getInstance();
+        Timestamp noon = null;
+        Timestamp fourteen = null;
         Planning p = null;
         List<Filmset> lf = filmsetService.neededFilmsets(ls);
         List<Scene> lis = sceneService.getSceneIn(ls);
@@ -283,6 +287,7 @@ public class PlanningService {
                 for (Filmset f : lf) {
                     if (filmsetService.isOpen(f, new Date(shooting.getTime())).size() > 0)
                         continue;
+                    onwork = onwork + 1;
                     for (i = 0; i < ls.length; i++) {
                         s = (Scene) lis.get(i);
                         if (lstatus[i] > 3) {
@@ -297,13 +302,15 @@ public class PlanningService {
                         }
                         System.out.println("=>  Plateau: " + f.getId());
                         System.out.println("=>  Plateau de scene: " + s.getFilmset().getId());
-                        if (!f.getId().equals(s.getFilmset().getId())) {
+                        if (!f.getId().equals(s.getFilmset().getId()) && onwork > 2) {
                             System.out.println("=>  Changement de plateau");
                             cal.add(Calendar.DAY_OF_YEAR, 1);
                             cal.set(Calendar.HOUR_OF_DAY, 8);
                             cal.set(Calendar.MINUTE, 0);
                             cal.set(Calendar.SECOND, 0);
                             shooting.setTime(cal.getTimeInMillis());
+                            worked = 0;
+                            onwork = 0;
                             break;
                         }
                         est = s.getEstimated_time();
@@ -313,17 +320,28 @@ public class PlanningService {
                         se = ((double) est.toLocalTime().getSecond()) / 3600;
                         estWork = h + m + se;
                         if (worked + estWork > 8) {
-                            worked = 0;
                             cal.add(Calendar.DAY_OF_YEAR, 1);
                             cal.set(Calendar.HOUR_OF_DAY, 8);
                             cal.set(Calendar.MINUTE, 0);
                             cal.set(Calendar.SECOND, 0);
                             shooting.setTime(cal.getTimeInMillis());
+                            worked = 0;
+                            onwork = 0;
                             break;
                         }
                         start = new Timestamp(shooting.getTime());
                         tomillis = estWork * 3600000;
                         end = new Timestamp(shooting.getTime() + (long) tomillis);
+                        c_noon.setTime(start);
+                        c_noon.set(Calendar.HOUR_OF_DAY, 13);
+                        c_noon.set(Calendar.MINUTE, 0);
+                        c_noon.set(Calendar.SECOND, 0);
+                        noon = new Timestamp(c_noon.getTimeInMillis());
+                        fourteen = new Timestamp(c_noon.getTimeInMillis() + (3600000));
+                        if(end.compareTo(noon)>0 && start.compareTo(fourteen)<=0){
+                            start.setTime(noon.getTime() + (3600000));
+                            end.setTime(start.getTime() + (long) tomillis);
+                        }
                         p = new Planning();
                         p.setScene(s);
                         p.setDate_debut(start);
@@ -341,6 +359,8 @@ public class PlanningService {
             cal.set(Calendar.MINUTE, 0);
             cal.set(Calendar.SECOND, 0);
             shooting.setTime(cal.getTimeInMillis());
+            worked = 0;
+            onwork = 0;
         }
         return (List<Planning>) lp;
     }
@@ -358,6 +378,17 @@ public class PlanningService {
             return true;
         return false;
     }
+    public int countFilmsetOnADay(Timestamp d) throws Exception{
+        SessionFactory sessionFactory = this.hibernate.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Date t = new Date(d.getTime());
+        String query = "SELECT count(distinct scene.filmset_id) FROM planning join scene on planning.scene_id=scene.id where planning.date_debut::date<='"+t.toString()+"' and planning.date_fin::date>='"+t.toString()+"'";
+        SQLQuery sqlquery = session.createSQLQuery(query);
+        Integer res = 0;
+        res = ((Number) sqlquery.uniqueResult()).intValue();
+        session.close();
+        return res;
+    }
 
     public void insertPlanning(List<Planning> lp) throws Exception {
         SessionFactory sessionFactory = null;
@@ -365,6 +396,12 @@ public class PlanningService {
         Transaction transaction = null;
         Scene s = null;
         StatusPlanning sp = null;
+        Filmset current = null;
+        Date a_start = null;
+        Date a_end = null;
+        Date f_start = null;
+        Date f_end = null;
+        Filmset_unavailable fu = null;
         try {
             sp = hibernate.findById(StatusPlanning.class, 4);
             sessionFactory = this.hibernate.getSessionFactory();
@@ -372,15 +409,44 @@ public class PlanningService {
             transaction = session.beginTransaction();
             for (Planning pa : lp) {
                 if (isThereSuperposistion(pa.getDate_debut(), pa.getDate_fin())) {
-                    throw new Exception("Planning invalid: superposition de jour de tournage");
+                    throw new Exception("Planning invalid : superposition de jour de tournage");
                 }
-                System.out.println(pa.getDate_debut());
                 session.save(pa);
-                System.out.println(pa.getDate_debut());
                 s = pa.getScene();
                 s.setStatus(sp);
                 session.update(s);
+                a_start = new Date(pa.getDate_debut().getTime());
+                a_end = new Date(pa.getDate_fin().getTime());
+                actorUnavailableService.insertUnavailableFromScene(s,a_start,a_end,"Pour tournage");
+                if(current == null){
+                    current = s.getFilmset();
+                    f_start = new Date(pa.getDate_debut().getTime());
+                    f_end = new Date(pa.getDate_fin().getTime());
+                }
+                else{
+                    if(current.getId().equals(s.getFilmset().getId())){
+                        f_end = new Date(pa.getDate_fin().getTime());
+                    }
+                    else{
+                        fu = new Filmset_unavailable();
+                        fu.setDate_debut(f_start);
+                        fu.setDate_fin(f_end);
+                        fu.setObservation("Tournage");
+                        fu.setFilmset_id(current.getId());
+                        filmsetUnavailableService.saveUnavailableFilmSet(fu);
+                        current = s.getFilmset();
+                        f_start = new Date(pa.getDate_debut().getTime());
+                        f_end = new Date(pa.getDate_fin().getTime());
+                    }
+                }
             }
+            fu = new Filmset_unavailable();
+            fu.setDate_debut(f_start);
+            fu.setDate_fin(f_end);
+            fu.setObservation("Tournage");
+            fu.setFilmset_id(current.getId());
+            filmsetUnavailableService.saveUnavailableFilmSet(fu);
+
             transaction.commit();
         } catch (Exception ex) {
             transaction.rollback();
