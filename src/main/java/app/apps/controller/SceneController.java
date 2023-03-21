@@ -193,15 +193,16 @@ public class SceneController {
     @GetMapping(value = "/film/{id}/scene/{idscene}/update")
     public String to_update(HttpServletRequest request, HttpSession session,
             @PathVariable(name = "idscene") Integer idscene) {
-        Film current = null;
-        session = SceneController.session();
-        current = (Film) session.getAttribute("current_film");
+
+        Film current = (Film) session.getAttribute("current_film");
         List<app.apps.model.Character> lc = cs.getCharacterByFilm(current.getId());
         request.setAttribute("plateau", fss.getAllFilmSet());
 
         // envoyer la scene dans la page
         try {
             Scene scene = sceneService.getById(idscene);
+            request.setAttribute("film_detail", current);
+            request.setAttribute("scene", scene);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
