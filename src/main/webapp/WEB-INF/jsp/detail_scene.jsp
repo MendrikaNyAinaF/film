@@ -26,6 +26,9 @@
                               <h4 class="card-title">Plateau</h4>
                               <p><%= s.getFilmset().getName() %></p>
 
+                              <h4 class="card-title">Autheur</h4>
+                              <p><%= s.getAuthor().getName() %></p>
+
                               <h4 class="card-title">Status</h4>
                               <p><%= s.getStatus().getName() %></p>
                               <% if(s.getStatus()==null || s.getStatus().getId()<3){ //si le status est non ok
