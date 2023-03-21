@@ -71,8 +71,8 @@
           for(let i=0;i<nbr_scene;i++){
                data.push({
                     "id": id[i],
-                    "date_debut": date_debut[i],
-                    "date_fin": date_fin[i]
+                    "date_debut": new Date(date_debut[i]),
+                    "date_fin": new Date(date_fin[i])
                })
           }
           for(let i=0;i<nbr_scene;i++){
