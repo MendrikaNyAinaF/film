@@ -93,11 +93,14 @@
             for (let i = 0; i < holi.length; i++) {
                 //console.log(new Date(holi[i].date_debut))
                 //console.log(new Date(holi[i].date));
+                const date = new Date(holi[i].date);
+                date.setHours(date.getHours()+23)
+
                 event.push(
                     {
                         title: 'ferie '+ holi[i].name,
-                        start: holi[i].date +" 00:00:00",
-                        end: holi[i].date+ " 23:59:59",
+                        start:new Date(holi[i].date) ,
+                        end: date ,
                         className: 'bg-success',               
                     }
                 );
