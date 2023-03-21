@@ -129,8 +129,10 @@ public class PlanningController {
             planningService.insertPlanning(lp);
         }
         catch(Exception ex){
+            System.out.println("    Error:"+ex.getMessage());
             return ex.getMessage();
         }
-        return "Planning confirmed";
+        System.out.println("    Success confirmation");
+        return "Success";
     }
 }
