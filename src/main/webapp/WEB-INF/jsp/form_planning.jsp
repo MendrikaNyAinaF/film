@@ -16,14 +16,21 @@
                               out.println("Toute les scènes ont été planifiée");
                          }else{ %>
                               <form class="mt-4" method="post" action="${pageContext.request.contextPath}/film/<%= film.getId() %>/planifier">
-                                   <div class="form-check col-lg-5 inline form-check-inline">
-                                        <label class="form-check-label" for="">Date de commencement</label>
-                                        <input type="datetime-local" class="form-check-input form-control"
-                                             name="start_date" >
-                                             
-                                        <label class="form-check-label" for="">Date de fin</label>
-                                        <input type="datetime-local" class="form-check-input form-control"
-                                             name="end_date" >
+                                   <div class="row">
+                                        <div class="col-lg-4 col-md-4 col-xs-6"  >
+                                             <div class="form-group">
+                                                  <label -for="">Date de commencement</label>
+                                                  <input type="datetime-local" class="form-control"
+                                                       name="start_date" >
+                                             </div> 
+                                        </div> 
+                                        <div class="col-lg-4 col-md-4 col-xs-6"  >
+                                             <div class="form-group">      
+                                                  <label  for="">Date de fin</label>
+                                                  <input type="datetime-local" class="form-control"
+                                                       name="end_date" >
+                                             </div>
+                                        </div>
                                    </div>
                                    
                                    <br />
