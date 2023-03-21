@@ -7,7 +7,7 @@
 <div class="card col-lg-12">
      <div class="card-body">
           <h4>Le planning commencera le <%= request.getAttribute("start_date") %></h4>
-          <div class="alert alert-danger" role="alert">
+          <div class="alert alert-danger" role="alert" style="display:none">
                          <strong id="erreur"></strong> 
           </div>
           <form id="confirmer_plan">
