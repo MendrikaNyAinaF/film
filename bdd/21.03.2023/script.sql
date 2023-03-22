@@ -210,12 +210,12 @@ INSERT INTO filmset( id, name, type_id, x, y ) VALUES ( 5, 'concert', 1, 5.0, 5.
 INSERT INTO filmset( id, name, type_id, x, y ) VALUES ( 6, 'lieu travail', 2, 6.0, 6.0 ); 
 INSERT INTO filmset_unavailable (id, date_debut, date_fin, filmset_id, observation)
 VALUES 
-    (1, '2023-03-20', '2023-03-21', 1, 'Nettoyage'),
-    (2, '2023-03-20', '2023-03-21', 2, 'Journée de congé'),
-    (3, '2023-03-20', '2023-03-21', 3, 'Préparation de décors'),
-    (4, '2023-03-20', '2023-03-21', 4, 'Répétition des scènes'),
-    (5, '2023-03-20', '2023-03-21', 5, 'Tournage des scènes extérieures'),
-    (6, '2023-03-20', '2023-03-21', 6, 'Tournage des scènes d''intérieur'),
+    (1, '2023-04-04', '2023-04-06', 1, 'Nettoyage'),
+    (2, '2023-04-04', '2023-04-06', 2, 'Journée de congé'),
+    (3, '2023-04-04', '2023-04-06', 3, 'Préparation de décors'),
+    (4, '2023-04-04', '2023-04-06', 4, 'Répétition des scènes'),
+    (5, '2023-04-04', '2023-04-06', 5, 'Tournage des scènes extérieures'),
+    (6, '2023-04-04', '2023-04-06', 6, 'Tournage des scènes d''intérieur'),
     (7, '2023-03-28', '2023-03-29', 1, 'Préparation des costumes'),
     (8, '2023-03-28', '2023-03-29', 2, 'Réunion de production'),
     (9, '2023-03-28', '2023-03-29', 3, 'Prise de vue des plans larges'),
@@ -229,9 +229,9 @@ VALUES
 
 INSERT INTO actor_unavailable(id, date_debut, date_fin, actor_id, observation)
 VALUES
-	(1,'2023-03-22','2023-03-22',1,'maladie'),
-	(2,'2023-03-22','2023-03-22',2,'maladie'),
-	(3,'2023-03-22','2023-03-22',3,'maladie'),
+	(1,'2023-03-24','2023-03-24',1,'maladie'),
+	(2,'2023-03-24','2023-03-24',2,'maladie'),
+	(3,'2023-03-24','2023-03-24',3,'maladie'),
 	(4,'2023-03-29','2023-03-29',4,'maladie'),
 	(5,'2023-03-29','2023-03-29',5,'maladie'),
 	(6,'2023-03-29','2023-03-29',6,'maladie');
@@ -339,7 +339,7 @@ ALTER SEQUENCE dialogue_id_seq RESTART WITH 88;
 ALTER SEQUENCE film_id_seq RESTART WITH 3;
 ALTER SEQUENCE filmset_id_seq RESTART WITH 7;
 ALTER SEQUENCE planning_id_seq RESTART WITH 2;
-ALTER SEQUENCE scene_id_seq RESTART WITH 10;
+ALTER SEQUENCE scene_id_seq RESTART WITH 21;
 ALTER SEQUENCE filmset_unavailable_id_seq RESTART WITH 17;
 ALTER SEQUENCE holiday_id_seq RESTART WITH 12;
 ALTER SEQUENCE actor_unavailable_id_seq RESTART WITH 7;
