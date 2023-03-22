@@ -69,14 +69,14 @@
           const id= Array.from(document.getElementsByClassName("id")).map(option => option.value);
           //alert("Submit pressed");
           const data=[]
-          for(let i=0;i<nbr_scene;i++){
+          for(let i=0;i<id.length;i++){
                data.push({
-                    "id": id[i],
+                    "scene": {"id" : parseInt(id[i]) },
                     "date_debut": new Date(date_debut[i]),
                     "date_fin": new Date(date_fin[i])
                })
           }
-          for(let i=0;i<nbr_scene;i++){
+          for(let i=0;i<id.length;i++){
                console.log(data[i]);
           }
           $.ajax({
