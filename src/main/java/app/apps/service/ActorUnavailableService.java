@@ -6,6 +6,7 @@ import app.apps.model.Actor;
 import app.apps.model.Scene;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.hibernate.Session;
 
 import java.util.List;
 import java.sql.Date;
@@ -22,7 +23,7 @@ public class ActorUnavailableService {
         hibernateDAO.save1(actor_unavailable);
     }
 
-    public void insertUnavailableFromScene(Scene s,Date start,Date end,String comment)throws Exception{
+    public void insertUnavailableFromScene(Scene s,Date start,Date end,String comment,Session session)throws Exception{
         List<Actor> la = null;
         Actor_unavailable au = null;
         try{
@@ -33,7 +34,7 @@ public class ActorUnavailableService {
                 au.setDate_fin(end);
                 au.setObservation(comment);
                 au.setActor_id(a.getId());
-                insertUnavailable(au);
+                session.save(au);
             }
         }
         catch(Exception ex){

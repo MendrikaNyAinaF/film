@@ -58,20 +58,9 @@ public class RestPlanningController {
 
     @RequestMapping(value="/film/{idf}/confirmer_planning", method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> confirmPlanning(@RequestBody Planning[] planning)throws Exception{
-        List<Planning> lp = null;
-        Planning p = null;
+    public ResponseEntity<String> confirmPlanning(@RequestBody List<Planning> planning)throws Exception{
         try{
-            lp = new ArrayList<Planning>();
-            for(int i=0;i<planning.length;i++){
-                p = new Planning();
-                p.setDate_debut(new Timestamp(planning[i].getDate_debut().getTime()));
-                p.setDate_fin(new Timestamp(planning[i].getDate_fin().getTime()));
-                p.setScene(sceneService.getById(planning[i].getId()));
-                System.out.println("    "+p.getDate_debut().toString());
-                lp.add(p);
-            }
-            planningService.insertPlanning(lp);
+            planningService.insertPlanning(planning);
         }
         catch(Exception ex){
             System.out.println("    Error:"+ex.getMessage());

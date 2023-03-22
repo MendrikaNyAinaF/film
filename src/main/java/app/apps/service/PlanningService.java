@@ -413,11 +413,12 @@ public class PlanningService {
                 }
                 session.save(pa);
                 s = pa.getScene();
+                s = sceneService.getById(s.getId());
                 s.setStatus(sp);
                 session.update(s);
                 a_start = new Date(pa.getDate_debut().getTime());
                 a_end = new Date(pa.getDate_fin().getTime());
-                actorUnavailableService.insertUnavailableFromScene(s,a_start,a_end,"Pour tournage");
+                actorUnavailableService.insertUnavailableFromScene(s,a_start,a_end,"Pour tournage",session);
                 if(current == null){
                     current = s.getFilmset();
                     f_start = new Date(pa.getDate_debut().getTime());
@@ -433,7 +434,7 @@ public class PlanningService {
                         fu.setDate_fin(f_end);
                         fu.setObservation("Tournage");
                         fu.setFilmset_id(current.getId());
-                        filmsetUnavailableService.saveUnavailableFilmSet(fu);
+                        filmsetUnavailableService.saveUnavailableFilmSet(fu,session);
                         current = s.getFilmset();
                         f_start = new Date(pa.getDate_debut().getTime());
                         f_end = new Date(pa.getDate_fin().getTime());
@@ -445,7 +446,7 @@ public class PlanningService {
             fu.setDate_fin(f_end);
             fu.setObservation("Tournage");
             fu.setFilmset_id(current.getId());
-            filmsetUnavailableService.saveUnavailableFilmSet(fu);
+            filmsetUnavailableService.saveUnavailableFilmSet(fu,session);
 
             transaction.commit();
         } catch (Exception ex) {
