@@ -365,6 +365,51 @@ public class PlanningService {
         return (List<Planning>) lp;
     }
 
+    public List<DatePlanning> generateDatePlanning(List<Planning> plannings){
+        DatePlanning jour_planning = null;
+        List<DatePlanning> list_jour_planning = null;
+        Filmset plateau = null;
+        List<Filmset> list_plateau = null;
+        Date tournage = null;
+        List<Planning> list_planning = null;
+        try{
+            list_jour_planning = new ArrayList<DatePlanning>();
+            list_plateau = new ArrayList<Filmset>();
+            list_planning = new ArrayList<Planning>();
+            jour_planning = new DatePlanning();
+            for(Planning p : plannings){
+                if(plateau == null){
+                    plateau = p.getScene().getFilmset();
+                }
+                if(tournage == null){
+                    tournage = new Date(p.getDate_debut().getTime());
+                }
+                if(plateau.getId()!=p.getScene().getFilmset().getId()){
+                    plateau.setList_planning((List<Planning>) list_planning);
+                    list_planning = new ArrayList<Planning>();
+                    list_plateau.add(plateau);
+                    plateau = p.getScene().getFilmset();
+                }
+                if(tournage.compareTo(new Date(p.getDate_debut().getTime()))!=0){
+                    jour_planning.setJour_tournage(tournage);
+                    jour_planning.setList_plateau(list_plateau);
+                    list_jour_planning.add(jour_planning);
+                    tournage = new Date(p.getDate_debut().getTime());
+                }
+                list_planning.add(p);
+            }
+            plateau.setList_planning((List<Planning>) list_planning);
+            list_plateau.add(plateau);
+            jour_planning.setJour_tournage(tournage);
+            jour_planning.setList_plateau(list_plateau);
+            list_jour_planning.add(jour_planning);
+        }
+        catch(Exception e){
+            throw e;
+        }
+        return list_jour_planning;
+    }
+
     public boolean isThereSuperposistion(Timestamp d, Timestamp f) throws Exception {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();

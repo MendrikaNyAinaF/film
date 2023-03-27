@@ -7,9 +7,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.Column;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +28,9 @@ public class Filmset extends HasName {
 
      @Column(name = "y")
      private Double y;
+
+     @Transient
+     private List<Planning> list_planning;
 
      public Filmset() {
 
