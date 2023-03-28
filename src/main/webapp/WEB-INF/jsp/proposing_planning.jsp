@@ -28,7 +28,7 @@
                                                             <div class="custom-control custom-checkbox">
                                                                  <input type="checkbox"
                                                                       class="custom-control-input valide" name="idscene"
-                                                                      value=<%=s.getId() %> checked/>
+                                                                      value=<%= p.getId() %> checked/>
                                                                  <h4 class="mb-0 text-white" for="customCheck1">
                                                                       Plateau: <%= p.getScene().getFilmset().getName()
                                                                            %>

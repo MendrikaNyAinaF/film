@@ -38,6 +38,9 @@ public class PlanningController {
     FilmService filmService;
 
     @Autowired
+    FilmSetService fsService;
+
+    @Autowired
     ActorService actorService;
 
     @Autowired
@@ -80,6 +83,7 @@ public class PlanningController {
             current = (Film) session.getAttribute("current_film");
             // liste des scenes non planifiées atao dans "liste_scene"
             request.setAttribute("liste_scene", sceneService.getUnplannedScene(current.getId()));
+            request.setAttribute("plateau", fsService.getAllFilmSet());
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());
