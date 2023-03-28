@@ -350,4 +350,13 @@ public class SceneService {
                 + actorId;
         return hibernate.findBySql(new Scene().getClass(), query, 0, 1000);
     }
+    public List<Scene> findActorScene(Integer actorId) throws Exception {
+        String query=" select * from scene where id in (select scene_id from v_scene_actor where actor_id="+actorId+")";
+        List<Scene> rep=(List<Scene>) hibernate.findBySql(new Scene().getClass(),query,0,2000);
+        for(int i=0;i<rep.size();i++){
+            String query1="select * from dialogue where scene_id="+rep.get(i).getId();
+            rep.get(i).setDialogues((List<Dialogue>) hibernate.findBySql(new Dialogue().getClass(),query1,0,1000));
+        }
+        return  rep;
+    }
 }
