@@ -347,6 +347,7 @@ VALUES
 (11, '2023-12-25', 'Noël');
 
 UPDATE scene SET status=3 WHERE id IN (7,1,5,11,2,3,10,16);
+UPDATE scene SET status=2 WHERE status<3;
 
 ALTER SEQUENCE actor_id_seq START WITH 7;
 ALTER SEQUENCE actor_id_seq1 RESTART WITH 7;
