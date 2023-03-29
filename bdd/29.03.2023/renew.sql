@@ -1,7 +1,9 @@
 delete from planning;
 delete from filmset_unavailable where id>1;
 delete from actor_unavailable where id>1;
-UPDATE scene SET status=3 WHERE id IN (7,1,5,11,2,3,10,16);
+UPDATE scene set status=1;
+UPDATE scene SET status=3 WHERE id=7 or id=1 or id=5 or id=11 or id=2 or id=3 or id=10 or id=16;
+UPDATE scene SET status=2 WHERE status<3;
 delete from dialogue where id>57;
 delete from scene where id>22;
 delete from film where id>2;

@@ -346,7 +346,8 @@ VALUES
 (10, '2023-11-11', 'Armistice 1918'),
 (11, '2023-12-25', 'Noël');
 
-UPDATE scene SET status=3 WHERE id IN (7,1,5,11,2,3,10,16);
+UPDATE scene set status=1;
+UPDATE scene SET status=3 WHERE id=7 or id=1 or id=5 or id=11 or id=2 or id=3 or id=10 or id=16;
 UPDATE scene SET status=2 WHERE status<3;
 
 ALTER SEQUENCE actor_id_seq START WITH 7;

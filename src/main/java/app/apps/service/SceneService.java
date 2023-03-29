@@ -324,7 +324,7 @@ public class SceneService {
         SessionFactory sessionFactory = this.hibernate.getSessionFactory();
         Session session = sessionFactory.openSession();
         Criteria cr = session.createCriteria(Scene.class);
-        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status = " + 3)));
+        cr.add(Restrictions.and(Restrictions.sqlRestriction("this_.status=" + 3)));
         cr.add(Restrictions.and(Restrictions.eq("film_id", idf)));
         cr.addOrder(Order.asc("filmset"));
         cr.addOrder(Order.asc("preferred_shooting_time"));

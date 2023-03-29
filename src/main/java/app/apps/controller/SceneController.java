@@ -233,7 +233,7 @@ public class SceneController {
         Scene s = null;
         Dialogue d = null;
         try {
-            s = sceneService.getById(id);
+            s = sceneService.getById(idscene);
             s.setTitle(titre);
             s.setGlobal_action(description);
 
