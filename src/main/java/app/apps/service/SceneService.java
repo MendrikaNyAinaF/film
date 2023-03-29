@@ -350,13 +350,20 @@ public class SceneService {
                 + actorId;
         return hibernate.findBySql(new Scene().getClass(), query, 0, 1000);
     }
-    public List<Scene> findActorScene(Integer actorId) throws Exception {
-        String query=" select * from scene where id in (select scene_id from v_scene_actor where actor_id="+actorId+")";
-        List<Scene> rep=(List<Scene>) hibernate.findBySql(new Scene().getClass(),query,0,2000);
-        for(int i=0;i<rep.size();i++){
-            String query1="select * from dialogue where scene_id="+rep.get(i).getId();
-            rep.get(i).setDialogues((List<Dialogue>) hibernate.findBySql(new Dialogue().getClass(),query1,0,1000));
+
+    public List<Scene> findActorScene(Integer actorId, Integer filmid) throws Exception {
+        String query = " select * from scene where film_id=" + filmid
+                + " and id in (select scene_id from v_scene_actor where actor_id=" + actorId
+                + ")";
+        List<Scene> rep = (List<Scene>) hibernate.findBySql(new Scene().getClass(), query, 0, 2000);
+        Dialogue d = new Dialogue();
+
+        for (int i = 0; i < rep.size(); i++) {
+            // String query1 = "select * from dialogue where scene_id=" +
+            // rep.get(i).getId();
+            d.setScene_id(rep.get(i).getId());
+            rep.get(i).setDialogues((List<Dialogue>) hibernate.findWhere(d, 0, 0, "id", true, true, false));
         }
-        return  rep;
+        return rep;
     }
 }
