@@ -374,18 +374,31 @@ public class PlanningService {
         Filmset plateau = null;
         List<Filmset> list_plateau = null;
         Date tournage = null;
+        Date check = null;
         List<Planning> list_planning = null;
+        Calendar c = null;
         try{
+            c=Calendar.getInstance();
             list_jour_planning = new ArrayList<DatePlanning>();
             list_plateau = new ArrayList<Filmset>();
             list_planning = new ArrayList<Planning>();
-            jour_planning = new DatePlanning();
             for(Planning p : plannings){
+                c.setTimeInMillis(p.getDate_debut().getTime());
+                c.set(Calendar.HOUR_OF_DAY, 0);
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.SECOND, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                check = new Date(c.getTimeInMillis());
                 if(plateau == null){
                     plateau = p.getScene().getFilmset();
                 }
                 if(tournage == null){
-                    tournage = new Date(p.getDate_debut().getTime());
+                    c.setTimeInMillis(p.getDate_debut().getTime());
+                    c.set(Calendar.HOUR_OF_DAY, 0);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                    c.set(Calendar.MILLISECOND, 0);
+                    tournage = new Date(c.getTimeInMillis());
                 }
                 if(plateau.getId()!=p.getScene().getFilmset().getId()){
                     plateau.setList_planning((List<Planning>) list_planning);
@@ -393,14 +406,19 @@ public class PlanningService {
                     list_plateau.add(plateau);
                     plateau = p.getScene().getFilmset();
                 }
-                if(tournage.compareTo(new Date(p.getDate_debut().getTime()))!=0){
+                if(tournage.compareTo(check)!=0){
                     System.out.println("=>        Next Day");
                     jour_planning = new DatePlanning();
                     jour_planning.setJour_tournage(tournage);
                     jour_planning.setList_plateau(list_plateau);
                     list_jour_planning.add(jour_planning);
                     list_plateau = new ArrayList<Filmset>();
-                    tournage = new Date(p.getDate_debut().getTime());
+                    c.setTimeInMillis(p.getDate_debut().getTime());
+                    c.set(Calendar.HOUR_OF_DAY, 0);
+                    c.set(Calendar.MINUTE, 0);
+                    c.set(Calendar.SECOND, 0);
+                    c.set(Calendar.MILLISECOND, 0);
+                    tournage = new Date(c.getTimeInMillis());
                 }
                 list_planning.add(p);
             }

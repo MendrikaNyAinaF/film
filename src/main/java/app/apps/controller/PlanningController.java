@@ -114,7 +114,7 @@ public class PlanningController {
             request.setAttribute("start_date", date1.replace("T", " "));
             request.setAttribute("liste_planning", lp);
             request.setAttribute("liste_date_planning",ldp);
-            return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
+            return "proposing_planning_2";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());
