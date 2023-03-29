@@ -16,70 +16,70 @@
                               <button class="btn btn-info" type="submit">Confirmer</button>
                               <br />
                               <br />
-                              <div class="row">
-                                <% if(request.getAttribute("liste_date_planning")!=null){
-                                    List<DatePlanning> liste_date_planning = (List<DatePlanning>) request.getAttribute("liste_date_planning");
-                                    for(DatePlanning dp : liste_date_planning){
-                                    %>
-                                    <div>
-                                        <h3>Jour de tournage: <%= dp.getJour_tournage() %></h3>
-                                        <%
-                                        for(Filmset f : dp.getList_plateau()){
+
+                              <% if(request.getAttribute("liste_date_planning")!=null){ List<DatePlanning>
+                                   liste_date_planning = (List<DatePlanning>)
+                                        request.getAttribute("liste_date_planning");
+                                        for(DatePlanning dp : liste_date_planning){
                                         %>
-                                        <div>
-                                            <h4>Plateau: <%= f.getName() %></h4>
-                                            <%
-                                            for(Planning p : f.getList_planning()){
-                                            %>
-                                            <div class="col-md-6">
-                                                <div class="card border-dark">
-                                                        <div class="card-header bg-dark">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox"
-                                                                    class="custom-control-input valide" name="idscene"
-                                                                    value=<%= p.getScene().getId() %> checked/>
+
+                                        <h3>Jour de tournage: <%= dp.getJour_tournage() %>
+                                        </h3>
+                                        <% for(Filmset f : dp.getList_plateau()){ %>
+                                             <h4>Plateau: <%= f.getName() %>
+                                             </h4>
+                                             <div class="row">
+                                                  <% for(Planning p : f.getList_planning()){ %>
+                                                       <div class="col-md-6">
+                                                            <div class="card border-dark">
+                                                                 <div class="card-header bg-dark">
+                                                                      <div class="custom-control custom-checkbox">
+                                                                           <input type="checkbox"
+                                                                                class="custom-control-input valide"
+                                                                                id="customChecker<%= p.getScene().getId() %>"
+                                                                                name="idscene" value=<%= p.getScene().getId() %> checked
+                                                                                  />
+                                                                           <label
+                                                                                class="mb-0 text-white custom-control-label"
+                                                                                for="customChecker<%= p.getScene().getId() %>">
+                                                                                Plateau: <%= p.getScene().getFilmset().getName()
+                                                                                %>
+                                                                           </label>
+                                                                      </div>
+                                                                 </div>
+                                                                 <div class="card-body">
+                                                                      <h3 class="card-title">
+                                                                           <%= p.getScene().getTitle() %>, <%=
+                                                                                     p.getScene().getEstimated_time() %>
+                                                                      </h3>
+                                                                      <p class="card-text">Tournage:</p>
+                                                                      <div class="row">
+                                                                           <input type="hidden" class="id"
+                                                                                value=<%=p.getScene().getId() %>>
+                                                                           <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                     <input type="datetime-local"
+                                                                                          class="form-control date_debut"
+                                                                                          value="<%= p.getDate_debut().toString() %>">
+                                                                                </div>
+                                                                           </div>
+                                                                           <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                     <input type="datetime-local"
+                                                                                          class="form-control date_fin"
+                                                                                          value="<%= p.getDate_fin().toString() %>">
+                                                                                </div>
+                                                                           </div>
+                                                                      </div>
+                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h3 class="card-title">
-                                                                <%= p.getScene().getTitle() %>, <%=
-                                                                            p.getScene().getEstimated_time() %>
-                                                            </h3>
-                                                            <p class="card-text">Tournage:</p>
-                                                            <div class="row">
-                                                                <input type="hidden" class="id"
-                                                                    value=<%=p.getScene().getId() %>>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                            <input type="datetime-local"
-                                                                                class="form-control date_debut"
-                                                                                value="<%= p.getDate_debut().toString() %>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                            <input type="datetime-local"
-                                                                                class="form-control date_fin"
-                                                                                value="<%= p.getDate_fin().toString() %>">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                </div>
-                                            </div>
-                                            <%
-                                            }
-                                            %>
-                                        </div>
-                                        <%
-                                        }
-                                        %>
-                                    </div>
-                                    <%
-                                    }
-                                }
-                                %>
-                              </div>
+                                                       </div>
+                                                       <% } %>
+                                             </div>
+                                             <% } %>
+                                                  <br />
+                                                  <% } } %>
+
                          </form>
                     </div>
                </div>
