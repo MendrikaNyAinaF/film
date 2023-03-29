@@ -11,8 +11,7 @@
     <div class="card">
           <div class="card-body">
                          <h4 class="card-title">Modifier la scene de: <%= s.getTitle() %></h4>
-                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update" method="POST"
-                              enctype="multipart/form-data">
+                         <form action="${pageContext.request.contextPath}/film/<%= film.getId() %>/scene/<%= s.getId() %>/update" method="POST" >
                               <div class="form-body">
                                    <div class="row">
                                         <div class="col-md-12">
