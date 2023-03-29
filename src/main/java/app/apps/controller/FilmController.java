@@ -52,6 +52,11 @@ public class FilmController {
     @Autowired
     HolidayService holidayService;
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:films/0";
+    }
+
     @GetMapping(value = "/films/{page}")
     public String getAllFilm(@PathVariable("page") Integer page, HttpServletRequest request) throws Exception {
         Integer limit = 3;
