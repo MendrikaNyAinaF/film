@@ -86,13 +86,13 @@
                                                                                 <label
                                                                                      class="mb-0 text-white custom-control-label"
                                                                                      for="customChecker<%= s.getId() %>">
-                                                                                     <%= s.getTitle() %>
+                                                                                     Plateau: <%=
+                                                                                     s.getFilmset().getName() %>
                                                                                 </label>
                                                                            </div>
                                                                       </div>
                                                                       <div class="card-body">
-                                                                           <h3 class="card-title">Plateau: <%=
-                                                                                     s.getFilmset().getName() %>
+                                                                           <h3 class="card-title"><%= s.getTitle() %>
                                                                            </h3>
                                                                            <p class="card-text">Temps estime de <%=
                                                                                      s.getEstimated_time() %>,
