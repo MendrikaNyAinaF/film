@@ -112,7 +112,7 @@ public class PlanningController {
             request.setAttribute("nbr_scene", ids.length);
             request.setAttribute("start_date", date1.replace("T", " "));
             request.setAttribute("liste_planning", lp);
-            return "proposing_planning";// "redirect:/film/" + current.getId() + "/planning";
+            return "proposing_planning_2";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("erreur", ex.getMessage());
