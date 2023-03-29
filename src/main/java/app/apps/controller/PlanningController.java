@@ -107,11 +107,13 @@ public class PlanningController {
                     Timestamp.valueOf(date1.replace("T", " ") + ":00"),
                     Timestamp.valueOf(date2.replace("T", " ") + ":00"));
             System.out.println(lp);
+            List<DatePlanning> ldp = planningService.generateDatePlanning(lp);
             if (lp != null)
                 System.out.println(lp.size());
             request.setAttribute("nbr_scene", ids.length);
             request.setAttribute("start_date", date1.replace("T", " "));
             request.setAttribute("liste_planning", lp);
+            request.setAttribute("liste_date_planning",ldp);
             return "proposing_planning_2";// "redirect:/film/" + current.getId() + "/planning";
         } catch (Exception ex) {
             ex.printStackTrace();
