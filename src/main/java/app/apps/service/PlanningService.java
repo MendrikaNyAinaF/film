@@ -302,7 +302,7 @@ public class PlanningService {
                         }
                         System.out.println("=>  Plateau: " + f.getId());
                         System.out.println("=>  Plateau de scene: " + s.getFilmset().getId());
-                        if (!f.getId().equals(s.getFilmset().getId()) && onwork > 2) {
+                        if ((!(f.getId().equals(s.getFilmset().getId()))) && onwork > 2) {
                             System.out.println("=>  Changement de plateau");
                             cal.add(Calendar.DAY_OF_YEAR, 1);
                             cal.set(Calendar.HOUR_OF_DAY, 8);
