@@ -285,6 +285,8 @@ public class PlanningService {
              */
             if (!isWeekend(shooting) && !(getHoliday(shooting).size() > 0)) {
                 for (Filmset f : lf) {
+                    if (isWeekend(shooting) || getHoliday(shooting).size() > 0)
+                        break;
                     if (filmsetService.isOpen(f, new Date(shooting.getTime())).size() > 0)
                         continue;
                     onwork = onwork + 1;
