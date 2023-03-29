@@ -285,6 +285,8 @@ public class PlanningService {
              */
             if (!isWeekend(shooting) && !(getHoliday(shooting).size() > 0)) {
                 for (Filmset f : lf) {
+                    if (isWeekend(shooting) || getHoliday(shooting).size() > 0)
+                        break;
                     if (filmsetService.isOpen(f, new Date(shooting.getTime())).size() > 0)
                         continue;
                     onwork = onwork + 1;
@@ -302,9 +304,14 @@ public class PlanningService {
                         }
                         System.out.println("=>      Plateau: " + f.getName());
                         System.out.println("=>      Plateau de scene: " + s.getFilmset().getName());
+                        System.out.println("=>      Scene: " + s.getTitle());
                         System.out.println("=>      Nombre de plateau: " + onwork);
                         if (!(f.getId().equals(s.getFilmset().getId()))) {
                             System.out.println("=>  Changement de plateau");
+                            System.out.println(s.getFilmset().getId().intValue()<f.getId().intValue());
+                            if(s.getFilmset().getId().intValue()<f.getId().intValue()){
+                                continue;
+                            }
                             if( onwork >= 2 ){
                                 cal.add(Calendar.DAY_OF_YEAR, 1);
                                 cal.set(Calendar.HOUR_OF_DAY, 8);
@@ -372,6 +379,7 @@ public class PlanningService {
         DatePlanning jour_planning = null;
         List<DatePlanning> list_jour_planning = null;
         Filmset plateau = null;
+        Filmset tosave = null;
         List<Filmset> list_plateau = null;
         Date tournage = null;
         Date check = null;
@@ -383,6 +391,7 @@ public class PlanningService {
             list_plateau = new ArrayList<Filmset>();
             list_planning = new ArrayList<Planning>();
             for(Planning p : plannings){
+                System.out.println("        Planning: "+p.getScene().getTitle()+" "+p.getDate_debut());
                 c.setTimeInMillis(p.getDate_debut().getTime());
                 c.set(Calendar.HOUR_OF_DAY, 0);
                 c.set(Calendar.MINUTE, 0);
@@ -392,6 +401,7 @@ public class PlanningService {
                 if(plateau == null){
                     plateau = p.getScene().getFilmset();
                 }
+                System.out.println("        Plateau en cours:" + plateau.getName());
                 if(tournage == null){
                     c.setTimeInMillis(p.getDate_debut().getTime());
                     c.set(Calendar.HOUR_OF_DAY, 0);
@@ -400,14 +410,21 @@ public class PlanningService {
                     c.set(Calendar.MILLISECOND, 0);
                     tournage = new Date(c.getTimeInMillis());
                 }
-                if(plateau.getId()!=p.getScene().getFilmset().getId()){
-                    plateau.setList_planning((List<Planning>) list_planning);
+                if(!plateau.getId().equals(p.getScene().getFilmset().getId())){
+                    System.out.println("=>           Enregistrement planning");
+                    tosave = new Filmset();
+                    tosave.setId(plateau.getId());
+                    tosave.setName(plateau.getName());
+                    tosave.setType(plateau.getType());
+                    tosave.setX(plateau.getX());
+                    tosave.setY(plateau.getY());
+                    tosave.setList_planning((List<Planning>) list_planning);
                     list_planning = new ArrayList<Planning>();
-                    list_plateau.add(plateau);
+                    list_plateau.add(tosave);
                     plateau = p.getScene().getFilmset();
                 }
                 if(tournage.compareTo(check)!=0){
-                    System.out.println("=>        Next Day");
+                    System.out.println("=>          Enregistrement plateau");
                     jour_planning = new DatePlanning();
                     jour_planning.setJour_tournage(tournage);
                     jour_planning.setList_plateau(list_plateau);

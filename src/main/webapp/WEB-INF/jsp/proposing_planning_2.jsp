@@ -94,7 +94,7 @@
                          const date_debut = Array.from(document.getElementsByClassName("date_debut")).map(option => option.value);
                          const date_fin = Array.from(document.getElementsByClassName("date_fin")).map(option => option.value);
                          const id = Array.from(document.getElementsByClassName("id")).map(option => option.value);
-                         const valide = (document.getElementsByClassName("valide"));
+                         const valide = Array.from(document.getElementsByClassName("valide"));
 
                          //alert("Submit pressed");
                          const data = []
