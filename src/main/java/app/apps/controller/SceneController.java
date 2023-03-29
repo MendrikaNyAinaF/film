@@ -233,7 +233,7 @@ public class SceneController {
         Scene s = null;
         Dialogue d = null;
         try {
-            s = new Scene();
+            s = sceneService.getById(id);
             s.setTitle(titre);
             s.setGlobal_action(description);
 
@@ -248,7 +248,6 @@ public class SceneController {
             s.setEstimated_time(new Time(date2.getTime()));
 
             s.setFilm_id(id);
-            s.setId(idscene);
 
             s.setFilmset(filmSetService.getFilmsetById(filmset));
 
