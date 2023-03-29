@@ -6,5 +6,6 @@ UPDATE scene SET status=3 WHERE id=7 or id=1 or id=5 or id=11 or id=2 or id=3 or
 UPDATE scene SET status=2 WHERE status<3;
 delete from dialogue where id>57;
 delete from scene where id>22;
+delete from character where id>12;
 delete from film where id>2;
 delete from holiday where id>11;
