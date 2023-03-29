@@ -300,17 +300,20 @@ public class PlanningService {
                             System.out.println("=>  Acteur(s) indisponible");
                             continue;
                         }
-                        System.out.println("=>  Plateau: " + f.getId());
-                        System.out.println("=>  Plateau de scene: " + s.getFilmset().getId());
-                        if ((!(f.getId().equals(s.getFilmset().getId()))) && onwork > 2) {
+                        System.out.println("=>      Plateau: " + f.getName());
+                        System.out.println("=>      Plateau de scene: " + s.getFilmset().getName());
+                        System.out.println("=>      Nombre de plateau: " + onwork);
+                        if (!(f.getId().equals(s.getFilmset().getId()))) {
                             System.out.println("=>  Changement de plateau");
-                            cal.add(Calendar.DAY_OF_YEAR, 1);
-                            cal.set(Calendar.HOUR_OF_DAY, 8);
-                            cal.set(Calendar.MINUTE, 0);
-                            cal.set(Calendar.SECOND, 0);
-                            shooting.setTime(cal.getTimeInMillis());
-                            worked = 0;
-                            onwork = 0;
+                            if( onwork >= 2 ){
+                                cal.add(Calendar.DAY_OF_YEAR, 1);
+                                cal.set(Calendar.HOUR_OF_DAY, 8);
+                                cal.set(Calendar.MINUTE, 0);
+                                cal.set(Calendar.SECOND, 0);
+                                shooting.setTime(cal.getTimeInMillis());
+                                worked = 0;
+                                onwork = 0;
+                            }
                             break;
                         }
                         est = s.getEstimated_time();
