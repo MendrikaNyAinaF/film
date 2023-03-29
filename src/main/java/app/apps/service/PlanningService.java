@@ -394,21 +394,34 @@ public class PlanningService {
                     plateau = p.getScene().getFilmset();
                 }
                 if(tournage.compareTo(new Date(p.getDate_debut().getTime()))!=0){
+                    System.out.println("=>        Next Day");
+                    jour_planning = new DatePlanning();
                     jour_planning.setJour_tournage(tournage);
                     jour_planning.setList_plateau(list_plateau);
                     list_jour_planning.add(jour_planning);
+                    list_plateau = new ArrayList<Filmset>();
                     tournage = new Date(p.getDate_debut().getTime());
                 }
                 list_planning.add(p);
             }
             plateau.setList_planning((List<Planning>) list_planning);
             list_plateau.add(plateau);
+            jour_planning = new DatePlanning();
             jour_planning.setJour_tournage(tournage);
             jour_planning.setList_plateau(list_plateau);
             list_jour_planning.add(jour_planning);
         }
         catch(Exception e){
             throw e;
+        }
+        for(DatePlanning dp : list_jour_planning){
+            System.out.println("    Jour tournage: "+dp.getJour_tournage().toString());
+            for(Filmset f : dp.getList_plateau()){
+                System.out.println("        Plateau: "+f.getName());
+                for(Planning p : f.getList_planning()){
+                    System.out.println("            Scene: "+p.getScene().getTitle());
+                }
+            }
         }
         return list_jour_planning;
     }
